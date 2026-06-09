@@ -90,22 +90,11 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
             ))}
           </div>
 
-          {/* Share */}
-          <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+          {/* Back */}
+          <div className="mt-12 pt-6 border-t border-gray-100">
             <Link href="/berita" className="inline-flex items-center gap-2 text-green-700 font-bold text-sm no-underline hover:underline">
               ← Kembali ke Berita
             </Link>
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-400">Bagikan:</span>
-              <a href={`https://wa.me/?text=${encodeURIComponent(berita.judul)}`} target="_blank" rel="noopener noreferrer"
-                className="bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg no-underline hover:bg-green-600 transition-colors">
-                WhatsApp
-              </a>
-              <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://aljawahir.com/berita/${berita.slug}`)}`} target="_blank" rel="noopener noreferrer"
-                className="bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg no-underline hover:bg-blue-700 transition-colors">
-                Facebook
-              </a>
-            </div>
           </div>
         </div>
 
