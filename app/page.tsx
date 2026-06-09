@@ -8,6 +8,8 @@ import AnimatedCounter from '@/components/AnimatedCounter'
 import { supabaseServer } from '@/lib/supabase'
 import { Berita } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 async function getBeritaTerbaru(): Promise<Berita[]> {
   try {
     const sb = supabaseServer()
