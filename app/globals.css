@@ -11,7 +11,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { overflow-x: hidden; padding-top: 64px; }
+body { overflow-x: hidden; }
 
 .arabic { direction: rtl; font-family: 'Amiri', serif; }
 

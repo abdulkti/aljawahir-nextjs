@@ -26,7 +26,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <Navbar />
-      <div className="pt-16 min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-green-900 py-16 px-6 text-center">
           <span className="text-xs font-bold tracking-widest uppercase text-yellow-300 block mb-3">Berita & Artikel</span>
