@@ -87,7 +87,7 @@ export default async function HomePage() {
       <Navbar />
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-12 pb-16 overflow-hidden">
+      <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-4 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-green-950 via-green-900 to-green-800 animate-gradient" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(5,150,105,0.08),transparent_60%)]" />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30 Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E\")" }} />
