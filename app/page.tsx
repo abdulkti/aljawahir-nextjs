@@ -451,7 +451,7 @@ export default async function HomePage() {
             <div className="max-w-xs mx-auto">
               {strukturOrganisasi[2].orang.map((t, i) => (
                 <div key={i} className="bg-white rounded-2xl p-5 border-2 border-green-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-700 to-green-900 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
                     {t.inisial}
                   </div>
                   <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
