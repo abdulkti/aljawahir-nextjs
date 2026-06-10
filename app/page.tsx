@@ -39,7 +39,7 @@ export default async function HomePage() {
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E\")" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
           <span className="inline-block bg-yellow-400/15 border border-yellow-400/30 text-yellow-300 text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
-            🌙 Yayasan Pendidikan Islam & Sosial
+            🌙 Al Jawahir Islamic School
           </span>
           <p className="arabic text-yellow-300 text-2xl md:text-3xl leading-loose mb-2">
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ

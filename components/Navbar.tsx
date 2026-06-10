@@ -23,7 +23,7 @@ export default function Navbar() {
           </div>
           <div>
             <p className="text-white font-bold text-sm leading-tight">Al Jawahir At Tarbawi</p>
-            <p className="text-white/60 text-xs">Yayasan Pendidikan Islam</p>
+            <p className="text-white/60 text-xs">Al Jawahir Islamic School</p>
           </div>
         </Link>
 

@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Yayasan Al Jawahir At Tarbawi — Pendidikan Islam Deli Serdang',
-  description: 'Yayasan Al Jawahir At Tarbawi — Yayasan Pendidikan Islam dan Sosial di Deli Serdang, Sumatera Utara.',
+  description: 'Yayasan Al Jawahir At Tarbawi — Al Jawahir Islamic School di Deli Serdang, Sumatera Utara.',
   openGraph: {
     title: 'Yayasan Al Jawahir At Tarbawi',
     description: 'Membangun Ilmu, Akhlak, dan Ummah melalui Pendidikan Islam.',

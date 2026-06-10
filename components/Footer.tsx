@@ -14,7 +14,7 @@ export default function Footer() {
               <span className="text-white font-bold text-sm">Al Jawahir At Tarbawi</span>
             </div>
             <p className="text-sm leading-7 mb-3">
-              Yayasan Pendidikan Islam dan Sosial yang berkomitmen membangun generasi Qurani di Deli Serdang, Sumatera Utara.
+              Al Jawahir Islamic School — Islamic educational institution yang berkomitmen membangun generasi Qurani di Deli Serdang, Sumatera Utara.
             </p>
             <p className="arabic text-yellow-300 text-base">"الجواهر التربية"</p>
           </div>
