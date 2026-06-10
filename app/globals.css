@@ -49,6 +49,20 @@ body { overflow-x: hidden; }
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
 /* Premium geometric overlay */
 .pattern-gold {
   background-image:
@@ -62,29 +76,28 @@ body { overflow-x: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 28px 0;
+  gap: 5px;
+  padding: 20px 0;
 }
 .section-ornament::before,
 .section-ornament::after {
   content: '';
   flex: 1;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--gold-400, #f59e0b), #d97706, var(--gold-400, #f59e0b), transparent);
+  height: 1.5px;
+  max-width: 80px;
+  background: linear-gradient(90deg, transparent, var(--gold-400, #f59e0b), transparent);
 }
 .section-ornament-diamond {
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  width: 8px;
+  height: 8px;
+  background: var(--gold-400, #f59e0b);
   transform: rotate(45deg);
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
 }
 .section-ornament-dot {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
   background: var(--gold-400, #f59e0b);
-  opacity: 0.5;
 }
 
 /* Gold accent border */

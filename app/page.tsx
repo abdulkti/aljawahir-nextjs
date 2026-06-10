@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
 import AnimatedCounter from '@/components/AnimatedCounter'
+import ScrollPopup from '@/components/ScrollPopup'
 import { supabaseServer } from '@/lib/supabase'
 import { Berita } from '@/types'
 
@@ -539,6 +540,7 @@ export default async function HomePage() {
       </section>
 
       <Footer />
+      <ScrollPopup />
     </>
   )
 }
