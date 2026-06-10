@@ -93,23 +93,23 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(5,150,105,0.08),transparent_60%)]" />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30 Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E\")" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 text-yellow-300 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-8">
+          <span className="animate-in animate-in-delay-1 inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 text-yellow-300 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
             Al Jawahir Islamic School
           </span>
-          <p className="arabic text-yellow-300/80 text-xl md:text-2xl leading-loose mb-2">
+          <p className="animate-in animate-in-delay-2 arabic text-yellow-300/80 text-xl md:text-2xl leading-loose mb-2">
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ
           </p>
-          <p className="text-white/40 text-sm italic mb-6">Q.S. An-Nahl: 125</p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-3" style={{ fontFamily: 'Lora, serif' }}>
+          <p className="animate-in animate-in-delay-2 text-white/40 text-sm italic mb-6">Q.S. An-Nahl: 125</p>
+          <h1 className="animate-in animate-in-delay-3 text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-3" style={{ fontFamily: 'Lora, serif' }}>
             Yayasan<br />
             <span className="text-gradient">Al Jawahir At Tarbawi</span>
           </h1>
-          <p className="text-white/50 text-sm uppercase tracking-[0.15em] mb-2">Deli Serdang, Sumatera Utara</p>
-          <p className="text-white/60 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="animate-in animate-in-delay-4 text-white/50 text-sm uppercase tracking-[0.15em] mb-2">Deli Serdang, Sumatera Utara</p>
+          <p className="animate-in animate-in-delay-4 text-white/60 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
             Membangun Ilmu, Akhlak, dan Ummah melalui Pendidikan Islam yang berintegritas dan berdampak.
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
+          <div className="animate-in animate-in-delay-5 flex gap-4 justify-center flex-wrap">
             <Link href="#mengapa" className="bg-gradient-to-r from-yellow-400 to-amber-400 text-green-950 px-8 py-3.5 rounded-xl font-bold text-base hover:from-yellow-300 hover:to-amber-300 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-400/20 no-underline">
               Lihat Program Kami
             </Link>
