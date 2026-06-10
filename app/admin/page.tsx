@@ -12,6 +12,7 @@ type Tab = 'dashboard' | 'berita'
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
   const [pw, setPw] = useState('')
+  const [uname, setUname] = useState('')
   const [pwErr, setPwErr] = useState(false)
   const [tab, setTab] = useState<Tab>('dashboard')
   const [beritaList, setBeritaList] = useState<Berita[]>([])
@@ -33,7 +34,7 @@ export default function AdminPage() {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pw }),
+      body: JSON.stringify({ username: uname, password: pw }),
     })
     setLogging(false)
     if (res.ok) {
@@ -91,14 +92,18 @@ export default function AdminPage() {
           <h1 className="font-bold text-gray-800 text-xl" style={{ fontFamily: 'Lora, serif' }}>Panel Admin</h1>
           <p className="text-gray-400 text-sm mt-1">Al Jawahir At Tarbawi</p>
         </div>
-        {pwErr && <div className="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-xl mb-4">Password salah. Silakan coba lagi.</div>}
-        <label className="block text-sm font-bold text-gray-700 mb-2">Password Admin</label>
+        {pwErr && <div className="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-xl mb-4">Username atau password salah. Silakan coba lagi.</div>}
+        <label className="block text-sm font-bold text-gray-700 mb-2">Username</label>
+        <input value={uname} onChange={e => { setUname(e.target.value); setPwErr(false) }}
+          className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-500 mb-4"
+          placeholder="Masukkan username" autoFocus />
+        <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
         <input type="password" value={pw} onChange={e => { setPw(e.target.value); setPwErr(false) }}
           onKeyDown={e => e.key === 'Enter' && doLogin()}
           className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-500 mb-4"
-          placeholder="Masukkan password" autoFocus />
-        <button onClick={doLogin} className="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-3 rounded-xl transition-colors">
-          Masuk ke Admin →
+          placeholder="Masukkan password" />
+        <button onClick={doLogin} disabled={logging} className="w-full bg-green-700 hover:bg-green-800 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-colors">
+          {logging ? 'Memproses...' : 'Masuk ke Admin →'}
         </button>
         <Link href="/" className="block text-center text-xs text-gray-400 mt-4 no-underline hover:text-green-700">← Kembali ke Website</Link>
       </div>
