@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
 import { Berita } from '@/types'
-import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react'
+import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X } from 'lucide-react'
 
 const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'aljawahir2024'
 
@@ -20,6 +20,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false)
   const [toast, setToast] = useState('')
   const [toastErr, setToastErr] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_auth') === '1') {
@@ -99,9 +100,27 @@ export default function AdminPage() {
 
   // ===== ADMIN PANEL =====
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50">
+
+      {/* Mobile top bar */}
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-green-900 px-4 h-14 flex items-center justify-between border-b border-white/10">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-green-900 text-xs font-bold" style={{ fontFamily: 'Amiri, serif' }}>الج</div>
+          <div>
+            <p className="text-white text-xs font-bold leading-tight">Al Jawahir</p>
+            <p className="text-yellow-300 text-[10px]">Admin Panel</p>
+          </div>
+        </div>
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/80 hover:text-white p-1">
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </header>
+
+      {/* Backdrop mobile */}
+      {mobileOpen && <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setMobileOpen(false)} />}
+
       {/* Sidebar */}
-      <aside className="w-56 bg-green-900 flex-shrink-0 flex flex-col fixed top-0 left-0 bottom-0 z-40">
+      <aside className={`fixed top-0 left-0 bottom-0 z-40 w-56 bg-green-900 flex-col transition-transform duration-200 md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-5 border-b border-white/10">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-full bg-yellow-400 flex items-center justify-center text-green-900 text-sm font-bold" style={{ fontFamily: 'Amiri, serif' }}>الج</div>
@@ -116,13 +135,13 @@ export default function AdminPage() {
             { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { id: 'berita', label: 'Daftar Berita', icon: Newspaper },
           ] as const).map(item => (
-            <button key={item.id} onClick={() => setTab(item.id)}
+            <button key={item.id} onClick={() => { setTab(item.id); setMobileOpen(false) }}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold mb-1 transition-colors ${tab === item.id ? 'bg-white/15 text-white' : 'text-white/60 hover:text-white hover:bg-white/8'}`}>
               <item.icon size={16} />
               {item.label}
             </button>
           ))}
-          <Link href="/admin/tulis" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold mb-1 text-white/60 hover:text-white hover:bg-white/8 no-underline transition-colors">
+          <Link href="/admin/tulis" onClick={() => setMobileOpen(false)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold mb-1 text-white/60 hover:text-white hover:bg-white/8 no-underline transition-colors">
             <PenSquare size={16} />
             Tulis Berita
           </Link>
@@ -140,7 +159,7 @@ export default function AdminPage() {
       </aside>
 
       {/* Main */}
-      <main className="ml-56 flex-1 p-8">
+      <main className="pt-14 md:pt-0 md:ml-56 flex-1 p-4 md:p-8">
 
         {/* DASHBOARD */}
         {tab === 'dashboard' && (
@@ -155,7 +174,7 @@ export default function AdminPage() {
               </Link>
             </div>
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-5 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 mb-8">
               {[
                 { label: 'Total Berita', value: beritaList.length, color: 'text-green-700', bg: 'bg-green-50' },
                 { label: 'Dipublikasikan', value: published.length, color: 'text-blue-700', bg: 'bg-blue-50' },
@@ -205,8 +224,8 @@ export default function AdminPage() {
                 <p className="font-bold text-gray-600 mb-1">Belum ada berita</p>
                 <Link href="/admin/tulis" className="text-sm text-green-700 no-underline hover:underline">Tulis berita pertama →</Link>
               </div>
-            ) : (
-              <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            ) : (<>
+              <div className="hidden sm:block bg-white rounded-2xl border border-gray-200 overflow-hidden">
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
@@ -255,7 +274,42 @@ export default function AdminPage() {
                   </tbody>
                 </table>
               </div>
-            )}
+              <div className="sm:hidden flex flex-col gap-3">
+                {beritaList.map(b => (
+                  <div key={b.id} className="bg-white rounded-2xl border border-gray-200 p-4">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-12 h-10 rounded-lg bg-green-50 flex-shrink-0 overflow-hidden mt-0.5">
+                        {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={48} height={40} className="object-cover w-full h-full" /> : <div className="w-full h-full flex items-center justify-center text-lg">📰</div>}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-gray-800 text-sm leading-snug line-clamp-2">{b.judul}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-xs text-gray-400">{b.kategori}</span>
+                          <span className="text-gray-300">·</span>
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${b.published ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {b.published ? 'Publik' : 'Draft'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-0.5">{formatTanggal(b.created_at)}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+                      <button onClick={() => togglePublish(b.id, b.published)} title={b.published ? 'Jadikan Draft' : 'Publikasikan'}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold bg-gray-50 text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors">
+                        {b.published ? <EyeOff size={13} /> : <Eye size={13} />} {b.published ? 'Draft' : 'Publikasi'}
+                      </button>
+                      <Link href={`/admin/edit/${b.id}`} className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold bg-gray-50 text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors no-underline">
+                        <Pencil size={13} /> Edit
+                      </Link>
+                      <button onClick={() => hapus(b.id, b.judul)}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold bg-gray-50 text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors">
+                        <Trash2 size={13} /> Hapus
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>)}
           </div>
         )}
       </main>

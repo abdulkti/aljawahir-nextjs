@@ -72,40 +72,40 @@ export default function TulisPage({ editData }: { editData?: any }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top bar */}
-      <div className="bg-green-900 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="bg-green-900 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3 md:gap-4">
           <Link href="/admin" className="text-white/70 hover:text-white no-underline transition-colors">
             <ArrowLeft size={20} />
           </Link>
           <div>
-            <p className="text-white font-bold text-sm">{editData ? 'Edit Berita' : 'Tulis Berita Baru'}</p>
-            <p className="text-white/50 text-xs">Al Jawahir At Tarbawi</p>
+            <p className="text-white font-bold text-xs md:text-sm">{editData ? 'Edit Berita' : 'Tulis Berita Baru'}</p>
+            <p className="text-white/50 text-[10px] md:text-xs">Al Jawahir At Tarbawi</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           <button onClick={() => save(false)} disabled={saving}
-            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors border border-white/20 disabled:opacity-50">
+            className="hidden md:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors border border-white/20 disabled:opacity-50">
             <Save size={14} />
             {saving ? 'Menyimpan...' : 'Simpan Draft'}
           </button>
           <button onClick={() => save(true)} disabled={saving}
-            className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-green-900 px-4 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50">
+            className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-green-900 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition-colors disabled:opacity-50">
             <Send size={14} />
-            {saving ? 'Memproses...' : 'Publikasikan'}
+            {saving ? 'Memproses...' : 'Publikasi'}
           </button>
         </div>
       </div>
 
       {/* Form */}
-      <div className="max-w-3xl mx-auto px-6 py-10">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-10">
         {/* Judul */}
         <input value={judul} onChange={e => setJudul(e.target.value)} maxLength={200}
-          className="w-full text-3xl font-bold text-gray-800 border-0 border-b-2 border-gray-200 focus:border-green-500 outline-none bg-transparent pb-3 mb-8 placeholder-gray-300 transition-colors"
+          className="w-full text-xl md:text-3xl font-bold text-gray-800 border-0 border-b-2 border-gray-200 focus:border-green-500 outline-none bg-transparent pb-3 mb-6 md:mb-8 placeholder-gray-300 transition-colors"
           style={{ fontFamily: 'Lora, serif' }}
           placeholder="Tulis judul berita yang menarik..." />
 
         {/* Meta row */}
-        <div className="grid grid-cols-2 gap-4 mb-8 p-5 bg-white rounded-2xl border border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 md:mb-8 p-4 md:p-5 bg-white rounded-2xl border border-gray-200">
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kategori</label>
             <select value={kategori} onChange={e => setKategori(e.target.value)}
@@ -165,18 +165,20 @@ export default function TulisPage({ editData }: { editData?: any }) {
         </div>
 
         {/* Bottom actions */}
-        <div className="flex gap-3 justify-end pt-6 border-t border-gray-200">
-          <Link href="/admin" className="px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-100 transition-colors no-underline">
+        <div className="flex flex-col sm:flex-row gap-3 justify-end pt-6 border-t border-gray-200">
+          <Link href="/admin" className="order-first sm:order-none text-center px-4 sm:px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-100 transition-colors no-underline">
             Batal
           </Link>
-          <button onClick={() => save(false)} disabled={saving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-sm font-bold transition-colors disabled:opacity-50">
-            <Save size={14} /> Simpan Draft
-          </button>
-          <button onClick={() => save(true)} disabled={saving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl text-sm font-bold transition-colors disabled:opacity-50">
-            <Send size={14} /> {saving ? 'Memproses...' : 'Publikasikan'}
-          </button>
+          <div className="flex gap-2 sm:gap-3 flex-1 sm:flex-none">
+            <button onClick={() => save(false)} disabled={saving}
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-sm font-bold transition-colors disabled:opacity-50">
+              <Save size={14} /> Draft
+            </button>
+            <button onClick={() => save(true)} disabled={saving}
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl text-sm font-bold transition-colors disabled:opacity-50">
+              <Send size={14} /> {saving ? 'Proses...' : 'Publikasi'}
+            </button>
+          </div>
         </div>
       </div>
 
