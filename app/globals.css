@@ -10,8 +10,8 @@
   --cream: #faf7f2;
 }
 
-html { scroll-behavior: smooth; }
-body { overflow-x: hidden; }
+html { scroll-behavior: smooth; background: #022c22; }
+body { overflow-x: hidden; background: #022c22; }
 
 .arabic { direction: rtl; font-family: 'Amiri', serif; }
 
