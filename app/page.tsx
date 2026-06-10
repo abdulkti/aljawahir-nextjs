@@ -47,13 +47,25 @@ const layananCards = [
   },
 ]
 
-const timManajemen = [
-  { nama: 'H. Ahmad Fauzi, S.Ag., M.Pd.', jabatan: 'Ketua Yayasan', inisial: 'AF' },
-  { nama: 'Dra. Hj. Siti Aminah', jabatan: 'Sekretaris Yayasan', inisial: 'SA' },
-  { nama: 'M. Irfan Syahputra, S.E., M.M.', jabatan: 'Bendahara Yayasan', inisial: 'MI' },
-  { nama: 'Dr. Khairul Anwar, Lc., M.A.', jabatan: 'Kepala SMP IT Al Jawahir', inisial: 'KA' },
-  { nama: 'Rina Marlina, S.Pd.I., M.Pd.', jabatan: 'Kepala SD IT Al Jawahir', inisial: 'RM' },
-  { nama: 'Nurhasanah, S.Pd.', jabatan: 'Kepala RA Al Jawahir', inisial: 'NU' },
+const strukturOrganisasi = [
+  { label: 'Pembina', orang: [
+    { nama: 'H. Syafril Usman, SPd.I', inisial: 'SU' },
+    { nama: 'Hj. Jawahir', inisial: 'HJ' },
+    { nama: 'Muhammad Ihsan', inisial: 'MI' },
+  ]},
+  { label: 'Pengawas', orang: [
+    { nama: 'Muhammad Sulfan Irvan, SE', inisial: 'SI' },
+    { nama: 'Ir. Anda Zulfan, MM', inisial: 'AZ' },
+  ]},
+  { label: 'Ketua Yayasan', orang: [
+    { nama: 'Dr. Zulheddi, MA', inisial: 'ZH' },
+  ], single: true },
+  { label: 'Sekretaris', orang: [
+    { nama: 'Khairati Sawitri', inisial: 'KS' },
+  ], single: true },
+  { label: 'Bendahara', orang: [
+    { nama: 'Khairunnisah, SE', inisial: 'KN' },
+  ], single: true },
 ]
 
 const testimonials = [
@@ -381,27 +393,104 @@ export default async function HomePage() {
         <div className="section-ornament-dot" />
       </div>
 
-      {/* ===== MANAJEMEN ===== */}
+      {/* ===== STRUKTUR ORGANISASI ===== */}
       <AnimateOnScroll delay={100}>
-      <section id="manajemen" className="py-20 px-6 bg-amber-50/40">
+      <section id="struktur" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Manajemen</span>
+            <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Struktur Organisasi</span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4" style={{ fontFamily: 'Lora, serif' }}>
-              Pengurus <span className="text-green-700">Yayasan</span>
+              Struktur <span className="text-green-700">Yayasan</span>
             </h2>
-            <p className="text-gray-500 max-w-lg mx-auto">Tim manajemen yang berdedikasi untuk memajukan pendidikan Islam di Deli Serdang.</p>
+            <p className="text-gray-500 max-w-lg mx-auto">Badan pengurus yang menjalankan roda organisasi Yayasan Al Jawahir At Tarbawi.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {timManajemen.map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
-                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-green-700 to-green-900 flex items-center justify-center text-white font-bold text-2xl mb-4" style={{ fontFamily: 'Lora, serif' }}>
-                  {t.inisial}
+
+          {/* Level 1 - Pembina */}
+          <div className="mb-12">
+            <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-6">Pembina</h3>
+            <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+              {strukturOrganisasi[0].orang.map((t, i) => (
+                <div key={i} className="bg-white rounded-2xl p-5 border border-amber-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    {t.inisial}
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
                 </div>
-                <h3 className="font-bold text-gray-800 text-base mb-1" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</h3>
-                <p className="text-green-700 text-xs font-bold uppercase tracking-wider">{t.jabatan}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Connecting line */}
+          <div className="flex justify-center mb-12">
+            <div className="w-px h-8 bg-gradient-to-b from-amber-300 to-green-300" />
+          </div>
+
+          {/* Level 2 - Pengawas */}
+          <div className="mb-12">
+            <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-6">Pengawas</h3>
+            <div className="grid md:grid-cols-2 gap-6 max-w-lg mx-auto">
+              {strukturOrganisasi[1].orang.map((t, i) => (
+                <div key={i} className="bg-white rounded-2xl p-5 border border-amber-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    {t.inisial}
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Connecting line */}
+          <div className="flex justify-center mb-12">
+            <div className="w-px h-8 bg-gradient-to-b from-green-300 to-green-600" />
+          </div>
+
+          {/* Level 3 - Ketua Yayasan */}
+          <div className="mb-12">
+            <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-6">Ketua Yayasan</h3>
+            <div className="max-w-xs mx-auto">
+              {strukturOrganisasi[2].orang.map((t, i) => (
+                <div key={i} className="bg-white rounded-2xl p-5 border-2 border-green-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-700 to-green-900 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    {t.inisial}
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Forking lines */}
+          <div className="relative flex justify-center mb-12">
+            <div className="flex items-center justify-center w-full max-w-sm">
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-green-400 to-transparent" />
+            </div>
+          </div>
+
+          {/* Level 4 - Sekretaris & Bendahara */}
+          <div className="grid md:grid-cols-2 gap-6 max-w-lg mx-auto">
+            <div>
+              <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-4">Sekretaris</h3>
+              {strukturOrganisasi[3].orang.map((t, i) => (
+                <div key={i} className="bg-white rounded-2xl p-5 border border-green-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    {t.inisial}
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-4">Bendahara</h3>
+              {strukturOrganisasi[4].orang.map((t, i) => (
+                <div key={i} className="bg-white rounded-2xl p-5 border border-green-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    {t.inisial}
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
