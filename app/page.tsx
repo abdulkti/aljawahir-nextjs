@@ -215,7 +215,7 @@ export default async function HomePage() {
 
       {/* ===== TENTANG ===== */}
       <AnimateOnScroll delay={100}>
-      <section id="tentang" className="py-20 px-6 bg-amber-50/40">
+      <section id="tentang" className="py-20 px-6 bg-amber-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Tentang Kami</span>
@@ -303,7 +303,7 @@ export default async function HomePage() {
 
       {/* ===== PROGRAM PENDIDIKAN ===== */}
       <AnimateOnScroll delay={100}>
-      <section id="program" className="py-20 px-6 bg-amber-50/40">
+      <section id="program" className="py-20 px-6 bg-amber-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Program Pendidikan</span>
@@ -395,7 +395,7 @@ export default async function HomePage() {
 
       {/* ===== STRUKTUR ORGANISASI ===== */}
       <AnimateOnScroll delay={100}>
-      <section id="struktur" className="py-20 px-6 bg-amber-50/40">
+      <section id="struktur" className="py-20 px-6 bg-amber-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Struktur Organisasi</span>
@@ -559,7 +559,7 @@ export default async function HomePage() {
 
       {/* ===== BERITA ===== */}
       <AnimateOnScroll delay={100}>
-      <section id="berita" className="py-20 px-6 bg-amber-50/40">
+      <section id="berita" className="py-20 px-6 bg-amber-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Berita & Artikel</span>
