@@ -35,6 +35,7 @@ export default async function HomePage() {
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 overflow-hidden bg-green-900">
         <div className="absolute inset-0 bg-gradient-to-br from-green-950 via-green-900 to-green-800 animate-gradient" />
+        <div className="absolute inset-0 pattern-gold" />
         <div className="absolute inset-0 opacity-5"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E\")" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -64,6 +65,13 @@ export default async function HomePage() {
 
       </section>
 
+      {/* ===== ORNAMENT DIVIDER ===== */}
+      <div className="bg-green-800">
+        <div className="section-ornament py-3">
+          <div className="section-ornament-diamond" />
+        </div>
+      </div>
+
       {/* ===== STATS ===== */}
       <div className="bg-green-800 py-8 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px">
@@ -86,20 +94,31 @@ export default async function HomePage() {
         </div>
       </div>
 
+      {/* ===== ORNAMENT DIVIDER ===== */}
+      <div className="bg-amber-50 py-4">
+        <div className="section-ornament">
+          <div className="section-ornament-diamond" />
+        </div>
+      </div>
+
       {/* ===== TENTANG ===== */}
       <section id="tentang" className="py-20 px-6 bg-amber-50">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-green-900 to-green-700 flex items-center justify-center overflow-hidden">
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-yellow-400/20 via-transparent to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-green-900 to-green-700 flex items-center justify-center overflow-hidden ring-1 ring-yellow-400/10">
               <span className="arabic text-9xl text-white/10 select-none">التربية</span>
             </div>
-            <div className="absolute -bottom-4 -right-4 bg-yellow-400 rounded-2xl px-6 py-4 text-center shadow-xl hover:-translate-y-1 transition-transform">
+            <div className="absolute -bottom-4 -right-4 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl px-6 py-4 text-center shadow-xl hover:-translate-y-1 transition-transform">
               <div className="text-3xl font-bold text-green-900" style={{ fontFamily: 'Lora, serif' }}>2006</div>
               <div className="text-xs font-bold text-green-800 mt-1">17 Oktober 2006</div>
             </div>
           </div>
           <div>
-            <span className="text-xs font-bold tracking-widest uppercase text-green-700 block mb-3">Tentang Kami</span>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-6 bg-gradient-to-r from-transparent to-green-700" />
+              <span className="text-xs font-bold tracking-widest uppercase text-green-700">Tentang Kami</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 leading-snug" style={{ fontFamily: 'Lora, serif' }}>
               Mendidik dengan Ilmu, <span className="text-green-700">Membina dengan Akhlak</span>
             </h2>
@@ -125,6 +144,13 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ===== ORNAMENT DIVIDER ===== */}
+      <div className="bg-green-50 py-4">
+        <div className="section-ornament">
+          <div className="section-ornament-diamond" />
+        </div>
+      </div>
+
       {/* ===== QUOTE ===== */}
       <div className="bg-green-50 py-16 px-6 text-center">
         <p className="arabic text-green-800 text-2xl md:text-3xl leading-loose max-w-2xl mx-auto mb-3">
@@ -136,11 +162,22 @@ export default async function HomePage() {
         <span className="text-sm font-bold text-green-700 tracking-wide">HR. Muslim</span>
       </div>
 
+      {/* ===== ORNAMENT DIVIDER ===== */}
+      <div className="bg-white py-4">
+        <div className="section-ornament">
+          <div className="section-ornament-diamond" />
+        </div>
+      </div>
+
       {/* ===== PROGRAM ===== */}
       <section id="program" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-xs font-bold tracking-widest uppercase text-green-700 block mb-3">Program Pendidikan</span>
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <span className="h-px w-6 bg-gradient-to-r from-transparent to-green-700" />
+              <span className="text-xs font-bold tracking-widest uppercase text-green-700">Program Pendidikan</span>
+              <span className="h-px w-6 bg-gradient-to-l from-transparent to-green-700" />
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'Lora, serif' }}>
               Unit <span className="text-green-700">Pendidikan Kami</span>
             </h2>
@@ -180,7 +217,10 @@ export default async function HomePage() {
       <section id="sejarah" className="py-20 px-6 bg-green-900">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-start">
           <div>
-            <span className="text-xs font-bold tracking-widest uppercase text-yellow-300 block mb-3">Perjalanan Kami</span>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-6 bg-gradient-to-r from-transparent to-yellow-400/50" />
+              <span className="text-xs font-bold tracking-widest uppercase text-yellow-300">Perjalanan Kami</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Lora, serif' }}>
               Sejarah & <span className="text-yellow-400">Pencapaian</span>
             </h2>
@@ -210,7 +250,10 @@ export default async function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="flex justify-between items-end flex-wrap gap-4 mb-10">
             <div>
-              <span className="text-xs font-bold tracking-widest uppercase text-green-700 block mb-3">Berita & Artikel</span>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="h-px w-6 bg-gradient-to-r from-transparent to-green-700" />
+                <span className="text-xs font-bold tracking-widest uppercase text-green-700">Berita & Artikel</span>
+              </div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>
                 Kabar Terkini dari <span className="text-green-700">Yayasan</span>
               </h2>
@@ -235,7 +278,10 @@ export default async function HomePage() {
       <section id="kontak" className="py-20 px-6 bg-amber-50">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
           <div>
-            <span className="text-xs font-bold tracking-widest uppercase text-green-700 block mb-3">Hubungi Kami</span>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-6 bg-gradient-to-r from-transparent to-green-700" />
+              <span className="text-xs font-bold tracking-widest uppercase text-green-700">Hubungi Kami</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'Lora, serif' }}>
               Bergabunglah Bersama <span className="text-green-700">Kami</span>
             </h2>
