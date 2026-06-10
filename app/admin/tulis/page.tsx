@@ -126,7 +126,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
           <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Gambar Cover</label>
           {coverUrl ? (
             <div className="relative">
-              <div className="relative h-56 rounded-2xl overflow-hidden">
+              <div className="relative h-48 md:h-56 rounded-2xl overflow-hidden">
                 <Image src={coverUrl} alt="Cover" fill className="object-cover" />
               </div>
               <button onClick={() => setCoverUrl('')}
@@ -135,7 +135,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
               </button>
             </div>
           ) : (
-            <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-10 text-center cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all">
+            <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-6 md:p-10 text-center cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all">
               <div className="text-4xl mb-3">{uploading ? '⏳' : '🖼️'}</div>
               <p className="text-gray-500 text-sm mb-1">
                 {uploading ? 'Mengupload gambar...' : <><strong className="text-green-700">Klik untuk upload gambar</strong></>}

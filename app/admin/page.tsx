@@ -164,13 +164,13 @@ export default function AdminPage() {
         {/* DASHBOARD */}
         {tab === 'dashboard' && (
           <div>
-            <div className="flex justify-between items-center mb-8">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Dashboard</h1>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
+              <div className="flex-1">
+                <h1 className="text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Dashboard</h1>
                 <p className="text-gray-400 text-sm mt-1">Selamat datang di panel admin yayasan</p>
               </div>
-              <Link href="/admin/tulis" className="flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-5 py-2.5 rounded-xl text-sm font-bold no-underline transition-colors">
-                <Plus size={16} /> Tulis Berita Baru
+              <Link href="/admin/tulis" className="self-start flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold no-underline transition-colors">
+                <Plus size={16} /> <span className="hidden xs:inline">Tulis Berita Baru</span><span className="xs:hidden">Baru</span>
               </Link>
             </div>
             {/* Stats */}
@@ -180,15 +180,15 @@ export default function AdminPage() {
                 { label: 'Dipublikasikan', value: published.length, color: 'text-blue-700', bg: 'bg-blue-50' },
                 { label: 'Draft', value: drafts.length, color: 'text-yellow-700', bg: 'bg-yellow-50' },
               ].map(s => (
-                <div key={s.label} className={`${s.bg} rounded-2xl p-6 border border-white`}>
-                  <div className={`text-4xl font-bold ${s.color} mb-1`} style={{ fontFamily: 'Lora, serif' }}>{s.value}</div>
+                <div key={s.label} className={`${s.bg} rounded-2xl p-4 md:p-6 border border-white`}>
+                  <div className={`text-2xl md:text-4xl font-bold ${s.color} mb-1`} style={{ fontFamily: 'Lora, serif' }}>{s.value}</div>
                   <div className="text-gray-500 text-sm">{s.label}</div>
                 </div>
               ))}
             </div>
             {/* Terbaru */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6">
-              <h2 className="font-bold text-gray-800 text-lg mb-4" style={{ fontFamily: 'Lora, serif' }}>Berita Terbaru</h2>
+            <div className="bg-white rounded-2xl border border-gray-200 p-4 md:p-6">
+              <h2 className="font-bold text-gray-800 text-base md:text-lg mb-4" style={{ fontFamily: 'Lora, serif' }}>Berita Terbaru</h2>
               {beritaList.slice(0, 5).map(b => (
                 <div key={b.id} className="flex items-center gap-4 py-3 border-b border-gray-100 last:border-0">
                   <div className="w-12 h-10 rounded-lg bg-green-50 flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -210,10 +210,10 @@ export default function AdminPage() {
         {/* DAFTAR BERITA */}
         {tab === 'berita' && (
           <div>
-            <div className="flex justify-between items-center mb-8">
-              <h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Daftar Berita</h1>
-              <Link href="/admin/tulis" className="flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-5 py-2.5 rounded-xl text-sm font-bold no-underline transition-colors">
-                <Plus size={16} /> Tulis Berita Baru
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
+              <h1 className="flex-1 text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Daftar Berita</h1>
+              <Link href="/admin/tulis" className="self-start flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold no-underline transition-colors">
+                <Plus size={16} /> <span className="hidden xs:inline">Tulis Berita Baru</span><span className="xs:hidden">Baru</span>
               </Link>
             </div>
             {loading ? (
