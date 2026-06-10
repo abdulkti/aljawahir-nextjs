@@ -11,7 +11,7 @@ export default function EditPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') !== '1') { router.push('/admin'); return }
+    if (!sessionStorage.getItem('admin_token')) { router.push('/admin'); return }
     async function load() {
       const { data, error } = await supabase.from('berita').select('*').eq('id', params.id).single()
       if (error) { router.push('/admin'); return }

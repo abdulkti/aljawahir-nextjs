@@ -23,7 +23,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
   const [toastErr, setToastErr] = useState(false)
 
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') !== '1') router.push('/admin')
+    if (!sessionStorage.getItem('admin_token')) router.push('/admin')
   }, [router])
 
   function showToast(msg: string, err = false) {

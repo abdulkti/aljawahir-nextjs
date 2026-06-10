@@ -7,8 +7,6 @@ import { formatTanggal } from '@/lib/utils'
 import { Berita } from '@/types'
 import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X } from 'lucide-react'
 
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'aljawahir2024'
-
 type Tab = 'dashboard' | 'berita'
 
 export default function AdminPage() {
@@ -21,17 +19,26 @@ export default function AdminPage() {
   const [toast, setToast] = useState('')
   const [toastErr, setToastErr] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [logging, setLogging] = useState(false)
 
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') === '1') {
+    if (sessionStorage.getItem('admin_token')) {
       setAuthed(true)
       loadBerita()
     }
   }, [])
 
-  function doLogin() {
-    if (pw === ADMIN_PASSWORD) {
-      sessionStorage.setItem('admin_auth', '1')
+  async function doLogin() {
+    setLogging(true)
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    })
+    setLogging(false)
+    if (res.ok) {
+      const { token } = await res.json()
+      sessionStorage.setItem('admin_token', token)
       setAuthed(true)
       loadBerita()
     } else {
@@ -41,7 +48,7 @@ export default function AdminPage() {
   }
 
   function doLogout() {
-    sessionStorage.removeItem('admin_auth')
+    sessionStorage.removeItem('admin_token')
     setAuthed(false)
   }
 
