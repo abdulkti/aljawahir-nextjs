@@ -6,6 +6,7 @@ import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
 import AnimatedCounter from '@/components/AnimatedCounter'
 import ScrollPopup from '@/components/ScrollPopup'
+import AnimateOnScroll from '@/components/AnimateOnScroll'
 import { supabaseServer } from '@/lib/supabase'
 import { Berita } from '@/types'
 
@@ -129,6 +130,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== MENGAPA MEMILIH KAMI ===== */}
+      <AnimateOnScroll>
       <section id="mengapa" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-6">
@@ -189,6 +191,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -200,6 +203,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== TENTANG ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="tentang" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -236,6 +240,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -247,6 +252,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== LAYANAN KAMI ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="layanan" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -273,6 +279,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -284,6 +291,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== PROGRAM PENDIDIKAN ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="program" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -325,6 +333,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -336,6 +345,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== SEJARAH ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="sejarah" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -361,6 +371,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -372,6 +383,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== MANAJEMEN ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="manajemen" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -394,6 +406,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -405,6 +418,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== TESTIMONIAL ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="testimonial" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -445,6 +459,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -456,6 +471,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== BERITA ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="berita" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -483,6 +499,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* ===== SECTION DIVIDER ===== */}
       <div className="section-ornament">
@@ -494,6 +511,7 @@ export default async function HomePage() {
       </div>
 
       {/* ===== KONTAK ===== */}
+      <AnimateOnScroll delay={100}>
       <section id="kontak" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -538,6 +556,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       <Footer />
       <ScrollPopup />
