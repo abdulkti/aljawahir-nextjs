@@ -25,6 +25,59 @@ async function getBeritaTerbaru(): Promise<Berita[]> {
   }
 }
 
+const layananCards = [
+  {
+    icon: '📚',
+    tag: 'Pendidikan',
+    title: 'Pendidikan Islam Terpadu',
+    desc: 'Menyelenggarakan pendidikan formal dari RA, SD IT, hingga SMP IT dengan kurikulum nasional dan nilai-nilai Al-Quran yang terintegrasi dalam setiap aspek pembelajaran.',
+  },
+  {
+    icon: '🤝',
+    tag: 'Sosial & Dakwah',
+    title: 'Pemberdayaan Masyarakat',
+    desc: 'Aktif dalam kegiatan sosial dan dakwah melalui program pemberdayaan masyarakat, pengajian, serta pembinaan karakter Islami untuk sekitar.',
+  },
+  {
+    icon: '🌿',
+    tag: 'Pembinaan',
+    title: 'Generasi Qurani',
+    desc: 'Program tahfizh dan tahsin Al-Quran yang terstruktur untuk membentuk generasi penghafal Al-Quran yang berakhlak mulia dan berkarakter pemimpin.',
+  },
+]
+
+const timManajemen = [
+  { nama: 'H. Ahmad Fauzi, S.Ag., M.Pd.', jabatan: 'Ketua Yayasan', inisial: 'AF' },
+  { nama: 'Dra. Hj. Siti Aminah', jabatan: 'Sekretaris Yayasan', inisial: 'SA' },
+  { nama: 'M. Irfan Syahputra, S.E., M.M.', jabatan: 'Bendahara Yayasan', inisial: 'MI' },
+  { nama: 'Dr. Khairul Anwar, Lc., M.A.', jabatan: 'Kepala SMP IT Al Jawahir', inisial: 'KA' },
+  { nama: 'Rina Marlina, S.Pd.I., M.Pd.', jabatan: 'Kepala SD IT Al Jawahir', inisial: 'RM' },
+  { nama: 'Nurhasanah, S.Pd.', jabatan: 'Kepala RA Al Jawahir', inisial: 'NU' },
+]
+
+const testimonials = [
+  {
+    quote: 'Al Jawahir mampu menyeimbangkan pendidikan agama dan ilmu pengetahuan. Saya melihat anak-anak dididik dengan penuh cinta dan tanggung jawab, menghasilkan generasi yang berakhlak dan berprestasi.',
+    author: 'Dr. H. Syamsul Maarif, Lc., M.A.',
+    role: 'Tokoh Pendidikan Sumatera Utara',
+  },
+  {
+    quote: 'Sekolah ini luar biasa dalam membentuk karakter siswa. Kurikulum yang memadukan IMTAQ dan IPTEK menghasilkan lulusan yang siap menghadapi tantangan zaman dengan bekal iman yang kuat.',
+    author: 'H. Muhammad Isa, S.Sos., M.Si.',
+    role: 'Tokoh Masyarakat Deli Serdang',
+  },
+  {
+    quote: 'Kami percaya Al Jawahir adalah tempat yang tepat untuk putra-putri kami. Metode pengajaran yang Islami, lingkungan yang kondusif, dan tenaga pendidik yang profesional menjadi nilai lebih.',
+    author: 'Prof. Dr. Halimah Tusyadiyah, M.Pd.',
+    role: 'Wali Murid SMP IT Al Jawahir',
+  },
+  {
+    quote: 'Saya bangga dengan perkembangan Al Jawahir. Dari RA hingga SMP, konsistensi dalam mendidik dengan nilai-nilai Qurani sangat terlihat. Semoga terus menjadi lembaga pendidikan yang membanggakan.',
+    author: 'Drs. H. Zulkifli Nasution, M.M.',
+    role: 'Wakil Ketua MUI Deli Serdang',
+  },
+]
+
 export default async function HomePage() {
   const beritaList = await getBeritaTerbaru()
 
@@ -36,6 +89,7 @@ export default async function HomePage() {
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-green-950 via-green-900 to-green-800 animate-gradient" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(5,150,105,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30 Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E\")" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
           <span className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 text-yellow-300 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
@@ -54,7 +108,7 @@ export default async function HomePage() {
             Membangun Ilmu, Akhlak, dan Ummah melalui Pendidikan Islam yang berintegritas dan berdampak.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="#program" className="bg-gradient-to-r from-yellow-400 to-amber-400 text-green-950 px-8 py-3.5 rounded-xl font-bold text-base hover:from-yellow-300 hover:to-amber-300 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-400/20 no-underline">
+            <Link href="#mengapa" className="bg-gradient-to-r from-yellow-400 to-amber-400 text-green-950 px-8 py-3.5 rounded-xl font-bold text-base hover:from-yellow-300 hover:to-amber-300 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-400/20 no-underline">
               Lihat Program Kami
             </Link>
             <Link href="#tentang" className="bg-white/5 border border-white/20 text-white/90 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/10 hover:text-white transition-all no-underline backdrop-blur-sm">
@@ -64,38 +118,88 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== STATS ===== */}
-      <div className="bg-green-800 py-10 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center bg-green-700/30 rounded-xl py-6 px-4 backdrop-blur-sm border border-white/5">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
-              <AnimatedCounter value={20} suffix="+" />
-            </div>
-            <div className="text-white/60 text-sm mt-1">Tahun Berdiri</div>
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
+      {/* ===== MENGAPA MEMILIH KAMI ===== */}
+      <section id="mengapa" className="py-20 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-6">
+            <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Mengapa Memilih Kami</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4" style={{ fontFamily: 'Lora, serif' }}>
+              Mencetak Generasi Qurani yang <span className="text-green-700">Berilmu, Berkarakter, dan Berdaya Saing</span>
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Berdiri sejak 2006, Al Jawahir At Tarbawi terus berkembang menjadi lembaga pendidikan Islam terpadu yang dipercaya oleh masyarakat Deli Serdang dan sekitarnya, mengintegrasikan nilai-nilai Qurani, akademik unggul, serta pembinaan karakter.
+            </p>
           </div>
-          <div className="text-center bg-green-700/30 rounded-xl py-6 px-4 backdrop-blur-sm border border-white/5">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
-              <AnimatedCounter value={4} />
+
+          <div className="grid md:grid-cols-3 gap-6 mb-14">
+            <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-3xl mb-5">📖</div>
+              <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Kurikulum Holistik Islami</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">Perpaduan antara tahfizh Al-Qur&rsquo;an, akademik nasional, dan pembinaan akhlak dalam satu sistem pendidikan terpadu.</p>
             </div>
-            <div className="text-white/60 text-sm mt-1">Unit Pendidikan</div>
+            <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-3xl mb-5">🏆</div>
+              <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Berpengalaman &amp; Terpercaya</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">Hampir dua dekade dipercaya masyarakat, berkembang dari RA hingga SMP IT, dengan tenaga pendidik profesional dan tersertifikasi.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-3xl mb-5">🌟</div>
+              <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Lingkungan Kondusif</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">Suasana belajar yang Islami, aman, dan mendukung tumbuh kembang siswa secara optimal dengan pengawasan intensif dari guru.</p>
+            </div>
           </div>
-          <div className="text-center bg-green-700/30 rounded-xl py-6 px-4 backdrop-blur-sm border border-white/5">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
-              <AnimatedCounter value={500} suffix="+" />
+
+          <div className="bg-gradient-to-r from-green-900 to-green-800 rounded-2xl py-10 px-6">
+            <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
+                  <AnimatedCounter value={20} suffix="+" />
+                </div>
+                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Tahun Berdiri</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
+                  <AnimatedCounter value={4} />
+                </div>
+                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Unit Pendidikan</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
+                  <AnimatedCounter value={500} suffix="+" />
+                </div>
+                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Siswa</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
+                  <AnimatedCounter value={60} suffix="+" />
+                </div>
+                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Tenaga Pendidik</div>
+              </div>
             </div>
-            <div className="text-white/60 text-sm mt-1">Siswa</div>
-          </div>
-          <div className="text-center bg-green-700/30 rounded-xl py-6 px-4 backdrop-blur-sm border border-white/5">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
-              <AnimatedCounter value={60} suffix="+" />
-            </div>
-            <div className="text-white/60 text-sm mt-1">Tenaga Pendidik</div>
           </div>
         </div>
+      </section>
+
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
       </div>
 
       {/* ===== TENTANG ===== */}
-      <section id="tentang" className="py-20 px-6 bg-white">
+      <section id="tentang" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Tentang Kami</span>
@@ -103,17 +207,17 @@ export default async function HomePage() {
               Mendidik dengan Ilmu, <span className="text-green-700">Membina dengan Akhlak</span>
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              Yayasan Aljawahir Attarbawi merupakan lembaga nirlaba yang bergerak di bidang pendidikan, sosial, dan dakwah Islam. Berdiri sejak 2006, yayasan berkomitmen membangun generasi berilmu, berakhlak, mandiri dan memiliki kepedulian sosial.
+              Didirikan pada tahun 2006, Yayasan Al Jawahir At Tarbawi adalah lembaga sosial yang fokus pada tiga pilar utama: pendidikan, dakwah, dan pemberdayaan masyarakat. Kami percaya bahwa melahirkan generasi yang cerdas, berkarakter, dan peduli sesama adalah kunci membangun peradaban yang lebih baik.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-14">
-            <div className="bg-amber-50/80 rounded-2xl p-7 border border-amber-100 hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div className="bg-white rounded-2xl p-7 border border-amber-100 hover:shadow-lg hover:-translate-y-1 transition-all">
               <div className="w-12 h-12 rounded-xl bg-green-900 flex items-center justify-center text-2xl mb-4">🎯</div>
               <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Visi</h3>
               <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
             </div>
-            <div className="bg-amber-50/80 rounded-2xl p-7 border border-amber-100 hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div className="bg-white rounded-2xl p-7 border border-amber-100 hover:shadow-lg hover:-translate-y-1 transition-all">
               <div className="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center text-2xl mb-4">⭐</div>
               <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Misi</h3>
               <ul className="text-gray-600 text-sm leading-relaxed space-y-2">
@@ -122,29 +226,64 @@ export default async function HomePage() {
                 <li>• Aktivitas sosial yang berdampak nyata</li>
               </ul>
             </div>
-            <div className="bg-amber-50/80 rounded-2xl p-7 border border-amber-100 hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div className="bg-white rounded-2xl p-7 border border-amber-100 hover:shadow-lg hover:-translate-y-1 transition-all">
               <div className="w-12 h-12 rounded-xl bg-emerald-600 flex items-center justify-center text-2xl mb-4">📅</div>
               <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Berdiri</h3>
               <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
               <div className="mt-4 text-2xl font-bold text-green-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="bg-gradient-to-r from-green-900 to-green-800 rounded-2xl p-8 md:p-10 text-center shadow-xl">
-            <p className="arabic text-yellow-200/90 text-xl md:text-2xl leading-loose max-w-3xl mx-auto mb-4">
-              "وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ"
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
+      {/* ===== LAYANAN KAMI ===== */}
+      <section id="layanan" className="py-20 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Layanan Kami</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4" style={{ fontFamily: 'Lora, serif' }}>
+              Membangun Umat melalui <span className="text-green-700">Pendidikan, Dakwah, dan Sosial</span>
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Yayasan Al Jawahir At Tarbawi hadir sebagai lembaga yang menyatukan kekuatan pendidikan, dakwah, dan sosial dalam satu visi besar: membangun generasi Islam yang berilmu, berakhlak, dan berdampak.
             </p>
-            <div className="w-12 h-px bg-yellow-400/30 mx-auto mb-4" />
-            <p className="italic text-white/50 text-sm max-w-xl mx-auto mb-2" style={{ fontFamily: 'Lora, serif' }}>
-              "Barangsiapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga."
-            </p>
-            <span className="text-xs font-bold text-yellow-300/60 tracking-wide">— HR. Muslim</span>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {layananCards.map((c, i) => (
+              <div key={i} className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-green-200 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-700 to-green-500" />
+                <div className="p-8">
+                  <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">{c.icon}</div>
+                  <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-green-700 bg-green-50 px-3 py-1.5 rounded-full mb-3">{c.tag}</span>
+                  <h3 className="font-bold text-gray-800 text-xl mb-3 leading-snug" style={{ fontFamily: 'Lora, serif' }}>{c.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== PROGRAM ===== */}
-      <section id="program" className="py-20 px-6 bg-amber-50/50">
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
+      {/* ===== PROGRAM PENDIDIKAN ===== */}
+      <section id="program" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Program Pendidikan</span>
@@ -186,6 +325,15 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
       {/* ===== SEJARAH ===== */}
       <section id="sejarah" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
@@ -213,8 +361,101 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
+      {/* ===== MANAJEMEN ===== */}
+      <section id="manajemen" className="py-20 px-6 bg-amber-50/40">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Manajemen</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4" style={{ fontFamily: 'Lora, serif' }}>
+              Pengurus <span className="text-green-700">Yayasan</span>
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto">Tim manajemen yang berdedikasi untuk memajukan pendidikan Islam di Deli Serdang.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {timManajemen.map((t, i) => (
+              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-green-700 to-green-900 flex items-center justify-center text-white font-bold text-2xl mb-4" style={{ fontFamily: 'Lora, serif' }}>
+                  {t.inisial}
+                </div>
+                <h3 className="font-bold text-gray-800 text-base mb-1" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</h3>
+                <p className="text-green-700 text-xs font-bold uppercase tracking-wider">{t.jabatan}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
+      {/* ===== TESTIMONIAL ===== */}
+      <section id="testimonial" className="py-20 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Apa Kata Mereka</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4" style={{ fontFamily: 'Lora, serif' }}>
+              Testimoni <span className="text-green-700">Al Jawahir</span>
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto">Kepercayaan dan apresiasi dari tokoh masyarakat, pendidik, dan wali murid.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-green-50/60 rounded-2xl p-8 border border-green-100 hover:shadow-lg transition-all">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, j) => (
+                    <svg key={j} viewBox="0 0 20 20" width="16" height="16" className="text-yellow-400" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed italic mb-6">&ldquo;{t.quote}&rdquo;</p>
+                <div>
+                  <p className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Lora, serif' }}>{t.author}</p>
+                  <p className="text-gray-400 text-xs">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14 bg-gradient-to-r from-green-900 to-green-800 rounded-2xl p-8 md:p-10 text-center shadow-xl">
+            <p className="arabic text-yellow-200/90 text-xl md:text-2xl leading-loose max-w-3xl mx-auto mb-4">
+              &quot;وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ&quot;
+            </p>
+            <div className="w-12 h-px bg-yellow-400/30 mx-auto mb-4" />
+            <p className="italic text-white/50 text-sm max-w-xl mx-auto mb-2" style={{ fontFamily: 'Lora, serif' }}>
+              &quot;Barangsiapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga.&quot;
+            </p>
+            <span className="text-xs font-bold text-yellow-300/60 tracking-wide">— HR. Muslim</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
+
       {/* ===== BERITA ===== */}
-      <section id="berita" className="py-20 px-6 bg-amber-50/50">
+      <section id="berita" className="py-20 px-6 bg-amber-50/40">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-green-700">Berita & Artikel</span>
@@ -241,6 +482,15 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ===== SECTION DIVIDER ===== */}
+      <div className="section-ornament">
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-diamond" />
+        <div className="section-ornament-dot" />
+        <div className="section-ornament-dot" />
+      </div>
 
       {/* ===== KONTAK ===== */}
       <section id="kontak" className="py-20 px-6 bg-white">

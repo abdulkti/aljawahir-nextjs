@@ -62,22 +62,29 @@ body { overflow-x: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 6px;
+  padding: 28px 0;
 }
 .section-ornament::before,
 .section-ornament::after {
   content: '';
   flex: 1;
-  height: 1px;
-  max-width: 60px;
-  background: linear-gradient(90deg, transparent, var(--gold-400, #f59e0b), transparent);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-400, #f59e0b), #d97706, var(--gold-400, #f59e0b), transparent);
 }
 .section-ornament-diamond {
-  width: 6px;
-  height: 6px;
-  background: var(--gold-400, #f59e0b);
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
   transform: rotate(45deg);
-  opacity: 0.6;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+.section-ornament-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-400, #f59e0b);
+  opacity: 0.5;
 }
 
 /* Gold accent border */
