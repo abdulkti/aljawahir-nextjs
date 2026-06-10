@@ -450,7 +450,7 @@ export default async function HomePage() {
             <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-6">Ketua Yayasan</h3>
             <div className="max-w-xs mx-auto">
               {strukturOrganisasi[2].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border-2 border-amber-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+                <div key={i} className="bg-white rounded-2xl p-5 border border-amber-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
                   <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
                     {t.inisial}
                   </div>
@@ -472,7 +472,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-4">Sekretaris</h3>
               {strukturOrganisasi[3].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border border-green-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                <div key={i} className="bg-white rounded-2xl p-5 border border-amber-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
                   <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
                     {t.inisial}
                   </div>
@@ -483,7 +483,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-sm font-bold uppercase tracking-widest text-green-700 mb-4">Bendahara</h3>
               {strukturOrganisasi[4].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border border-green-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                <div key={i} className="bg-white rounded-2xl p-5 border border-amber-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
                   <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl mb-3" style={{ fontFamily: 'Lora, serif' }}>
                     {t.inisial}
                   </div>
