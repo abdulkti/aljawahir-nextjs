@@ -137,25 +137,23 @@ export default async function HomePage() {
                 Mendidik dengan Ilmu,<br />
                 <span className="text-green-700">Membina dengan Akhlak</span>
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
+              <p className="text-gray-600 leading-relaxed mb-5">
                 Yayasan Aljawahir Attarbawi merupakan lembaga nirlaba yang bergerak di bidang pendidikan, sosial, dan dakwah Islam. Yayasan didirikan atas kepedulian terhadap pentingnya pendidikan berkualitas yang mampu membentuk generasi berilmu, berakhlak, mandiri dan memiliki kepedulian sosial.
               </p>
-              <p className="text-gray-600 leading-relaxed mb-8">
-                Dengan semangat <strong className="text-green-800">"Mendidik dengan Ilmu dan Membina dengan Akhlak,"</strong> yayasan terus berupaya memberikan kontribusi nyata bagi masyarakat dan pembangunan bangsa.
+              <p className="text-gray-600 leading-relaxed mb-5">
+                Yayasan hadir sebagai pusat pembinaan pendidikan yang mengintegrasikan ilmu pengetahuan, teknologi, dan nilai-nilai Islam dalam proses pembelajaran. Dengan semangat <strong>"Mendidik dengan Ilmu dan Membina dengan Akhlak,"</strong> yayasan terus berupaya memberikan kontribusi nyata bagi masyarakat dan pembangunan bangsa.
               </p>
-              <div className="grid gap-4">
-                <div className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow border-l-4 border-green-600">
-                  <strong className="block text-green-800 font-bold text-sm mb-1">Visi</strong>
-                  <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
-                </div>
-                <div className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow border-l-4 border-yellow-500">
-                  <strong className="block text-green-800 font-bold text-sm mb-1">Misi</strong>
-                  <ul className="text-gray-600 text-sm leading-relaxed list-disc pl-4 space-y-1.5">
-                    <li><strong>Pendidikan Unggul:</strong> Menyelenggarakan lembaga pendidikan unggul berfokus pada karakter Qur&rsquo;ani.</li>
-                    <li><strong>Dakwah Berkelanjutan:</strong> Mengembangkan model dakwah rahmatan lil &lsquo;aalamiin yang inklusif.</li>
-                    <li><strong>Sosial Kemasyarakatan:</strong> Menyelenggarakan aktivitas sosial yang berdampak nyata.</li>
-                  </ul>
-                </div>
+              <div className="border-l-4 border-green-600 pl-4 bg-white rounded-r-xl py-3 pr-4 mb-4 shadow-sm hover:shadow-md transition-shadow">
+                <strong className="block text-green-800 font-bold text-sm mb-1">Visi</strong>
+                <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
+              </div>
+              <div className="border-l-4 border-green-600 pl-4 bg-white rounded-r-xl py-3 pr-4 shadow-sm hover:shadow-md transition-shadow">
+                <strong className="block text-green-800 font-bold text-sm mb-1">Misi</strong>
+                <ul className="text-gray-600 text-sm leading-relaxed list-disc pl-4 space-y-2 mt-1">
+                  <li><strong>Pendidikan Unggul:</strong> Menyelenggarakan dan mengembangkan lembaga pendidikan unggul yang berfokus pada karakter Qur&rsquo;ani, unggul, mandiri dan memiliki jiwa kepemimpinan.</li>
+                  <li><strong>Dakwah Berkelanjutan:</strong> Mengembangkan model dakwah rahmatan lil &lsquo;aalamiin yang berkelanjutan, inklusif, dan mempersatukan masyarakat.</li>
+                  <li><strong>Sosial Kemasyarakatan:</strong> Menyelenggarakan aktivitas sosial yang berdampak nyata serta memberikan kesempatan berkarya bagi masyarakat sekitar.</li>
+                </ul>
               </div>
             </div>
           </AnimateOnScroll>
@@ -347,7 +345,7 @@ export default async function HomePage() {
               <p className="text-gray-600 leading-relaxed mb-10">Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan.</p>
               <div className="space-y-5">
                 {[
-                  { icon: '📍', title: 'Alamat', val: 'Jl. Aman, Sunggal, Kec. Sunggal, Kab. Deli Serdang, Sumatera Utara' },
+                  { icon: '📍', title: 'Alamat', val: 'Jl. Aman, Sunggal, Kecamatan Sunggal, Kabupaten Deli Serdang, Sumatera Utara' },
                   { icon: '📷', title: 'Instagram', val: '@aljawahir_islamic_school', href: 'https://instagram.com/aljawahir_islamic_school' },
                   { icon: '📧', title: 'Email', val: 'info@aljawahirattarbawi.sch.id', href: 'mailto:info@aljawahirattarbawi.sch.id' },
                   { icon: '⏰', title: 'Jam Operasional', val: 'Senin–Jumat: 07.30–15.30 WIB' },
