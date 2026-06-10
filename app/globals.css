@@ -47,6 +47,22 @@ body { overflow-x: hidden; }
   33%      { transform: translateY(-8px) rotate(1deg); }
   66%      { transform: translateY(4px) rotate(-1deg); }
 }
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+@keyframes line-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
 
 .animate-fade-in-up {
   animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -64,6 +80,16 @@ body { overflow-x: hidden; }
 .animate-float-slow {
   animation: float-slow 7s ease-in-out infinite;
 }
+.animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
 
 /* Scroll-reveal: hidden by default, revealed when .in-view is added */
 .reveal {
@@ -80,3 +106,57 @@ body { overflow-x: hidden; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.glass-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Geometric pattern background */
+.pattern-geometric {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(5, 150, 105, 0.06) 0%, transparent 50%);
+}
+
+/* Card hover lift */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, #f59e0b, #fcd34d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Section divider */
+.section-divider {
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--green-700), transparent);
+  opacity: 0.15;
+}
+
+/* Islamic geometric overlay */
+.pattern-islamic {
+  background-image:
+    linear-gradient(30deg, rgba(255,255,255,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.03) 87.5%),
+    linear-gradient(150deg, rgba(255,255,255,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.03) 87.5%);
+  background-size: 40px 70px;
+}
