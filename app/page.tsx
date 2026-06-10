@@ -34,7 +34,7 @@ export default async function HomePage() {
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 overflow-hidden bg-green-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-950 via-green-900 to-green-800" />
+        <div className="absolute inset-0 bg-gradient-to-br from-green-950 via-green-900 to-green-800 animate-gradient" />
         <div className="absolute inset-0 opacity-5"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E\")" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -93,7 +93,7 @@ export default async function HomePage() {
             <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-green-900 to-green-700 flex items-center justify-center overflow-hidden">
               <span className="arabic text-9xl text-white/10 select-none">التربية</span>
             </div>
-            <div className="absolute -bottom-4 -right-4 bg-yellow-400 rounded-2xl px-6 py-4 text-center shadow-xl">
+            <div className="absolute -bottom-4 -right-4 bg-yellow-400 rounded-2xl px-6 py-4 text-center shadow-xl hover:-translate-y-1 transition-transform">
               <div className="text-3xl font-bold text-green-900" style={{ fontFamily: 'Lora, serif' }}>2006</div>
               <div className="text-xs font-bold text-green-800 mt-1">17 Oktober 2006</div>
             </div>
@@ -109,11 +109,11 @@ export default async function HomePage() {
             <p className="text-gray-600 leading-relaxed mb-5">
               Yayasan hadir sebagai pusat pembinaan pendidikan yang mengintegrasikan ilmu pengetahuan, teknologi, dan nilai-nilai Islam dalam proses pembelajaran. Dengan semangat <strong>"Mendidik dengan Ilmu dan Membina dengan Akhlak,"</strong> yayasan terus berupaya memberikan kontribusi nyata bagi masyarakat dan pembangunan bangsa.
             </p>
-            <div className="border-l-4 border-green-600 pl-4 bg-white rounded-r-xl py-3 pr-4 mb-4">
+            <div className="border-l-4 border-green-600 pl-4 bg-white rounded-r-xl py-3 pr-4 mb-4 shadow-sm hover:shadow-md transition-shadow">
               <strong className="block text-green-800 font-bold text-sm mb-1">Visi</strong>
               <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
             </div>
-            <div className="border-l-4 border-green-600 pl-4 bg-white rounded-r-xl py-3 pr-4">
+            <div className="border-l-4 border-green-600 pl-4 bg-white rounded-r-xl py-3 pr-4 shadow-sm hover:shadow-md transition-shadow">
               <strong className="block text-green-800 font-bold text-sm mb-1">Misi</strong>
               <ul className="text-gray-600 text-sm leading-relaxed list-disc pl-4 space-y-2 mt-1">
                 <li><strong>Pendidikan Unggul:</strong> Menyelenggarakan dan mengembangkan lembaga pendidikan unggul yang berfokus pada karakter Qur&rsquo;ani, unggul, mandiri dan memiliki jiwa kepemimpinan.</li>
@@ -153,10 +153,10 @@ export default async function HomePage() {
               { ar: 'مدرسة', icon: '🎓', tag: 'SMP IT', title: 'SMP IT Al Jawahir', desc: 'Sekolah Menengah Pertama Islam Terpadu, Sekolah Penggerak Angkatan I dengan Kurikulum Merdeka sejak 2021.', meta: ['🏅 Sekolah Penggerak', '📚 Kurikulum Merdeka'] },
               { ar: 'تحفيظ', icon: '🕌', tag: 'TPA', title: 'Taman Pendidikan Al-Quran', desc: 'Program hafalan dan pembelajaran Al-Quran yang terstruktur untuk membentuk generasi Qurani yang berkarakter.', meta: ['🌙 Semua Jenjang', '⏰ Full Day'] },
             ].map((p, i) => (
-              <div key={i} className="group border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 bg-white">
+              <div key={i} className="group border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 bg-white hover:border-green-200">
                 <div className="h-44 bg-gradient-to-br from-green-900 to-green-700 flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20 Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E\")" }} />
-                  <div className="relative flex flex-col items-center gap-2">
+                  <div className="relative flex flex-col items-center gap-2 group-hover:scale-110 transition-transform duration-500">
                     <span className="text-4xl">{p.icon}</span>
                     <span className="arabic text-3xl text-white/30">{p.ar}</span>
                   </div>
@@ -242,15 +242,19 @@ export default async function HomePage() {
             <p className="text-gray-600 leading-relaxed mb-8">Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan.</p>
             {[
               { icon: '📍', title: 'Alamat', val: 'Jl. Aman, Sunggal, Kecamatan Sunggal, Kabupaten Deli Serdang, Sumatera Utara' },
-              { icon: '📷', title: 'Instagram', val: '@aljawahir_islamic_school' },
-              { icon: '📧', title: 'Email', val: 'info@aljawahirattarbawi.sch.id' },
+              { icon: '📷', title: 'Instagram', val: '@aljawahir_islamic_school', href: 'https://instagram.com/aljawahir_islamic_school' },
+              { icon: '📧', title: 'Email', val: 'info@aljawahirattarbawi.sch.id', href: 'mailto:info@aljawahirattarbawi.sch.id' },
               { icon: '⏰', title: 'Jam Operasional', val: 'Senin–Jumat: 07.30–15.30 WIB' },
             ].map(c => (
-              <div key={c.title} className="flex gap-4 items-start mb-5">
-                <div className="w-11 h-11 rounded-xl bg-green-900 flex items-center justify-center text-xl flex-shrink-0">{c.icon}</div>
+              <div key={c.title} className="flex gap-4 items-start mb-5 group">
+                <div className="w-11 h-11 rounded-xl bg-green-900 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-green-800 transition-colors">{c.icon}</div>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wide text-green-700 mb-1">{c.title}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed">{c.val}</p>
+                  {'href' in c && c.href ? (
+                    <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-sm leading-relaxed hover:text-green-700 transition-colors">{c.val}</a>
+                  ) : (
+                    <p className="text-gray-600 text-sm leading-relaxed">{c.val}</p>
+                  )}
                 </div>
               </div>
             ))}
