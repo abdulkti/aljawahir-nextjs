@@ -48,7 +48,7 @@ export default async function HomePage() {
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ
           </p>
           <p className="text-white/50 text-sm italic mb-8 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>Q.S. An-Nahl: 125</p>
-          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-2 animate-fade-in-up" style={{ fontFamily: 'Lora, serif' }, { animationDelay: '0.4s', animationFillMode: 'both' } as React.CSSProperties}>
+          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-2 animate-fade-in-up" style={{ fontFamily: 'Lora, serif', animationDelay: '0.4s', animationFillMode: 'both' }}>
             Yayasan<br /><span className="text-yellow-400">Al Jawahir At Tarbawi</span>
           </h1>
           <p className="text-white/60 text-sm uppercase tracking-widest mb-4 animate-fade-in" style={{ animationDelay: '0.55s', animationFillMode: 'both' }}>Deli Serdang, Sumatera Utara</p>
