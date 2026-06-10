@@ -242,10 +242,7 @@ export default async function HomePage() {
             <p className="text-gray-600 leading-relaxed mb-8">Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan.</p>
             {[
               { icon: '📍', title: 'Alamat', val: 'Jl. Aman, Sunggal, Kecamatan Sunggal, Kabupaten Deli Serdang, Sumatera Utara' },
-              { icon: '📞', title: 'RA Al Jawahir', val: '+62 812-XXXX-XXXX' },
-              { icon: '📞', title: 'SD IT Al Jawahir', val: '+62 812-XXXX-XXXX' },
-              { icon: '📞', title: 'SMP IT Al Jawahir', val: '+62 812-XXXX-XXXX' },
-              { icon: '📞', title: 'TPA Al Jawahir', val: '+62 812-XXXX-XXXX' },
+              { icon: '📷', title: 'Instagram', val: '@aljawahir_islamic_school' },
               { icon: '📧', title: 'Email', val: 'info@aljawahirattarbawi.sch.id' },
               { icon: '⏰', title: 'Jam Operasional', val: 'Senin–Jumat: 07.30–15.30 WIB' },
             ].map(c => (
