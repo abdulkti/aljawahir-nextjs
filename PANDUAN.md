@@ -74,6 +74,8 @@ ON berita FOR ALL USING (true) WITH CHECK (true);
 ```
 
 4. Buat Storage bucket: nama `berita-images`, set ke **Public**
+5. Jalankan juga SQL untuk album foto (tabel `album_foto`) — lihat file `supabase-rls.sql` bagian "ALBUM FOTO"
+6. Buat Storage bucket: nama `album-images`, set ke **Public** (untuk galeri foto unit pendidikan)
 
 ### LANGKAH 3 — Isi File .env.local
 Copy file `.env.local.example` → rename jadi `.env.local`
@@ -112,4 +114,13 @@ Buka http://localhost:3000
 2. Klik "Tulis Berita Baru"
 3. Isi judul, kategori, upload foto, isi konten
 4. Klik **Publikasikan** → berita langsung tampil!
+
+## 📸 Cara Kelola Album Foto Unit
+1. Buka `/admin` → masukkan password
+2. Klik menu **Album Foto** di sidebar
+3. Pilih unit (RA / SD IT / SMP IT / TPA)
+4. Isi keterangan (opsional), lalu klik **Upload Foto**
+5. Foto muncul otomatis di galeri website saat orang klik "Lihat Foto" / "Album Foto" pada kartu unit di halaman beranda
+
+> **Catatan**: Tombol upload memakai API `/api/album` (membutuhkan token admin & `SUPABASE_SERVICE_ROLE_KEY`).
 

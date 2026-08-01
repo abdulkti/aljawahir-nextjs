@@ -13,3 +13,21 @@ export type Berita = {
 }
 
 export type BeritaInsert = Omit<Berita, 'id' | 'created_at' | 'updated_at'>
+
+export type AlbumFoto = {
+  id: string
+  unit: string
+  url: string
+  caption: string | null
+  created_at: string
+}
+
+export const UNIT_KEYS = ['ra', 'sd', 'smp', 'tpa'] as const
+export type UnitKey = (typeof UNIT_KEYS)[number]
+
+export const UNIT_LABELS: Record<UnitKey, string> = {
+  ra: 'RA Al Jawahir',
+  sd: 'SD IT Al Jawahir',
+  smp: 'SMP IT Al Jawahir',
+  tpa: 'Taman Pendidikan Al-Quran',
+}

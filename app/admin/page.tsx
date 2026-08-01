@@ -4,10 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
-import { Berita } from '@/types'
-import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X } from 'lucide-react'
+import { Berita, AlbumFoto, UNIT_KEYS, UNIT_LABELS, UnitKey } from '@/types'
+import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload } from 'lucide-react'
 
-type Tab = 'dashboard' | 'berita'
+type Tab = 'dashboard' | 'berita' | 'album'
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
@@ -21,6 +21,11 @@ export default function AdminPage() {
   const [toastErr, setToastErr] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [logging, setLogging] = useState(false)
+  const [albumUnit, setAlbumUnit] = useState<UnitKey>('ra')
+  const [albumPhotos, setAlbumPhotos] = useState<AlbumFoto[]>([])
+  const [albumLoading, setAlbumLoading] = useState(false)
+  const [albumUploading, setAlbumUploading] = useState(false)
+  const [albumCaption, setAlbumCaption] = useState('')
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_token')) {
@@ -28,6 +33,39 @@ export default function AdminPage() {
       loadBerita()
     }
   }, [])
+
+  async function loadAlbum(unit: UnitKey = albumUnit) {
+    setAlbumLoading(true)
+    const { data } = await supabase.from('album_foto').select('*').eq('unit', unit).order('created_at', { ascending: false })
+    setAlbumPhotos(data ?? [])
+    setAlbumLoading(false)
+  }
+
+  async function handleAlbumUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (file.size > 10 * 1024 * 1024) { showToast('Ukuran gambar maks 10MB!', true); return }
+    setAlbumUploading(true)
+    const form = new FormData()
+    form.append('file', file)
+    form.append('unit', albumUnit)
+    form.append('caption', albumCaption)
+    const res = await fetch('/api/album', { method: 'POST', body: form })
+    const json = await res.json()
+    setAlbumUploading(false)
+    if (!res.ok) { showToast('Gagal upload: ' + json.error, true); return }
+    setAlbumCaption('')
+    showToast('✅ Foto berhasil ditambahkan!')
+    loadAlbum()
+  }
+
+  async function hapusFoto(id: string) {
+    if (!confirm('Hapus foto ini? Tidak bisa dibatalkan.')) return
+    const res = await fetch(`/api/album?id=${id}`, { method: 'DELETE' })
+    if (!res.ok) { showToast('Gagal menghapus foto.', true); return }
+    showToast('🗑️ Foto dihapus.')
+    loadAlbum()
+  }
 
   async function doLogin() {
     setLogging(true)
@@ -146,8 +184,9 @@ export default function AdminPage() {
           {([
             { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { id: 'berita', label: 'Daftar Berita', icon: Newspaper },
+            { id: 'album', label: 'Album Foto', icon: Images },
           ] as const).map(item => (
-            <button key={item.id} onClick={() => { setTab(item.id); setMobileOpen(false) }}
+            <button key={item.id} onClick={() => { setTab(item.id); setMobileOpen(false); if (item.id === 'album') loadAlbum() }}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold mb-1 transition-colors ${tab === item.id ? 'bg-white/15 text-white' : 'text-white/60 hover:text-white hover:bg-white/8'}`}>
               <item.icon size={16} />
               {item.label}
@@ -322,6 +361,79 @@ export default function AdminPage() {
                 ))}
               </div>
             </>)}
+          </div>
+        )}
+
+        {/* ALBUM FOTO */}
+        {tab === 'album' && (
+          <div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
+              <div className="flex-1">
+                <h1 className="text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Album Foto</h1>
+                <p className="text-gray-400 text-sm mt-1">Upload dan kelola foto album setiap unit pendidikan</p>
+              </div>
+            </div>
+
+            {/* Pilih unit + upload */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-4 md:p-6 mb-6">
+              <div className="flex flex-col md:flex-row gap-4 md:items-end">
+                <div className="flex-1">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Unit Pendidikan</label>
+                  <div className="flex flex-wrap gap-2">
+                    {UNIT_KEYS.map(k => (
+                      <button key={k} onClick={() => { setAlbumUnit(k); loadAlbum(k) }}
+                        className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${albumUnit === k ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'}`}>
+                        {UNIT_LABELS[k]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Keterangan (opsional)</label>
+                  <input value={albumCaption} onChange={e => setAlbumCaption(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-green-500"
+                    placeholder="Contoh: Kegiatan wisuda 2026" />
+                </div>
+                <label className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-colors cursor-pointer ${albumUploading ? 'bg-gray-300 text-gray-500' : 'bg-green-700 hover:bg-green-800 text-white'}`}>
+                  <Upload size={16} />
+                  {albumUploading ? 'Mengupload...' : 'Upload Foto'}
+                  <input type="file" accept="image/*" className="hidden" disabled={albumUploading} onChange={handleAlbumUpload} />
+                </label>
+              </div>
+            </div>
+
+            {/* Daftar foto */}
+            {albumLoading ? (
+              <div className="text-center py-16 text-gray-400">⏳ Memuat foto...</div>
+            ) : albumPhotos.length === 0 ? (
+              <div className="text-center py-20 bg-white rounded-2xl border border-gray-200">
+                <p className="text-4xl mb-3">🖼️</p>
+                <p className="font-bold text-gray-600 mb-1">Belum ada foto untuk {UNIT_LABELS[albumUnit]}</p>
+                <p className="text-sm text-gray-400">Klik &quot;Upload Foto&quot; untuk menambahkan foto pertama.</p>
+              </div>
+            ) : (
+              <div>
+                <p className="text-sm text-gray-400 mb-4">{albumPhotos.length} foto di album {UNIT_LABELS[albumUnit]}</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {albumPhotos.map(p => (
+                    <div key={p.id} className="bg-white rounded-2xl border border-gray-200 overflow-hidden group">
+                      <div className="relative aspect-square bg-gray-100">
+                        <Image src={p.url} alt={p.caption ?? 'Foto album'} fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                        <button onClick={() => hapusFoto(p.id)}
+                          className="absolute top-2 right-2 p-2 rounded-lg bg-red-500/90 hover:bg-red-600 text-white transition-colors opacity-0 group-hover:opacity-100"
+                          title="Hapus foto">
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                      <div className="p-3">
+                        <p className="text-xs text-gray-500 line-clamp-1">{p.caption || <span className="text-gray-300">Tanpa keterangan</span>}</p>
+                        <p className="text-[10px] text-gray-400 mt-0.5">{formatTanggal(p.created_at)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </main>

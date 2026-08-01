@@ -1,0 +1,100 @@
+import { createClient } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server'
+import { verifyAuth } from '@/lib/auth'
+import { rateLimit } from '@/lib/rate-limit'
+
+const UNITS = ['ra', 'sd', 'smp', 'tpa']
+
+export async function POST(req: NextRequest) {
+  if (!verifyAuth(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const ip = req.headers.get('x-forwarded-for') ?? 'unknown'
+  if (!rateLimit(`album:${ip}`, 30, 60000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  }
+
+  const formData = await req.formData()
+  const file = formData.get('file') as File | null
+  const unit = formData.get('unit') as string | null
+  const caption = (formData.get('caption') as string | null)?.trim() || null
+
+  if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 })
+  if (!unit || !UNITS.includes(unit)) {
+    return NextResponse.json({ error: 'Unit tidak valid' }, { status: 400 })
+  }
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
+  const ext = file.name.split('.').pop() ?? 'jpg'
+  const fileName = `${unit}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`
+
+  const { error: uploadError } = await supabase.storage
+    .from('album-images')
+    .upload(`${unit}/${fileName}`, file, { upsert: true, contentType: file.type })
+
+  if (uploadError) {
+    return NextResponse.json({ error: uploadError.message }, { status: 500 })
+  }
+
+  const { data: { publicUrl } } = supabase.storage
+    .from('album-images')
+    .getPublicUrl(`${unit}/${fileName}`)
+
+  const { data, error } = await supabase
+    .from('album_foto')
+    .insert([{ unit, url: publicUrl, caption }])
+    .select('id')
+    .single()
+
+  if (error) {
+    await supabase.storage.from('album-images').remove([`${unit}/${fileName}`])
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json({ id: data.id, url: publicUrl })
+}
+
+export async function DELETE(req: NextRequest) {
+  if (!verifyAuth(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const { searchParams } = new URL(req.url)
+  const id = searchParams.get('id')
+  if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 })
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
+  const { data: row } = await supabase
+    .from('album_foto')
+    .select('url')
+    .eq('id', id)
+    .single()
+
+  const { error: deleteError } = await supabase
+    .from('album_foto')
+    .delete()
+    .eq('id', id)
+
+  if (deleteError) {
+    return NextResponse.json({ error: deleteError.message }, { status: 500 })
+  }
+
+  if (row?.url) {
+    const parts = new URL(row.url).pathname.split('/')
+    const storagePath = parts.slice(parts.indexOf('album-images') + 1).join('/')
+    if (storagePath) {
+      await supabase.storage.from('album-images').remove([storagePath])
+    }
+  }
+
+  return NextResponse.json({ ok: true })
+}
