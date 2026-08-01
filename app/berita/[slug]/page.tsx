@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { supabaseServer } from '@/lib/supabase'
@@ -30,13 +31,30 @@ async function getBeritaLain(id: string, kategori: string): Promise<Berita[]> {
   return data ?? []
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const berita = await getBerita(slug)
   if (!berita) return { title: 'Berita Tidak Ditemukan' }
   return {
-    title: `${berita.judul} — Al Jawahir At Tarbawi`,
+    title: berita.judul,
     description: berita.ringkasan ?? berita.judul,
+    alternates: { canonical: `/berita/${berita.slug}` },
+    openGraph: {
+      type: 'article',
+      title: berita.judul,
+      description: berita.ringkasan ?? berita.judul,
+      url: `https://aljawahirattarbawi.com/berita/${berita.slug}`,
+      images: berita.cover_url
+        ? [{ url: berita.cover_url, alt: berita.judul }]
+        : ['/logo-aljawahir.png'],
+      publishedTime: berita.created_at,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: berita.judul,
+      description: berita.ringkasan ?? berita.judul,
+      images: berita.cover_url ? [berita.cover_url] : ['/logo-aljawahir.png'],
+    },
   }
 }
 

@@ -7,9 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-green-900 font-bold" style={{ fontFamily: 'Amiri, serif' }}>
-                الج
-              </div>
+              <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-10 h-10 object-contain rounded-full" />
               <span className="text-white font-bold text-sm">Al Jawahir At Tarbawi</span>
             </div>
             <p className="text-sm leading-7 mb-3">

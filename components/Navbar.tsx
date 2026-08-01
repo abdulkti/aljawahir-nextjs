@@ -18,9 +18,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 no-underline">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-green-900 font-bold text-lg" style={{ fontFamily: 'Amiri, serif' }}>
-            الج
-          </div>
+          <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-10 h-10 object-contain" />
           <div>
             <p className="text-white font-bold text-sm leading-tight">Al Jawahir At Tarbawi</p>
             <p className="text-white/60 text-xs">Al Jawahir Islamic School</p>

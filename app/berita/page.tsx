@@ -1,9 +1,17 @@
 import { Suspense } from 'react'
+import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import BeritaCard from '@/components/BeritaCard'
 import { supabaseServer } from '@/lib/supabase'
 import { Berita } from '@/types'
+
+export const metadata: Metadata = {
+  title: 'Berita & Artikel',
+  description:
+    'Berita dan artikel terbaru dari Yayasan Al Jawahir At Tarbawi: kegiatan, prestasi, pengumuman, dan perkembangan pendidikan Islam di Deli Serdang.',
+  alternates: { canonical: '/berita' },
+}
 
 async function getAllBerita(): Promise<Berita[]> {
   const sb = supabaseServer()
