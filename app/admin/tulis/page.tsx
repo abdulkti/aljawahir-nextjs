@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { makeSlug } from '@/lib/utils'
+import { adminHeaders } from '@/lib/admin-headers'
 import { ArrowLeft, Upload, Save, Send } from 'lucide-react'
 
 const KATEGORI = ['Berita', 'Pendidikan', 'Prestasi', 'Kegiatan', 'Pengumuman', 'Artikel']
@@ -38,7 +39,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
     setUploading(true)
     const form = new FormData()
     form.append('file', file)
-    const res = await fetch('/api/upload', { method: 'POST', body: form })
+    const res = await fetch('/api/upload', { method: 'POST', headers: adminHeaders(), body: form })
     const json = await res.json()
     if (!res.ok) { showToast('Gagal upload: ' + json.error, true); setUploading(false); return }
     setCoverUrl(json.url)

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
+import { adminHeaders } from '@/lib/admin-headers'
 import { Berita, AlbumFoto, UNIT_KEYS, UNIT_LABELS, UnitKey } from '@/types'
 import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload, Star } from 'lucide-react'
 
@@ -50,7 +51,7 @@ export default function AdminPage() {
     form.append('file', file)
     form.append('unit', albumUnit)
     form.append('caption', albumCaption)
-    const res = await fetch('/api/album', { method: 'POST', body: form })
+    const res = await fetch('/api/album', { method: 'POST', headers: adminHeaders(), body: form })
     const json = await res.json()
     setAlbumUploading(false)
     if (!res.ok) { showToast('Gagal upload: ' + json.error, true); return }
@@ -61,14 +62,14 @@ export default function AdminPage() {
 
   async function hapusFoto(id: string) {
     if (!confirm('Hapus foto ini? Tidak bisa dibatalkan.')) return
-    const res = await fetch(`/api/album?id=${id}`, { method: 'DELETE' })
+    const res = await fetch(`/api/album?id=${id}`, { method: 'DELETE', headers: adminHeaders() })
     if (!res.ok) { showToast('Gagal menghapus foto.', true); return }
     showToast('🗑️ Foto dihapus.')
     loadAlbum()
   }
 
   async function setSampul(id: string) {
-    const res = await fetch('/api/album', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) })
+    const res = await fetch('/api/album', { method: 'PATCH', headers: adminHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify({ id }) })
     if (!res.ok) { showToast('Gagal set sampul.', true); return }
     showToast('⭐ Foto ditetapkan sebagai sampul unit.')
     loadAlbum()
