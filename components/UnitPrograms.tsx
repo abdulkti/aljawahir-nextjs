@@ -20,7 +20,7 @@ const units: {
     unit: 'ra',
     ar: 'روضة',
     icon: '🌙',
-    tag: 'TK / RA',
+    tag: 'RA',
     title: 'RA Al Jawahir',
     desc: 'Pendidikan anak usia dini berbasis Islam yang menanamkan nilai tauhid dan kecintaan Al-Quran sejak dini.',
     meta: ['🎓 Usia 4–6 Tahun', '📍 Sunggal'],
