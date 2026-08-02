@@ -113,27 +113,45 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
 
       {/* Lightbox */}
       {lightbox !== null && photos[lightbox] && (
-        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/95 p-4">
-          <button onClick={close} className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Tutup">
-            <X size={22} />
-          </button>
-          <button onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + photos.length) % photos.length) }}
-            className="absolute left-3 md:left-6 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Sebelumnya">
-            <ChevronLeft size={24} />
-          </button>
-          <div className="max-h-full max-w-5xl w-full" onClick={close}>
-            <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[75vh]">
-              <Image src={photos[lightbox].url} alt="" aria-hidden fill className="object-contain" sizes="100vw" priority />
-            </div>
-            <div className="text-center mt-3">
-              {photos[lightbox].caption && <p className="text-white/80 text-sm">{photos[lightbox].caption}</p>}
-              <p className="text-white/40 text-xs mt-1">{lightbox + 1} / {photos.length}</p>
-            </div>
+        <div className="fixed inset-0 z-[80] flex flex-col bg-black/95">
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 py-3 shrink-0">
+            <button onClick={close} className="flex items-center gap-2 text-white/90 hover:text-white px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors no-underline text-sm font-bold" aria-label="Kembali ke galeri">
+              <ChevronLeft size={20} />
+              Kembali
+            </button>
+            <span className="text-white/60 text-sm font-bold">{lightbox + 1} / {photos.length}</span>
+            <button onClick={close} className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Tutup">
+              <X size={20} />
+            </button>
           </div>
-          <button onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % photos.length) }}
-            className="absolute right-3 md:right-6 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Berikutnya">
-            <ChevronRight size={24} />
-          </button>
+
+          {/* Photo area */}
+          <div className="flex-1 relative flex items-center justify-center min-h-0 px-4">
+            <button onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + photos.length) % photos.length) }}
+              className="absolute left-2 md:left-6 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10" aria-label="Sebelumnya">
+              <ChevronLeft size={24} />
+            </button>
+            <div className="max-h-full max-w-5xl w-full" onClick={close}>
+              <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[68vh]">
+                <Image src={photos[lightbox].url} alt="" aria-hidden fill className="object-contain" sizes="100vw" priority />
+              </div>
+            </div>
+            <button onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % photos.length) }}
+              className="absolute right-2 md:right-6 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10" aria-label="Berikutnya">
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          {/* Bottom caption bar */}
+          <div className="flex items-center justify-between gap-4 px-6 py-4 shrink-0">
+            <p className="text-white/80 text-sm truncate">
+              {photos[lightbox].caption ?? 'Tanpa keterangan'}
+            </p>
+            <button onClick={close} className="shrink-0 flex items-center gap-1.5 text-xs font-bold text-white/70 hover:text-white px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors no-underline">
+              Tutup <X size={14} />
+            </button>
+          </div>
         </div>
       )}
     </div>
