@@ -98,7 +98,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
               {photos.map((p, i) => (
                 <button key={p.id} onClick={() => setLightbox(i)}
                   className="group relative aspect-square rounded-xl overflow-hidden bg-gray-100 border border-gray-200 hover:border-green-400 transition-all cursor-zoom-in">
-                  <Image src={p.url} alt={p.caption ?? `${label} - foto ${i + 1}`} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 50vw, 25vw" />
+                  <Image src={p.url} alt="" aria-hidden fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 50vw, 25vw" />
                   {p.caption && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2.5 pt-6">
                       <p className="text-white text-[11px] leading-snug line-clamp-2">{p.caption}</p>
@@ -123,7 +123,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
           </button>
           <div className="max-h-full max-w-5xl w-full" onClick={close}>
             <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[75vh]">
-              <Image src={photos[lightbox].url} alt={photos[lightbox].caption ?? `${label} - foto ${lightbox + 1}`} fill className="object-contain" sizes="100vw" priority />
+              <Image src={photos[lightbox].url} alt="" aria-hidden fill className="object-contain" sizes="100vw" priority />
             </div>
             <div className="text-center mt-3">
               {photos[lightbox].caption && <p className="text-white/80 text-sm">{photos[lightbox].caption}</p>}

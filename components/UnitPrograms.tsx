@@ -96,7 +96,8 @@ export default function UnitPrograms() {
             <div className="relative h-44 overflow-hidden">
               <img
                 src={covers[p.unit] ?? p.cover}
-                alt={p.title}
+                alt=""
+                aria-hidden
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 loading="lazy"
               />
