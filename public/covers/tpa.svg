@@ -1,0 +1,50 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14532d"/>
+      <stop offset="0.55" stop-color="#15803d"/>
+      <stop offset="1" stop-color="#84cc16"/>
+    </linearGradient>
+    <radialGradient id="glowAmber" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fcd34d" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#fcd34d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowWhite" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="star" width="76" height="76" patternUnits="userSpaceOnUse">
+      <path d="M38 0 L44.5 31.5 L76 38 L44.5 44.5 L38 76 L31.5 44.5 L0 38 L31.5 31.5 Z" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#star)"/>
+  <circle cx="1010" cy="90" r="240" fill="url(#glowAmber)"/>
+  <circle cx="160" cy="540" r="220" fill="url(#glowWhite)"/>
+
+  <rect x="440" y="330" width="320" height="44" fill="#ffffff" opacity="0.14"/>
+
+  <path d="M286 380 L286 195 Q300 168 314 195 L314 380 Z" fill="#d9f99d"/>
+  <path d="M278 172 L322 172 L300 150 Z" fill="#bef264"/>
+  <line x1="300" y1="150" x2="300" y2="128" stroke="#d9f99d" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="300" cy="122" r="6" fill="#fcd34d"/>
+
+  <path d="M886 380 L886 195 Q900 168 914 195 L914 380 Z" fill="#d9f99d"/>
+  <path d="M878 172 L922 172 L900 150 Z" fill="#bef264"/>
+  <line x1="900" y1="150" x2="900" y2="128" stroke="#d9f99d" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="900" cy="122" r="6" fill="#fcd34d"/>
+
+  <path d="M480 330 C 480 205 540 155 600 155 C 660 155 720 205 720 330 Z" fill="#ecfdf5"/>
+  <path d="M555 330 L555 245 Q600 205 645 245 L645 330 Z" fill="#065f46"/>
+  <path d="M570 330 L570 258 Q600 225 630 258 L630 330 Z" fill="#047857"/>
+  <line x1="600" y1="155" x2="600" y2="120" stroke="#ecfdf5" stroke-width="5" stroke-linecap="round"/>
+  <path d="M612 100 A 16 16 0 1 0 612 124 A 19 19 0 1 1 612 100 Z" fill="#fcd34d"/>
+
+  <g fill="#ffffff" opacity="0.5">
+    <path d="M230 220 L237 204 L244 220 L237 236 Z"/>
+    <path d="M960 250 L967 234 L974 250 L967 266 Z"/>
+    <path d="M330 120 L335 110 L340 120 L335 130 Z"/>
+  </g>
+
+  <text x="600" y="548" text-anchor="middle" font-size="120" font-family="serif" fill="#ffffff" fill-opacity="0.12">تحفيظ</text>
+</svg>

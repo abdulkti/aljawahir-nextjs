@@ -1,0 +1,51 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#022c22"/>
+      <stop offset="0.55" stop-color="#065f46"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <radialGradient id="glowAmber" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fbbf24" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowWhite" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="star" width="76" height="76" patternUnits="userSpaceOnUse">
+      <path d="M38 0 L44.5 31.5 L76 38 L44.5 44.5 L38 76 L31.5 44.5 L0 38 L31.5 31.5 Z" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#star)"/>
+  <circle cx="1010" cy="80" r="240" fill="url(#glowAmber)"/>
+  <circle cx="160" cy="540" r="220" fill="url(#glowWhite)"/>
+
+  <path d="M600 155 A 130 130 0 1 0 600 425 A 160 160 0 1 1 600 155 Z" fill="#fefce8"/>
+  <path d="M600 165 A 118 118 0 1 0 600 415 A 118 118 0 1 1 600 165 Z" fill="#047857"/>
+
+  <g fill="#fcd34d">
+    <circle cx="690" cy="225" r="5"/>
+    <circle cx="510" cy="360" r="4"/>
+    <circle cx="740" cy="340" r="3.5"/>
+    <circle cx="470" cy="190" r="3"/>
+  </g>
+
+  <g fill="#ffffff" opacity="0.55">
+    <path d="M210 150 L216 136 L222 150 L216 164 Z"/>
+    <path d="M300 258 L309 240 L318 258 L309 276 Z"/>
+    <path d="M930 300 L939 282 L948 300 L939 318 Z"/>
+    <path d="M880 138 L886 128 L892 138 L886 148 Z"/>
+    <path d="M250 330 L255 320 L260 330 L255 340 Z"/>
+  </g>
+
+  <g fill="#ffffff" opacity="0.12">
+    <circle cx="180" cy="470" r="40"/>
+    <circle cx="232" cy="452" r="30"/>
+    <circle cx="1000" cy="480" r="46"/>
+    <circle cx="1062" cy="466" r="30"/>
+  </g>
+
+  <text x="600" y="548" text-anchor="middle" font-size="120" font-family="serif" fill="#ffffff" fill-opacity="0.12">روضة</text>
+</svg>

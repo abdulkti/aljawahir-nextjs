@@ -14,8 +14,7 @@ const units: {
   title: string
   desc: string
   meta: string[]
-  grad: string
-  glow: string
+  cover: string
 }[] = [
   {
     unit: 'ra',
@@ -25,8 +24,7 @@ const units: {
     title: 'RA Al Jawahir',
     desc: 'Pendidikan anak usia dini berbasis Islam yang menanamkan nilai tauhid dan kecintaan Al-Quran sejak dini.',
     meta: ['🎓 Usia 4–6 Tahun', '📍 Sunggal'],
-    grad: 'from-emerald-950 via-green-900 to-green-700',
-    glow: 'bg-amber-300',
+    cover: '/covers/ra.svg',
   },
   {
     unit: 'sd',
@@ -36,8 +34,7 @@ const units: {
     title: 'SD IT Al Jawahir',
     desc: 'Sekolah Dasar Islam Terpadu yang mengintegrasikan kurikulum nasional dengan pendidikan Al-Quran dan akhlak Islami.',
     meta: ['📚 Kurikulum Merdeka', '📍 Sunggal'],
-    grad: 'from-green-950 via-emerald-900 to-teal-700',
-    glow: 'bg-emerald-300',
+    cover: '/covers/sd.svg',
   },
   {
     unit: 'smp',
@@ -47,8 +44,7 @@ const units: {
     title: 'SMP IT Al Jawahir',
     desc: 'Sekolah Menengah Pertama Islam Terpadu, Sekolah Penggerak Angkatan I dengan Kurikulum Merdeka sejak 2021.',
     meta: ['🏅 Sekolah Penggerak', '📚 Kurikulum Merdeka'],
-    grad: 'from-green-950 via-teal-900 to-cyan-800',
-    glow: 'bg-cyan-300',
+    cover: '/covers/smp.svg',
   },
   {
     unit: 'tpa',
@@ -58,27 +54,31 @@ const units: {
     title: 'Taman Pendidikan Al-Quran',
     desc: 'Program hafalan dan pembelajaran Al-Quran yang terstruktur untuk membentuk generasi Qurani yang berkarakter.',
     meta: ['🌙 Semua Jenjang', '⏰ Full Day'],
-    grad: 'from-emerald-950 via-green-800 to-lime-700',
-    glow: 'bg-lime-300',
+    cover: '/covers/tpa.svg',
   },
 ]
-
-const starPattern = "url(\"data:image/svg+xml,%3Csvg width='48' height='48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 0 L29 19 L48 24 L29 29 L24 48 L19 29 L0 24 L19 19 Z' fill='none' stroke='white' stroke-width='0.6'/%3E%3C/svg%3E\")"
 
 export default function UnitPrograms() {
   const [gallery, setGallery] = useState<UnitKey | null>(null)
   const [counts, setCounts] = useState<Record<string, number>>({})
+  const [covers, setCovers] = useState<Record<string, string>>({})
 
   useEffect(() => {
     let cancelled = false
     supabase
       .from('album_foto')
-      .select('unit')
+      .select('unit, url, created_at')
+      .order('created_at', { ascending: false })
       .then(({ data }) => {
         if (cancelled) return
         const c: Record<string, number> = {}
-        for (const row of data ?? []) c[row.unit] = (c[row.unit] ?? 0) + 1
+        const cv: Record<string, string> = {}
+        for (const row of data ?? []) {
+          c[row.unit] = (c[row.unit] ?? 0) + 1
+          if (!cv[row.unit]) cv[row.unit] = row.url
+        }
         setCounts(c)
+        setCovers(cv)
       })
     return () => { cancelled = true }
   }, [])
@@ -86,37 +86,30 @@ export default function UnitPrograms() {
   return (
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-        {units.map((p, i) => (
+        {units.map(p => (
           <div key={p.unit}
             className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-green-300 hover:shadow-2xl hover:shadow-green-900/15 hover:-translate-y-2 transition-all duration-500 flex flex-col">
             {/* accent line atas */}
             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-700 via-emerald-500 to-amber-400 opacity-70 group-hover:opacity-100 transition-opacity z-10`} />
 
-            {/* HEADER */}
-            <div className={`relative h-44 overflow-hidden bg-gradient-to-br ${p.grad}`}>
-              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: starPattern }} />
-              <div className={`absolute -top-12 -right-12 w-44 h-44 ${p.glow} opacity-10 rounded-full blur-3xl group-hover:opacity-20 transition-opacity`} />
-              <div className="absolute -bottom-16 -left-10 w-40 h-40 bg-yellow-400/10 rounded-full blur-3xl" />
+            {/* HEADER — foto asli bila ada, ilustrasi bila kosong */}
+            <div className="relative h-44 overflow-hidden">
+              <img
+                src={covers[p.unit] ?? p.cover}
+                alt={p.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
 
-              {/* nomor urut outline */}
-              <span className="absolute top-3 left-4 text-4xl md:text-5xl font-black text-white/10 select-none" style={{ fontFamily: 'Lora, serif' }}>
-                {String(i + 1).padStart(2, '0')}
+              {/* badge tag */}
+              <span className="absolute top-3 left-3 inline-block text-[11px] font-bold uppercase tracking-wider text-white bg-black/35 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/25">
+                {p.tag}
               </span>
-
-              {/* konten tengah */}
-              <div className="relative h-full flex flex-col items-center justify-center gap-3">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/25 backdrop-blur-sm flex items-center justify-center text-3xl shadow-xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500">
-                    {p.icon}
-                  </div>
-                  <span className={`absolute -inset-2 rounded-2xl ${p.glow} opacity-0 group-hover:opacity-30 blur-lg transition-opacity`} />
-                </div>
-                <span className="arabic text-3xl md:text-4xl text-white/25 leading-none group-hover:text-white/40 transition-colors duration-500">{p.ar}</span>
-              </div>
 
               {/* badge jumlah foto */}
               <button onClick={() => setGallery(p.unit)}
-                className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/30 hover:bg-black/50 text-white text-[11px] font-bold px-3 py-1.5 rounded-full border border-white/20 backdrop-blur-sm transition-all no-underline"
+                className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/35 hover:bg-black/60 text-white text-[11px] font-bold px-3 py-1.5 rounded-full border border-white/25 backdrop-blur-sm transition-all no-underline"
                 aria-label={`Lihat album foto ${p.title}`}>
                 <Images size={12} />
                 {counts[p.unit] ?? 0} Foto
