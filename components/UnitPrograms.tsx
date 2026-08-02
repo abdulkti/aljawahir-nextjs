@@ -67,7 +67,7 @@ export default function UnitPrograms() {
     let cancelled = false
     supabase
       .from('album_foto')
-      .select('unit, url, created_at')
+      .select('unit, url, is_cover, created_at')
       .order('created_at', { ascending: false })
       .then(({ data }) => {
         if (cancelled) return
@@ -76,6 +76,7 @@ export default function UnitPrograms() {
         for (const row of data ?? []) {
           c[row.unit] = (c[row.unit] ?? 0) + 1
           if (!cv[row.unit]) cv[row.unit] = row.url
+          if (row.is_cover) cv[row.unit] = row.url
         }
         setCounts(c)
         setCovers(cv)

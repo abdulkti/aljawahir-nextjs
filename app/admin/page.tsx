@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
 import { Berita, AlbumFoto, UNIT_KEYS, UNIT_LABELS, UnitKey } from '@/types'
-import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload } from 'lucide-react'
+import { LayoutDashboard, Newspaper, PenSquare, Settings, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload, Star } from 'lucide-react'
 
 type Tab = 'dashboard' | 'berita' | 'album'
 
@@ -64,6 +64,13 @@ export default function AdminPage() {
     const res = await fetch(`/api/album?id=${id}`, { method: 'DELETE' })
     if (!res.ok) { showToast('Gagal menghapus foto.', true); return }
     showToast('🗑️ Foto dihapus.')
+    loadAlbum()
+  }
+
+  async function setSampul(id: string) {
+    const res = await fetch('/api/album', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) })
+    if (!res.ok) { showToast('Gagal set sampul.', true); return }
+    showToast('⭐ Foto ditetapkan sebagai sampul unit.')
     loadAlbum()
   }
 
@@ -419,6 +426,11 @@ export default function AdminPage() {
                     <div key={p.id} className="bg-white rounded-2xl border border-gray-200 overflow-hidden group">
                       <div className="relative aspect-square bg-gray-100">
                         <Image src={p.url} alt={p.caption ?? 'Foto album'} fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                        <button onClick={() => setSampul(p.id)}
+                          className={`absolute top-2 left-2 p-2 rounded-lg transition-colors ${p.is_cover ? 'bg-yellow-400 text-white' : 'bg-black/50 hover:bg-yellow-400 text-white'}`}
+                          title={p.is_cover ? 'Sampul unit ini' : 'Jadikan sampul unit'}>
+                          <Star size={14} fill={p.is_cover ? 'currentColor' : 'none'} />
+                        </button>
                         <button onClick={() => hapusFoto(p.id)}
                           className="absolute top-2 right-2 p-2 rounded-lg bg-red-500/90 hover:bg-red-600 text-white transition-colors opacity-0 group-hover:opacity-100"
                           title="Hapus foto">

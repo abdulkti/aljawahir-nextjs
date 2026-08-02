@@ -19,6 +19,7 @@ export type AlbumFoto = {
   unit: string
   url: string
   caption: string | null
+  is_cover: boolean
   created_at: string
 }
 

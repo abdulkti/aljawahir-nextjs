@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS album_foto (
   unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa')),
   url TEXT NOT NULL,
   caption TEXT,
+  is_cover BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

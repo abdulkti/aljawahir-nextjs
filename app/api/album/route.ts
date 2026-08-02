@@ -59,6 +59,41 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ id: data.id, url: publicUrl })
 }
 
+export async function PATCH(req: NextRequest) {
+  if (!verifyAuth(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const { id } = await req.json()
+  if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 })
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
+  const { data: row } = await supabase
+    .from('album_foto')
+    .select('unit')
+    .eq('id', id)
+    .single()
+  if (!row) return NextResponse.json({ error: 'Foto tidak ditemukan' }, { status: 404 })
+
+  const { error: clearErr } = await supabase
+    .from('album_foto')
+    .update({ is_cover: false })
+    .eq('unit', row.unit)
+  if (clearErr) return NextResponse.json({ error: clearErr.message }, { status: 500 })
+
+  const { error } = await supabase
+    .from('album_foto')
+    .update({ is_cover: true })
+    .eq('id', id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  return NextResponse.json({ ok: true })
+}
+
 export async function DELETE(req: NextRequest) {
   if (!verifyAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
