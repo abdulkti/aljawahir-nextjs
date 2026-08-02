@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import ScrollLink from '@/components/ScrollLink'
 import { Menu, X } from 'lucide-react'
 
 const links = [
@@ -29,15 +30,21 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-8 list-none">
           {links.map(l => (
             <li key={l.href}>
-              <Link href={l.href} className="text-white/85 text-sm font-semibold uppercase tracking-wide hover:text-yellow-300 transition-colors no-underline">
-                {l.label}
-              </Link>
+              {l.href.startsWith('/#') ? (
+                <ScrollLink href={l.href} className="text-white/85 text-sm font-semibold uppercase tracking-wide hover:text-yellow-300 transition-colors no-underline">
+                  {l.label}
+                </ScrollLink>
+              ) : (
+                <Link href={l.href} className="text-white/85 text-sm font-semibold uppercase tracking-wide hover:text-yellow-300 transition-colors no-underline">
+                  {l.label}
+                </Link>
+              )}
             </li>
           ))}
           <li>
-            <Link href="/#kontak" className="bg-yellow-400 text-green-900 px-5 py-2 rounded-lg text-sm font-bold hover:bg-yellow-300 transition-colors no-underline">
+            <ScrollLink href="/#kontak" className="bg-yellow-400 text-green-900 px-5 py-2 rounded-lg text-sm font-bold hover:bg-yellow-300 transition-colors no-underline">
               Daftar Sekarang
-            </Link>
+            </ScrollLink>
           </li>
         </ul>
 
@@ -51,15 +58,15 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-green-900 px-6 pb-6 flex flex-col gap-1">
           {links.map(l => (
-            <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
+            <ScrollLink key={l.href} href={l.href} onClick={() => setOpen(false)}
               className="text-white/85 text-sm font-semibold uppercase py-3 border-b border-white/10 no-underline hover:text-yellow-300 transition-colors">
               {l.label}
-            </Link>
+            </ScrollLink>
           ))}
-          <Link href="/#kontak" onClick={() => setOpen(false)}
+          <ScrollLink href="/#kontak" onClick={() => setOpen(false)}
             className="mt-2 text-yellow-300 text-sm font-bold uppercase py-2 no-underline">
             Daftar Sekarang →
-          </Link>
+          </ScrollLink>
         </div>
       )}
     </nav>

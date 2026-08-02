@@ -7,6 +7,7 @@ import KontakForm from '@/components/KontakForm'
 import AnimatedCounter from '@/components/AnimatedCounter'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
 import UnitPrograms from '@/components/UnitPrograms'
+import ScrollLink from '@/components/ScrollLink'
 import { supabaseServer } from '@/lib/supabase'
 import { Berita } from '@/types'
 
@@ -122,12 +123,12 @@ export default async function HomePage() {
             Membangun Ilmu, Akhlak, dan Ummah melalui Pendidikan Islam yang berintegritas dan berdampak.
           </p>
           <div className="animate-in animate-in-delay-5 flex gap-4 justify-center flex-wrap">
-            <Link href="#program" className="bg-gradient-to-r from-yellow-400 to-amber-400 text-green-950 px-8 py-3.5 rounded-xl font-bold text-base hover:from-yellow-300 hover:to-amber-300 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-400/20 no-underline">
+            <ScrollLink href="#program" className="bg-gradient-to-r from-yellow-400 to-amber-400 text-green-950 px-8 py-3.5 rounded-xl font-bold text-base hover:from-yellow-300 hover:to-amber-300 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-400/20 no-underline">
               Lihat Program Kami
-            </Link>
-            <Link href="#tentang" className="bg-white/5 border border-white/20 text-white/90 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/10 hover:text-white transition-all no-underline backdrop-blur-sm">
+            </ScrollLink>
+            <ScrollLink href="#tentang" className="bg-white/5 border border-white/20 text-white/90 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/10 hover:text-white transition-all no-underline backdrop-blur-sm">
               Tentang Yayasan
-            </Link>
+            </ScrollLink>
           </div>
         </div>
       </section>
