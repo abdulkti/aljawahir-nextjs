@@ -3,7 +3,7 @@ export default function KontakForm() {
     {
       name: 'RA Al Jawahir',
       wa: '62812XXXXXXXX',
-      label: 'TK / RA',
+      label: 'RA',
       icon: '🌙',
     },
     {
