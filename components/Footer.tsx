@@ -42,7 +42,7 @@ export default function Footer() {
             <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Tautan</h4>
             <ul className="space-y-2.5 list-none p-0">
               {navLinks.map(l => (
-                <li key={l.href}><Link href={l.href} className="text-sm text-white/55 hover:text-amber-300 transition-colors no-underline">{l.label}</Link></li>
+                <li key={l.href}><Link href={l.href} className="text-sm text-white/55 hover:text-amber-300 transition-colors no-underline">{l.fullLabel ?? l.label}</Link></li>
               ))}
             </ul>
           </div>

@@ -1,8 +1,8 @@
 export const navLinks = [
-  { label: 'Tentang Kami', href: '/#tentang' },
-  { label: 'Mengapa Memilih Kami', href: '/#mengapa' },
-  { label: 'Layanan Kami', href: '/#layanan' },
-  { label: 'Manajemen', href: '/#struktur' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Kontak', href: '/#kontak' },
+  { label: 'Tentang', fullLabel: 'Tentang Kami', href: '/#tentang' },
+  { label: 'Keunggulan', fullLabel: 'Mengapa Memilih Kami', href: '/#mengapa' },
+  { label: 'Layanan', fullLabel: 'Layanan Kami', href: '/#layanan' },
+  { label: 'Manajemen', fullLabel: 'Manajemen', href: '/#struktur' },
+  { label: 'Berita', fullLabel: 'Berita', href: '/berita' },
+  { label: 'Kontak', fullLabel: 'Kontak', href: '/#kontak' },
 ]

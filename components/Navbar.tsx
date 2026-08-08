@@ -21,7 +21,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-6 list-none">
+        <ul className="hidden lg:flex items-center gap-7 list-none">
           {navLinks.map(l => (
             <li key={l.href}>
               {l.href.startsWith('/#') ? (
@@ -43,18 +43,18 @@ export default function Navbar() {
         </ul>
 
         {/* Hamburger */}
-        <button className="md:hidden text-gray-700 p-1" onClick={() => setOpen(!open)}>
+        <button className="lg:hidden text-gray-700 p-1" onClick={() => setOpen(!open)}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-white px-6 pb-6 flex flex-col gap-1">
+        <div className="lg:hidden bg-white px-6 pb-6 flex flex-col gap-1">
           {navLinks.map(l => (
             <ScrollLink key={l.href} href={l.href} onClick={() => setOpen(false)}
               className="text-gray-600 text-sm font-semibold uppercase py-3 border-b border-gray-100 no-underline hover:text-emerald-700 transition-colors">
-              {l.label}
+              {l.fullLabel ?? l.label}
             </ScrollLink>
           ))}
           <ScrollLink href="/#kontak" onClick={() => setOpen(false)}
