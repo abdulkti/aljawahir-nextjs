@@ -2,14 +2,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import ScrollLink from '@/components/ScrollLink'
+import { navLinks } from '@/lib/navigation'
 import { Menu, X } from 'lucide-react'
-
-const links = [
-  { label: 'Tentang', href: '/#tentang' },
-  { label: 'Program', href: '/#program' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Kontak', href: '/#kontak' },
-]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -27,22 +21,22 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8 list-none">
-          {links.map(l => (
+        <ul className="hidden md:flex items-center gap-6 list-none">
+          {navLinks.map(l => (
             <li key={l.href}>
               {l.href.startsWith('/#') ? (
-                <ScrollLink href={l.href} className="text-gray-600 text-sm font-semibold uppercase tracking-wide hover:text-emerald-700 transition-colors no-underline">
+                <ScrollLink href={l.href} className="text-gray-600 text-[13px] font-semibold uppercase tracking-wide hover:text-emerald-700 transition-colors no-underline whitespace-nowrap">
                   {l.label}
                 </ScrollLink>
               ) : (
-                <Link href={l.href} className="text-gray-600 text-sm font-semibold uppercase tracking-wide hover:text-emerald-700 transition-colors no-underline">
+                <Link href={l.href} className="text-gray-600 text-[13px] font-semibold uppercase tracking-wide hover:text-emerald-700 transition-colors no-underline whitespace-nowrap">
                   {l.label}
                 </Link>
               )}
             </li>
           ))}
           <li>
-            <ScrollLink href="/#kontak" className="bg-emerald-700 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-emerald-800 transition-colors no-underline">
+            <ScrollLink href="/#kontak" className="bg-emerald-700 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-emerald-800 transition-colors no-underline whitespace-nowrap">
               Daftar Sekarang
             </ScrollLink>
           </li>
@@ -57,7 +51,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-white px-6 pb-6 flex flex-col gap-1">
-          {links.map(l => (
+          {navLinks.map(l => (
             <ScrollLink key={l.href} href={l.href} onClick={() => setOpen(false)}
               className="text-gray-600 text-sm font-semibold uppercase py-3 border-b border-gray-100 no-underline hover:text-emerald-700 transition-colors">
               {l.label}

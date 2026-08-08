@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { navLinks } from '@/lib/navigation'
 
 export default function Footer() {
   return (
@@ -40,15 +41,8 @@ export default function Footer() {
           <div>
             <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Tautan</h4>
             <ul className="space-y-2.5 list-none p-0">
-              {[
-                ['Tentang Kami', '/#tentang'],
-                ['Mengapa Memilih Kami', '/#mengapa'],
-                ['Layanan Kami', '/#layanan'],
-                ['Manajemen', '/#manajemen'],
-                ['Berita', '/berita'],
-                ['Kontak', '/#kontak'],
-              ].map(([l, h]) => (
-                <li key={h}><Link href={h} className="text-sm text-white/55 hover:text-amber-300 transition-colors no-underline">{l}</Link></li>
+              {navLinks.map(l => (
+                <li key={l.href}><Link href={l.href} className="text-sm text-white/55 hover:text-amber-300 transition-colors no-underline">{l.label}</Link></li>
               ))}
             </ul>
           </div>
