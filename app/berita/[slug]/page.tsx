@@ -71,11 +71,11 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
       <Navbar />
       <div className="pt-16 min-h-screen bg-white">
         {/* Cover */}
-        <div className="relative h-72 md:h-96 bg-gradient-to-br from-green-900 to-green-700 overflow-hidden">
+        <div className="relative h-72 md:h-96 bg-gradient-to-br from-emerald-900 to-emerald-700 overflow-hidden">
           {berita.cover_url && (
             <Image src={berita.cover_url} alt={berita.judul} fill className="object-cover opacity-60" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-green-950/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 max-w-3xl mx-auto">
             <span className={`text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block ${kategoriColor(berita.kategori)}`}>
               {berita.kategori}
@@ -96,7 +96,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
 
           {/* Ringkasan */}
           {berita.ringkasan && (
-            <p className="text-gray-500 text-lg leading-relaxed italic border-l-4 border-green-500 pl-5 mb-8 bg-green-50 py-4 pr-4 rounded-r-xl">
+            <p className="text-gray-500 text-lg leading-relaxed italic border-l-4 border-emerald-500 pl-5 mb-8 bg-emerald-50/60 py-4 pr-4 rounded-r-xl">
               {berita.ringkasan}
             </p>
           )}
@@ -110,7 +110,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
 
           {/* Back */}
           <div className="mt-12 pt-6 border-t border-gray-100">
-            <Link href="/berita" className="inline-flex items-center gap-2 text-green-700 font-bold text-sm no-underline hover:underline">
+            <Link href="/berita" className="inline-flex items-center gap-2 text-emerald-700 font-bold text-sm no-underline hover:underline">
               ← Kembali ke Berita
             </Link>
           </div>
@@ -127,12 +127,12 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
                 {beritaLain.map(b => (
                   <Link key={b.id} href={`/berita/${b.slug}`} className="no-underline group">
                     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="h-36 bg-gradient-to-br from-green-900 to-green-700 relative overflow-hidden">
+                      <div className="h-36 bg-gradient-to-br from-emerald-900 to-emerald-700 relative overflow-hidden">
                         {b.cover_url && <Image src={b.cover_url} alt={b.judul} fill className="object-cover opacity-80" />}
                       </div>
                       <div className="p-4">
-                        <p className="text-xs text-green-700 font-bold mb-1">{b.kategori}</p>
-                        <p className="text-gray-800 font-bold text-sm line-clamp-2 group-hover:text-green-700 transition-colors" style={{ fontFamily: 'Lora, serif' }}>{b.judul}</p>
+                        <p className="text-xs text-emerald-700 font-bold mb-1">{b.kategori}</p>
+                        <p className="text-gray-800 font-bold text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors" style={{ fontFamily: 'Lora, serif' }}>{b.judul}</p>
                         <p className="text-xs text-gray-400 mt-2">{formatTanggal(b.created_at)}</p>
                       </div>
                     </div>

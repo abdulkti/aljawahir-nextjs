@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -34,25 +33,25 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
         {/* Header */}
-        <div className="bg-green-900 py-16 px-6 text-center">
-          <span className="text-xs font-bold tracking-widest uppercase text-yellow-300 block mb-3">Berita & Artikel</span>
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3" style={{ fontFamily: 'Lora, serif' }}>
+        <div className="py-16 px-6 text-center bg-gradient-to-b from-emerald-50/70 via-white to-white">
+          <span className="text-xs font-bold tracking-widest uppercase text-emerald-700 inline-block bg-emerald-50 px-4 py-1.5 rounded-full mb-3">Berita & Artikel</span>
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Lora, serif' }}>
             Kabar Terkini
           </h1>
-          <p className="text-white/60 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi</p>
+          <p className="text-gray-500 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi</p>
         </div>
 
         {/* Filter Kategori */}
-        <div className="sticky top-16 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div className="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100">
           <div className="max-w-5xl mx-auto px-6 flex gap-2 overflow-x-auto py-3 scrollbar-hide">
             {KATEGORI.map(k => (
               <a key={k} href={k === 'Semua' ? '/berita' : `/berita?kategori=${k}`}
                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-colors no-underline ${
                   aktif === k
-                    ? 'bg-green-700 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'
+                    ? 'bg-emerald-700 text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'
                 }`}>
                 {k}
               </a>

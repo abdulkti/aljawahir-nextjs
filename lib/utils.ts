@@ -28,12 +28,12 @@ export function truncate(text: string, max: number): string {
 // Warna badge kategori
 export function kategoriColor(kategori: string): string {
   const map: Record<string, string> = {
-    Berita: 'bg-green-50 text-green-700',
+    Berita: 'bg-emerald-50 text-emerald-700',
     Pendidikan: 'bg-blue-50 text-blue-700',
-    Prestasi: 'bg-yellow-50 text-yellow-700',
+    Prestasi: 'bg-amber-50 text-amber-700',
     Kegiatan: 'bg-purple-50 text-purple-700',
     Pengumuman: 'bg-red-50 text-red-700',
     Artikel: 'bg-gray-50 text-gray-700',
   }
-  return map[kategori] ?? 'bg-green-50 text-green-700'
+  return map[kategori] ?? 'bg-emerald-50 text-emerald-700'
 }
