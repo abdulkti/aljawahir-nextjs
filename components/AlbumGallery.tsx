@@ -111,46 +111,45 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox (panel, bukan full screen) */}
       {lightbox !== null && photos[lightbox] && (
-        <div className="fixed inset-0 z-[80] flex flex-col bg-black/95">
-          {/* Top bar */}
-          <div className="flex items-center justify-between px-4 py-3 shrink-0">
-            <button onClick={close} className="flex items-center gap-2 text-white/90 hover:text-white px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors no-underline text-sm font-bold" aria-label="Kembali ke galeri">
-              <ChevronLeft size={20} />
-              Kembali
-            </button>
-            <span className="text-white/60 text-sm font-bold">{lightbox + 1} / {photos.length}</span>
-            <button onClick={close} className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Tutup">
-              <X size={20} />
-            </button>
-          </div>
+        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" aria-hidden="true" />
 
-          {/* Photo area */}
-          <div className="flex-1 relative flex items-center justify-center min-h-0 px-4">
-            <button onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + photos.length) % photos.length) }}
-              className="absolute left-2 md:left-6 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10" aria-label="Sebelumnya">
-              <ChevronLeft size={24} />
-            </button>
-            <div className="max-h-full max-w-5xl w-full" onClick={close}>
-              <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[68vh]">
-                <Image src={photos[lightbox].url} alt="" aria-hidden fill className="object-contain" sizes="100vw" priority />
-              </div>
+          <div className="relative bg-white rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
+            {/* Header */}
+            <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-gray-100 bg-white shrink-0">
+              <button onClick={() => setLightbox(null)} className="flex items-center gap-1.5 text-sm font-bold text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-full hover:bg-gray-100 transition-colors no-underline" aria-label="Kembali ke galeri">
+                <ChevronLeft size={18} />
+                Kembali
+              </button>
+              <span className="text-sm font-bold text-gray-500">{lightbox + 1} / {photos.length}</span>
+              <button onClick={close} className="p-2 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-800 transition-colors" aria-label="Tutup">
+                <X size={20} />
+              </button>
             </div>
-            <button onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % photos.length) }}
-              className="absolute right-2 md:right-6 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10" aria-label="Berikutnya">
-              <ChevronRight size={24} />
-            </button>
-          </div>
 
-          {/* Bottom caption bar */}
-          <div className="flex items-center justify-between gap-4 px-6 py-4 shrink-0">
-            <p className="text-white/80 text-sm truncate">
-              {photos[lightbox].caption ?? 'Tanpa keterangan'}
-            </p>
-            <button onClick={close} className="shrink-0 flex items-center gap-1.5 text-xs font-bold text-white/70 hover:text-white px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors no-underline">
-              Tutup <X size={14} />
-            </button>
+            {/* Photo area */}
+            <div className="relative flex-1 min-h-0 bg-gray-900 flex items-center justify-center h-64 md:h-[55vh]">
+              <button onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + photos.length) % photos.length) }}
+                className="absolute left-2 md:left-3 z-10 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors" aria-label="Sebelumnya">
+                <ChevronLeft size={24} />
+              </button>
+              <div className="relative w-full h-full">
+                <Image src={photos[lightbox].url} alt="" aria-hidden fill className="object-contain" sizes="80vw" priority />
+              </div>
+              <button onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % photos.length) }}
+                className="absolute right-2 md:right-3 z-10 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors" aria-label="Berikutnya">
+                <ChevronRight size={24} />
+              </button>
+            </div>
+
+            {/* Caption bar */}
+            <div className="px-5 py-3 border-t border-gray-100 bg-white shrink-0">
+              <p className="text-sm text-gray-600 text-center truncate">
+                {photos[lightbox].caption ?? 'Tanpa keterangan'}
+              </p>
+            </div>
           </div>
         </div>
       )}
