@@ -73,7 +73,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top bar */}
-      <div className="bg-green-900 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
+      <div className="bg-emerald-950 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
         <div className="flex items-center gap-3 md:gap-4">
           <Link href="/admin" className="text-white/70 hover:text-white no-underline transition-colors">
             <ArrowLeft size={20} />
@@ -90,7 +90,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
             {saving ? 'Menyimpan...' : 'Simpan Draft'}
           </button>
           <button onClick={() => save(true)} disabled={saving}
-            className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-green-900 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition-colors disabled:opacity-50">
+            className="flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-emerald-950 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition-colors disabled:opacity-50">
             <Send size={14} />
             {saving ? 'Memproses...' : 'Publikasi'}
           </button>
@@ -101,7 +101,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
       <div className="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-10">
         {/* Judul */}
         <input value={judul} onChange={e => setJudul(e.target.value)} maxLength={200}
-          className="w-full text-xl md:text-3xl font-bold text-gray-800 border-0 border-b-2 border-gray-200 focus:border-green-500 outline-none bg-transparent pb-3 mb-6 md:mb-8 placeholder-gray-300 transition-colors"
+          className="w-full text-xl md:text-3xl font-bold text-gray-800 border-0 border-b-2 border-gray-200 focus:border-emerald-500 outline-none bg-transparent pb-3 mb-6 md:mb-8 placeholder-gray-300 transition-colors"
           style={{ fontFamily: 'Lora, serif' }}
           placeholder="Tulis judul berita yang menarik..." />
 
@@ -110,14 +110,14 @@ export default function TulisPage({ editData }: { editData?: any }) {
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kategori</label>
             <select value={kategori} onChange={e => setKategori(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-green-500 bg-white">
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500 bg-white">
               {KATEGORI.map(k => <option key={k}>{k}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Penulis</label>
             <input value={penulis} onChange={e => setPenulis(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-green-500"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500"
               placeholder="Nama penulis (opsional)" />
           </div>
         </div>
@@ -136,10 +136,10 @@ export default function TulisPage({ editData }: { editData?: any }) {
               </button>
             </div>
           ) : (
-            <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-6 md:p-10 text-center cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all">
+            <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-6 md:p-10 text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all">
               <div className="text-4xl mb-3">{uploading ? '⏳' : '🖼️'}</div>
               <p className="text-gray-500 text-sm mb-1">
-                {uploading ? 'Mengupload gambar...' : <><strong className="text-green-700">Klik untuk upload gambar</strong></>}
+                {uploading ? 'Mengupload gambar...' : <><strong className="text-emerald-700">Klik untuk upload gambar</strong></>}
               </p>
               <p className="text-xs text-gray-400">JPG, PNG, WebP — maksimal 5MB</p>
               <input type="file" accept="image/*" onChange={handleUpload} className="hidden" disabled={uploading} />
@@ -151,7 +151,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
         <div className="mb-8">
           <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Ringkasan <span className="normal-case font-normal">(tampil di kartu berita)</span></label>
           <textarea value={ringkasan} onChange={e => setRingkasan(e.target.value)} maxLength={300}
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-500 resize-none leading-relaxed"
+            className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 resize-none leading-relaxed"
             rows={3} placeholder="Tuliskan ringkasan singkat berita ini..." />
           <p className="text-xs text-gray-400 text-right mt-1">{ringkasan.length}/300</p>
         </div>
@@ -160,7 +160,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
         <div className="mb-8">
           <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Isi Berita *</label>
           <textarea value={isi} onChange={e => setIsi(e.target.value)}
-            className="w-full px-4 py-4 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-500 resize-y leading-relaxed min-h-64"
+            className="w-full px-4 py-4 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 resize-y leading-relaxed min-h-64"
             placeholder={'Tuliskan isi berita lengkap di sini...\n\nTekan Enter dua kali untuk membuat paragraf baru.\n\nKonten ini akan tampil saat pembaca membuka berita.'} />
           <p className="text-xs text-gray-400 mt-1">{isi.length} karakter</p>
         </div>
@@ -176,7 +176,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
               <Save size={14} /> Draft
             </button>
             <button onClick={() => save(true)} disabled={saving}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl text-sm font-bold transition-colors disabled:opacity-50">
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold transition-colors disabled:opacity-50">
               <Send size={14} /> {saving ? 'Proses...' : 'Publikasi'}
             </button>
           </div>
@@ -184,7 +184,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
       </div>
 
       {toast && (
-        <div className={`fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-xl text-white text-sm font-semibold shadow-xl ${toastErr ? 'bg-red-600' : 'bg-green-800'}`}>
+        <div className={`fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-xl text-white text-sm font-semibold shadow-xl ${toastErr ? 'bg-red-600' : 'bg-emerald-800'}`}>
           {toast}
         </div>
       )}
