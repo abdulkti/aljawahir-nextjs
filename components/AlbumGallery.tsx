@@ -116,7 +116,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
         <div className="fixed inset-0 z-[80] flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" aria-hidden="true" />
 
-          <div className="relative bg-white rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
+          <div className="relative bg-white rounded-2xl w-full max-w-3xl h-[85vh] flex flex-col overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
             {/* Header */}
             <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-gray-100 bg-white shrink-0">
               <button onClick={() => setLightbox(null)} className="flex items-center gap-1.5 text-sm font-bold text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-full hover:bg-gray-100 transition-colors no-underline" aria-label="Kembali ke galeri">
@@ -130,7 +130,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
             </div>
 
             {/* Photo area */}
-            <div className="relative flex-1 min-h-0 bg-gray-900 flex items-center justify-center h-64 md:h-[55vh]">
+            <div className="relative flex-1 min-h-0 bg-gray-900 flex items-center justify-center">
               <button onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + photos.length) % photos.length) }}
                 className="absolute left-2 md:left-3 z-10 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors" aria-label="Sebelumnya">
                 <ChevronLeft size={24} />
