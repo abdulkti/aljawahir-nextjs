@@ -11,6 +11,8 @@ interface Props {
   onClose: () => void
 }
 
+const photoCache = new Map<UnitKey, AlbumFoto[]>()
+
 export default function AlbumGallery({ open, unit, onClose }: Props) {
   const [photos, setPhotos] = useState<AlbumFoto[]>([])
   const [loading, setLoading] = useState(true)
@@ -21,16 +23,26 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
 
     let cancelled = false
 
-    supabase
-      .from('album_foto')
-      .select('*')
-      .eq('unit', unit)
-      .order('created_at', { ascending: false })
-      .then(({ data }) => {
-        if (cancelled) return
-        setPhotos(data ?? [])
+    void (async () => {
+      await Promise.resolve()
+      if (cancelled) return
+      const cached = photoCache.get(unit)
+      if (cached) {
+        setPhotos(cached)
         setLoading(false)
-      })
+        return
+      }
+      const { data } = await supabase
+        .from('album_foto')
+        .select('*')
+        .eq('unit', unit)
+        .order('created_at', { ascending: false })
+      if (cancelled) return
+      const list = data ?? []
+      photoCache.set(unit, list)
+      setPhotos(list)
+      setLoading(false)
+    })()
 
     return () => {
       cancelled = true
@@ -137,6 +149,16 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
               </button>
               <div className="relative w-full h-full">
                 <Image src={photos[lightbox].url} alt="" aria-hidden fill className="object-contain" sizes="80vw" priority />
+              </div>
+
+              {/* Preload foto sebelumnya & berikutnya supaya ganti foto tidak ngelek */}
+              <div aria-hidden="true" className="pointer-events-none invisible absolute inset-0 overflow-hidden">
+                {[
+                  photos[(lightbox - 1 + photos.length) % photos.length],
+                  photos[(lightbox + 1) % photos.length],
+                ].map(p => (
+                  <Image key={p.id} src={p.url} alt="" fill className="object-contain" sizes="80vw" priority />
+                ))}
               </div>
               <button onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % photos.length) }}
                 className="absolute right-2 md:right-3 z-10 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors" aria-label="Berikutnya">
