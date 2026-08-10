@@ -24,7 +24,6 @@ import {
   MapPin,
   Mail,
   Clock,
-  Quote,
 } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -102,29 +101,6 @@ const strukturOrganisasi = [
   { label: 'Bendahara', orang: [
     { nama: 'Khairunnisa, SE, SPd.I', inisial: 'KN' },
   ], single: true },
-]
-
-const testimonials = [
-  {
-    quote: 'Al Jawahir mampu menyeimbangkan pendidikan agama dan ilmu pengetahuan. Saya melihat anak-anak dididik dengan penuh cinta dan tanggung jawab, menghasilkan generasi yang berakhlak dan berprestasi.',
-    author: 'Dr. H. Syamsul Maarif, Lc., M.A.',
-    role: 'Tokoh Pendidikan Sumatera Utara',
-  },
-  {
-    quote: 'Sekolah ini luar biasa dalam membentuk karakter siswa. Kurikulum yang memadukan IMTAQ dan IPTEK menghasilkan lulusan yang siap menghadapi tantangan zaman dengan bekal iman yang kuat.',
-    author: 'H. Muhammad Isa, S.Sos., M.Si.',
-    role: 'Tokoh Masyarakat Deli Serdang',
-  },
-  {
-    quote: 'Kami percaya Al Jawahir adalah tempat yang tepat untuk putra-putri kami. Metode pengajaran yang Islami, lingkungan yang kondusif, dan tenaga pendidik yang profesional menjadi nilai lebih.',
-    author: 'Prof. Dr. Halimah Tusyadiyah, M.Pd.',
-    role: 'Wali Murid SMP IT Al Jawahir',
-  },
-  {
-    quote: 'Saya bangga dengan perkembangan Al Jawahir. Dari RA hingga SMP, konsistensi dalam mendidik dengan nilai-nilai Qurani sangat terlihat. Semoga terus menjadi lembaga pendidikan yang membanggakan.',
-    author: 'Drs. H. Zulkifli Nasution, M.M.',
-    role: 'Wakil Ketua MUI Deli Serdang',
-  },
 ]
 
 function InstagramIcon({ size = 18, strokeWidth = 1.75, className = '' }: { size?: number; strokeWidth?: number; className?: string }) {
@@ -450,43 +426,6 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-      </AnimateOnScroll>
-
-      {/* ===== TESTIMONIAL ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="testimonial" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Apa Kata Mereka"
-            title="Testimoni"
-            titleAccent="Al Jawahir"
-            desc="Kepercayaan dan apresiasi dari tokoh masyarakat, pendidik, dan wali murid."
-          />
-          <div className="grid md:grid-cols-2 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all">
-                <Quote size={28} className="text-emerald-200 mb-4" fill="currentColor" strokeWidth={0} />
-                <p className="text-gray-600 text-sm leading-relaxed italic mb-6">&ldquo;{t.quote}&rdquo;</p>
-                <div>
-                  <p className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Lora, serif' }}>{t.author}</p>
-                  <p className="text-gray-400 text-xs mt-0.5">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-14 bg-emerald-950 rounded-3xl p-8 md:p-12 text-center">
-            <p className="arabic text-amber-200/90 text-xl md:text-2xl leading-loose max-w-3xl mx-auto mb-5">
-              &quot;وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ&quot;
-            </p>
-            <div className="w-12 h-px bg-amber-400/30 mx-auto mb-5" />
-            <p className="italic text-white/60 text-sm max-w-xl mx-auto mb-2" style={{ fontFamily: 'Lora, serif' }}>
-              &quot;Barangsiapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga.&quot;
-            </p>
-            <span className="text-xs font-bold text-amber-300/70 tracking-wide">— HR. Muslim</span>
           </div>
         </div>
       </section>
