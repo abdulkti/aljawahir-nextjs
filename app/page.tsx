@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollToHash from '@/components/ScrollToHash'
+import AnimateText from '@/components/AnimateText'
 
 import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
@@ -121,15 +122,35 @@ const kontakItems = [
 ]
 
 function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title: string; desc?: string; titleAccent: string }) {
+  const titleWords = title.split(' ')
+  const accentWords = titleAccent.split(' ')
+  const wordDelay = (i: number) => 80 + i * 60
   return (
     <div className="text-center mb-12 md:mb-16">
-      <span className="inline-block text-xs font-bold tracking-[0.18em] uppercase text-emerald-700 bg-emerald-50 px-4 py-1.5 rounded-full mb-5">
-        {tag}
-      </span>
+      <AnimateText direction="down" as="span" className="inline-block">
+        <span className="inline-block text-xs font-bold tracking-[0.18em] uppercase text-emerald-700 bg-emerald-50 px-4 py-1.5 rounded-full mb-5">
+          {tag}
+        </span>
+      </AnimateText>
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-4" style={{ fontFamily: 'Lora, serif' }}>
-        {title} <span className="text-emerald-700">{titleAccent}</span>
+        <span className="inline-block overflow-hidden align-top pb-1 -mb-1">
+          {titleWords.map((w, i) => (
+            <AnimateText key={i} direction="up" delay={wordDelay(i)} as="span" className="inline-block">{w}{i < titleWords.length - 1 ? '\u00A0' : ''}</AnimateText>
+          ))}
+        </span>{' '}
+        <span className="inline-block overflow-hidden align-top pb-1 -mb-1">
+          {accentWords.map((w, i) => (
+            <AnimateText key={i} direction="up" delay={wordDelay(titleWords.length + i)} as="span" className="inline-block">
+              <span className="text-emerald-700">{w}{i < accentWords.length - 1 ? '\u00A0' : ''}</span>
+            </AnimateText>
+          ))}
+        </span>
       </h2>
-      {desc && <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">{desc}</p>}
+      {desc && (
+        <AnimateText direction="up" delay={320}>
+          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">{desc}</p>
+        </AnimateText>
+      )}
     </div>
   )
 }
@@ -154,9 +175,18 @@ export default async function HomePage() {
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ
           </p>
           <p className="animate-in animate-in-delay-2 text-gray-400 text-sm italic mb-6">Q.S. An-Nahl: 125</p>
-          <h1 className="animate-in animate-in-delay-3 text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-3" style={{ fontFamily: 'Lora, serif' }}>
-            Yayasan<br />
-            <span className="text-emerald-700">Al Jawahir At Tarbawi</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-3" style={{ fontFamily: 'Lora, serif' }}>
+            <span className="inline-block overflow-hidden align-top pb-1 -mb-1">
+              <AnimateText direction="up" delay={250} as="span" className="inline-block">Yayasan</AnimateText>
+            </span>
+            <br />
+            <span className="inline-block overflow-hidden align-top pb-1 -mb-1">
+              {['Al', 'Jawahir', 'At', 'Tarbawi'].map((w, i) => (
+                <AnimateText key={i} direction="up" delay={350 + i * 80} as="span" className="inline-block text-emerald-700">
+                  {w}{i < 3 ? '\u00A0' : ''}
+                </AnimateText>
+              ))}
+            </span>
           </h1>
           <p className="animate-in animate-in-delay-4 text-gray-400 text-sm uppercase tracking-[0.15em] mb-2">Deli Serdang, Sumatera Utara</p>
           <p className="animate-in animate-in-delay-4 text-gray-500 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
