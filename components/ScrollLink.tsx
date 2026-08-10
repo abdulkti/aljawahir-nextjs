@@ -18,10 +18,14 @@ export default function ScrollLink({ href, children, className, onClick, target 
     const el = document.getElementById(hash)
     if (!el) return
     e.preventDefault()
-    const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET
-    window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' })
-    history.replaceState(null, '', `#${hash}`)
     onClick?.()
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET
+        window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' })
+      })
+    })
+    history.replaceState(null, '', `#${hash}`)
   }
 
   return (

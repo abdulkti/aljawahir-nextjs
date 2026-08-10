@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import ScrollToHash from '@/components/ScrollToHash'
 
 import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
@@ -163,6 +164,7 @@ export default async function HomePage() {
   return (
     <>
       <Navbar />
+      <ScrollToHash />
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pb-16 overflow-hidden bg-gradient-to-b from-emerald-50/70 via-white to-white">
