@@ -96,7 +96,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-6">
+        <div className="flex-1 overflow-y-auto p-3 md:p-6">
           {loading ? (
             <div className="text-center py-16 text-gray-400">⏳ Memuat foto...</div>
           ) : photos.length === 0 ? (
@@ -106,7 +106,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
               <p className="text-sm">Foto album unit ini belum ditambahkan.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3">
               {photos.map((p, i) => (
                 <button key={p.id} onClick={() => setLightbox(i)}
                   className="group relative aspect-square rounded-xl overflow-hidden bg-gray-100 border border-gray-200 hover:border-green-400 transition-all cursor-zoom-in">
