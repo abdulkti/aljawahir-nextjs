@@ -87,20 +87,20 @@ const strukturOrganisasi = [
   { label: 'Pembina', orang: [
     { nama: 'H. Syafril Usman, SPd.I', inisial: 'SU' },
     { nama: 'Hj. Jawahir', inisial: 'HJ' },
-    { nama: 'Muhammad Ihsan', inisial: 'MI' },
+    { nama: 'Muhammad Ikhsan, SKM', inisial: 'MI' },
   ]},
   { label: 'Pengawas', orang: [
     { nama: 'Muhammad Sulfan Irvan, SE', inisial: 'SI' },
     { nama: 'Ir. Anda Zulfan, MM', inisial: 'AZ' },
   ]},
   { label: 'Ketua Yayasan', orang: [
-    { nama: 'Dr. Zulheddi, MA', inisial: 'ZH' },
+    { nama: 'Dr. Zulheddi, Lc, MA', inisial: 'ZH' },
   ], single: true },
   { label: 'Sekretaris', orang: [
-    { nama: 'Khairati Sawitri', inisial: 'KS' },
+    { nama: 'Khairiati Sawitri, S.Psi', inisial: 'KS' },
   ], single: true },
   { label: 'Bendahara', orang: [
-    { nama: 'Khairunnisah, SE', inisial: 'KN' },
+    { nama: 'Khairunnisa, SE, SPd.I', inisial: 'KN' },
   ], single: true },
 ]
 
