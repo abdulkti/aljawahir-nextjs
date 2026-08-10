@@ -216,42 +216,33 @@ export default async function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-14">
             {mengapaCards.map((c, i) => (
-              <div key={i} className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-emerald-200 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
-                  <c.icon size={24} strokeWidth={1.75} />
+              <AnimateText key={i} direction="up" delay={i * 120} className="h-full">
+                <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-emerald-200 transition-all">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
+                    <c.icon size={24} strokeWidth={1.75} />
+                  </div>
+                  <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>{c.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
                 </div>
-                <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>{c.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
-              </div>
+              </AnimateText>
             ))}
           </div>
 
           <div className="bg-emerald-950 rounded-3xl py-12 px-6">
             <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
-                  <AnimatedCounter value={20} suffix="+" />
-                </div>
-                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Tahun Berdiri</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
-                  <AnimatedCounter value={4} />
-                </div>
-                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Unit Pendidikan</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
-                  <AnimatedCounter value={500} suffix="+" />
-                </div>
-                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Siswa</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
-                  <AnimatedCounter value={60} suffix="+" />
-                </div>
-                <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">Tenaga Pendidik</div>
-              </div>
+              {[
+                { value: 20, suffix: '+', label: 'Tahun Berdiri' },
+                { value: 4, suffix: '', label: 'Unit Pendidikan' },
+                { value: 500, suffix: '+', label: 'Siswa' },
+                { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
+              ].map((s, i) => (
+                <AnimateText key={i} direction="zoom" delay={i * 110} className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
+                    <AnimatedCounter value={s.value} suffix={s.suffix} />
+                  </div>
+                  <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">{s.label}</div>
+                </AnimateText>
+              ))}
             </div>
           </div>
         </div>
@@ -270,32 +261,38 @@ export default async function HomePage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-emerald-950 flex items-center justify-center text-amber-400 mb-4">
-                <Target size={22} strokeWidth={1.75} />
+            <AnimateText direction="left" delay={0} className="h-full">
+              <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
+                <div className="w-12 h-12 rounded-xl bg-emerald-950 flex items-center justify-center text-amber-400 mb-4">
+                  <Target size={22} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Visi</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
               </div>
-              <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Visi</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
-            </div>
-            <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
-                <Star size={22} strokeWidth={1.75} />
+            </AnimateText>
+            <AnimateText direction="up" delay={100} className="h-full">
+              <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
+                <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
+                  <Star size={22} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Misi</h3>
+                <ul className="text-gray-600 text-sm leading-relaxed space-y-2">
+                  <li>• Pendidikan unggul berfokus karakter Qur\u2019ani</li>
+                  <li>• Dakwah berkelanjutan, inklusif, dan mempersatukan</li>
+                  <li>• Aktivitas sosial yang berdampak nyata</li>
+                </ul>
               </div>
-              <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Misi</h3>
-              <ul className="text-gray-600 text-sm leading-relaxed space-y-2">
-                <li>• Pendidikan unggul berfokus karakter Qur\u2019ani</li>
-                <li>• Dakwah berkelanjutan, inklusif, dan mempersatukan</li>
-                <li>• Aktivitas sosial yang berdampak nyata</li>
-              </ul>
-            </div>
-            <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
-                <CalendarDays size={22} strokeWidth={1.75} />
+            </AnimateText>
+            <AnimateText direction="right" delay={200} className="h-full">
+              <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
+                <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
+                  <CalendarDays size={22} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Berdiri</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
+                <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
               </div>
-              <h3 className="font-bold text-gray-800 text-lg mb-2" style={{ fontFamily: 'Lora, serif' }}>Berdiri</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
-              <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
-            </div>
+            </AnimateText>
           </div>
         </div>
       </section>
@@ -313,14 +310,16 @@ export default async function HomePage() {
           />
           <div className="grid md:grid-cols-3 gap-6">
             {layananCards.map((c, i) => (
-              <div key={i} className="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6 group-hover:scale-105 transition-transform duration-300">
-                  <c.icon size={26} strokeWidth={1.5} />
+              <AnimateText key={i} direction="up" delay={i * 120} className="h-full">
+                <div className="h-full group bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6 group-hover:scale-105 transition-transform duration-300">
+                    <c.icon size={26} strokeWidth={1.5} />
+                  </div>
+                  <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full mb-3">{c.tag}</span>
+                  <h3 className="font-bold text-gray-800 text-xl mb-3 leading-snug" style={{ fontFamily: 'Lora, serif' }}>{c.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
                 </div>
-                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full mb-3">{c.tag}</span>
-                <h3 className="font-bold text-gray-800 text-xl mb-3 leading-snug" style={{ fontFamily: 'Lora, serif' }}>{c.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
-              </div>
+              </AnimateText>
             ))}
           </div>
         </div>
@@ -359,7 +358,7 @@ export default async function HomePage() {
               { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.' },
               { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.' },
             ].map((t, i) => (
-              <div key={i} className="flex gap-5 md:gap-7">
+              <AnimateText key={i} direction={i % 2 === 0 ? 'left' : 'right'} delay={0} className="flex gap-5 md:gap-7">
                 <div className="flex flex-col items-center">
                   <div className="w-3 h-3 rounded-full bg-emerald-600 mt-2 flex-shrink-0" />
                   {i < 3 && <div className="w-px flex-1 bg-emerald-100" />}
@@ -369,7 +368,7 @@ export default async function HomePage() {
                   <h3 className="font-bold text-gray-800 text-lg mb-1" style={{ fontFamily: 'Lora, serif' }}>{t.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
                 </div>
-              </div>
+              </AnimateText>
             ))}
           </div>
         </div>
@@ -392,12 +391,14 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
             <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
               {strukturOrganisasi[0].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+                <AnimateText key={i} direction="up" delay={i * 120} className="h-full">
+                  <div className="h-full bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
                   </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
-                </div>
+                </AnimateText>
               ))}
             </div>
           </div>
@@ -407,12 +408,14 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
             <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
               {strukturOrganisasi[1].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+                <AnimateText key={i} direction="up" delay={i * 140} className="h-full">
+                  <div className="h-full bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
                   </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
-                </div>
+                </AnimateText>
               ))}
             </div>
           </div>
@@ -422,12 +425,14 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
             <div className="max-w-xs mx-auto">
               {strukturOrganisasi[2].orang.map((t, i) => (
-                <div key={i} className="bg-emerald-950 rounded-2xl p-5 border border-emerald-900 shadow-sm text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+                <AnimateText key={i} direction="zoom" delay={i * 120}>
+                  <div className="bg-emerald-950 rounded-2xl p-5 border border-emerald-900 shadow-sm text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-white text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
                   </div>
-                  <p className="font-bold text-white text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
-                </div>
+                </AnimateText>
               ))}
             </div>
           </div>
@@ -437,23 +442,27 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
               {strukturOrganisasi[3].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+                <AnimateText key={i} direction="up" delay={i * 140}>
+                  <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
                   </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
-                </div>
+                </AnimateText>
               ))}
             </div>
             <div>
               <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
               {strukturOrganisasi[4].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+                <AnimateText key={i} direction="up" delay={i * 140}>
+                  <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
                   </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug" style={{ fontFamily: 'Lora, serif' }}>{t.nama}</p>
-                </div>
+                </AnimateText>
               ))}
             </div>
           </div>
@@ -479,7 +488,11 @@ export default async function HomePage() {
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
-              {beritaList.map(b => <BeritaCard key={b.id} berita={b} />)}
+              {beritaList.map((b, i) => (
+                <AnimateText key={b.id} direction="up" delay={i * 130} className="h-full">
+                  <BeritaCard berita={b} />
+                </AnimateText>
+              ))}
             </div>
           )}
           <div className="text-center mt-10">
@@ -503,23 +516,26 @@ export default async function HomePage() {
           />
           <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
             <div className="space-y-4 md:space-y-5">
-              {kontakItems.map(c => (
-                <div key={c.title} className="flex gap-3 md:gap-4 items-start group">
-                  <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
-                    <c.icon size={18} strokeWidth={1.75} />
+              {kontakItems.map((c, i) => (
+                <AnimateText key={c.title} direction="left" delay={i * 100}>
+                  <div className="flex gap-3 md:gap-4 items-start group">
+                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
+                      <c.icon size={18} strokeWidth={1.75} />
+                    </div>
+                    <div className="pt-0.5">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">{c.title}</p>
+                      {'href' in c && c.href ? (
+                        <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-sm leading-relaxed hover:text-emerald-700 transition-colors">{c.val}</a>
+                      ) : (
+                        <p className="text-gray-600 text-sm leading-relaxed">{c.val}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="pt-0.5">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">{c.title}</p>
-                    {'href' in c && c.href ? (
-                      <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-sm leading-relaxed hover:text-emerald-700 transition-colors">{c.val}</a>
-                    ) : (
-                      <p className="text-gray-600 text-sm leading-relaxed">{c.val}</p>
-                    )}
-                  </div>
-                </div>
+                </AnimateText>
               ))}
             </div>
-            <div className="bg-gray-50 rounded-2xl p-5 md:p-8 border border-gray-100">
+            <AnimateText direction="right" delay={200}>
+              <div className="bg-gray-50 rounded-2xl p-5 md:p-8 border border-gray-100">
               <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -529,7 +545,8 @@ export default async function HomePage() {
                 <h3 className="font-bold text-gray-800 text-lg" style={{ fontFamily: 'Lora, serif' }}>Chat WhatsApp</h3>
               </div>
               <KontakForm />
-            </div>
+              </div>
+            </AnimateText>
           </div>
         </div>
       </section>

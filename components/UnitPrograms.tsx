@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import AlbumGallery from '@/components/AlbumGallery'
+import AnimateText from '@/components/AnimateText'
 import { supabase } from '@/lib/supabase'
 import { UnitKey } from '@/types'
 import { Images, ArrowRight, GraduationCap } from 'lucide-react'
@@ -82,9 +83,10 @@ export default function UnitPrograms() {
   return (
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-        {units.map(p => (
-          <div key={p.unit}
-            className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-900/10 hover:-translate-y-1.5 transition-all duration-500 flex flex-col">
+        {units.map((p, i) => (
+          <AnimateText key={p.unit} direction="up" delay={i * 130} className="h-full">
+          <div
+            className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-900/10 hover:-translate-y-1.5 transition-all duration-500 flex flex-col h-full">
 
             {/* HEADER — foto asli bila ada, ilustrasi bila kosong */}
             <div className="relative h-44 overflow-hidden">
@@ -143,6 +145,7 @@ export default function UnitPrograms() {
               </div>
             </div>
           </div>
+          </AnimateText>
         ))}
       </div>
 

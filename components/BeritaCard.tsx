@@ -5,7 +5,7 @@ import { formatTanggal, kategoriColor } from '@/lib/utils'
 
 export default function BeritaCard({ berita }: { berita: Berita }) {
   return (
-    <Link href={`/berita/${berita.slug}`} className="group block no-underline">
+    <Link href={`/berita/${berita.slug}`} className="group block h-full no-underline">
       <article className="bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-emerald-200 hover:-translate-y-1 h-full flex flex-col">
         {/* Cover Image */}
         <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-emerald-100 overflow-hidden">
