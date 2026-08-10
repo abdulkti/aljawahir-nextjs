@@ -14,7 +14,7 @@ export default function Footer() {
             <p className="text-sm leading-7 mb-3">
               Al Jawahir Islamic School — Islamic educational institution yang berkomitmen membangun generasi Qurani di Deli Serdang, Sumatera Utara.
             </p>
-            <p className="arabic text-amber-300 text-base mb-4">&quot;الجواهر التربية&quot;</p>
+            <p className="arabic text-amber-300 text-base mb-4">&quot;الجواهر التربوي&quot;</p>
             <div className="flex gap-3">
               <a href="https://instagram.com/aljawahir_islamic_school" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center hover:bg-amber-400/20 hover:text-amber-300 transition-all" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
