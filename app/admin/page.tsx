@@ -161,16 +161,16 @@ export default function AdminPage() {
     <div className="min-h-screen bg-emerald-50/40">
 
       {/* Mobile top bar */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-emerald-950 px-4 h-14 flex items-center justify-between border-b border-white/10">
-        <div className="flex items-center gap-2.5">
-          <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-8 h-8 object-contain" />
-          <div>
-            <p className="text-white text-xs font-bold leading-tight">Al Jawahir At Tarbawi</p>
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-emerald-950 px-4 h-12 flex items-center justify-between border-b border-white/10">
+        <div className="flex items-center gap-2">
+          <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-6 h-6 object-contain" />
+          <div className="leading-tight">
+            <p className="text-white text-xs font-bold">Al Jawahir At Tarbawi</p>
             <p className="text-amber-300 text-[10px]">Admin Panel</p>
           </div>
         </div>
         <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/80 hover:text-white p-1">
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </header>
 
@@ -179,97 +179,97 @@ export default function AdminPage() {
 
       {/* Sidebar */}
       <aside className={`fixed top-0 left-0 bottom-0 z-40 w-56 bg-gradient-to-b from-emerald-950 to-emerald-900 flex-col transition-transform duration-200 md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="p-5 border-b border-white/10">
-          <div className="flex items-center gap-2.5">
-            <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-9 h-9 object-contain" />
-            <div>
-              <p className="text-white text-xs font-bold leading-tight">Al Jawahir At Tarbawi</p>
-              <p className="text-amber-300 text-xs">Admin Panel</p>
+        <div className="px-4 py-3.5 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-7 h-7 object-contain" />
+            <div className="leading-tight">
+              <p className="text-white text-xs font-bold">Al Jawahir At Tarbawi</p>
+              <p className="text-amber-300 text-[10px]">Admin Panel</p>
             </div>
           </div>
         </div>
-        <nav className="flex-1 p-3">
+        <nav className="flex-1 px-2.5 py-2">
           {([
             { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { id: 'berita', label: 'Daftar Berita', icon: Newspaper },
             { id: 'album', label: 'Album Foto', icon: Images },
           ] as const).map(item => (
             <button key={item.id} onClick={() => { setTab(item.id); setMobileOpen(false); if (item.id === 'album') loadAlbum() }}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold mb-1 transition-colors ${tab === item.id ? 'bg-white/15 text-white' : 'text-white/60 hover:text-white hover:bg-white/8'}`}>
-              <item.icon size={16} />
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold mb-0.5 transition-colors ${tab === item.id ? 'bg-white/15 text-white' : 'text-white/60 hover:text-white hover:bg-white/8'}`}>
+              <item.icon size={15} />
               {item.label}
             </button>
           ))}
-          <Link href="/admin/tulis" onClick={() => setMobileOpen(false)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold mb-1 text-white/60 hover:text-white hover:bg-white/8 no-underline transition-colors">
-            <PenSquare size={16} />
+          <Link href="/admin/tulis" onClick={() => setMobileOpen(false)} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold mb-0.5 text-white/60 hover:text-white hover:bg-white/8 no-underline transition-colors">
+            <PenSquare size={15} />
             Tulis Berita
           </Link>
         </nav>
-        <div className="p-3 border-t border-white/10">
-          <Link href="/" target="_blank" className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-white/50 hover:text-white hover:bg-white/8 no-underline transition-colors mb-1">
-            <Eye size={16} />
+        <div className="px-2.5 py-2 border-t border-white/10">
+          <Link href="/" target="_blank" className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] text-white/50 hover:text-white hover:bg-white/8 no-underline transition-colors mb-0.5">
+            <Eye size={15} />
             Lihat Website
           </Link>
-          <button onClick={doLogout} className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-white/50 hover:text-red-300 hover:bg-red-500/10 transition-colors">
-            <LogOut size={16} />
+          <button onClick={doLogout} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] text-white/50 hover:text-red-300 hover:bg-red-500/10 transition-colors">
+            <LogOut size={15} />
             Keluar
           </button>
         </div>
       </aside>
 
       {/* Main */}
-      <main className="pt-14 md:pt-0 md:ml-56 flex-1 p-4 md:p-8">
+      <main className="pt-12 md:pt-0 md:ml-56 flex-1 p-4 md:p-6 lg:p-8">
 
         {/* DASHBOARD */}
         {tab === 'dashboard' && (
           <div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
-                <h1 className="text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Dashboard</h1>
-                <p className="text-gray-400 text-sm mt-1">Selamat datang di panel admin yayasan</p>
+                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Dashboard</h1>
+                <p className="text-gray-400 text-xs mt-0.5">Selamat datang di panel admin yayasan</p>
               </div>
-              <Link href="/admin/tulis" className="self-start flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm no-underline transition-colors">
-                <Plus size={16} /> <span className="hidden xs:inline">Tulis Berita Baru</span><span className="xs:hidden">Baru</span>
+              <Link href="/admin/tulis" className="self-start flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3.5 py-2 rounded-lg text-[13px] font-semibold no-underline transition-colors">
+                <Plus size={14} /> Tulis Berita Baru
               </Link>
             </div>
             {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-5">
               {[
                 { label: 'Total Berita', value: beritaList.length, icon: Newspaper, chip: 'bg-emerald-100 text-emerald-700' },
                 { label: 'Dipublikasikan', value: published.length, icon: Globe, chip: 'bg-sky-100 text-sky-600' },
                 { label: 'Draft', value: drafts.length, icon: PenLine, chip: 'bg-amber-100 text-amber-600' },
               ].map(s => (
-                <div key={s.label} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl ${s.chip} flex items-center justify-center shrink-0`}>
-                    <s.icon size={22} />
+                <div key={s.label} className="bg-white rounded-xl px-4 py-3 border border-gray-100 flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-lg ${s.chip} flex items-center justify-center shrink-0`}>
+                    <s.icon size={17} />
                   </div>
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-gray-800 leading-none" style={{ fontFamily: 'Lora, serif' }}>{s.value}</div>
-                    <div className="text-sm text-gray-500 mt-1.5">{s.label}</div>
+                    <div className="text-xl font-bold text-gray-800 leading-none" style={{ fontFamily: 'Lora, serif' }}>{s.value}</div>
+                    <div className="text-xs text-gray-500 mt-1">{s.label}</div>
                   </div>
                 </div>
               ))}
             </div>
             {/* Terbaru */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between px-5 md:px-6 py-4 border-b border-gray-100">
-                <h2 className="font-bold text-gray-800 text-base md:text-lg" style={{ fontFamily: 'Lora, serif' }}>Berita Terbaru</h2>
-                <button onClick={() => setTab('berita')} className="text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors">
+            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                <h2 className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Lora, serif' }}>Berita Terbaru</h2>
+                <button onClick={() => setTab('berita')} className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 transition-colors">
                   Lihat semua →
                 </button>
               </div>
               <div className="divide-y divide-gray-100">
                 {beritaList.slice(0, 5).map(b => (
-                  <div key={b.id} className="flex items-center gap-4 px-5 md:px-6 py-3.5 hover:bg-emerald-50/50 transition-colors">
-                    <div className="w-12 h-10 rounded-lg bg-emerald-50 flex items-center justify-center overflow-hidden flex-shrink-0">
-                      {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={48} height={40} className="object-cover w-full h-full" /> : <span className="text-lg">📰</span>}
+                  <div key={b.id} className="flex items-center gap-3 px-4 py-2.5 hover:bg-emerald-50/50 transition-colors">
+                    <div className="w-10 h-8 rounded-md bg-emerald-50 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={40} height={32} className="object-cover w-full h-full" /> : <span className="text-sm">📰</span>}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-800 text-sm truncate">{b.judul}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{b.kategori} · {formatTanggal(b.created_at)}</p>
+                      <p className="font-medium text-gray-800 text-sm truncate">{b.judul}</p>
+                      <p className="text-xs text-gray-400">{b.kategori} · {formatTanggal(b.created_at)}</p>
                     </div>
-                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${b.published ? 'bg-emerald-500' : 'bg-gray-400'}`} />
+                    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1.5 ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                      <span className={`w-1 h-1 rounded-full ${b.published ? 'bg-emerald-500' : 'bg-gray-400'}`} />
                       {b.published ? 'Publik' : 'Draft'}
                     </span>
                   </div>
@@ -285,70 +285,70 @@ export default function AdminPage() {
         {/* DAFTAR BERITA */}
         {tab === 'berita' && (
           <div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
-              <h1 className="flex-1 text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Daftar Berita</h1>
-              <Link href="/admin/tulis" className="self-start flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold no-underline transition-colors">
-                <Plus size={16} /> <span className="hidden xs:inline">Tulis Berita Baru</span><span className="xs:hidden">Baru</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+              <h1 className="flex-1 text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Daftar Berita</h1>
+              <Link href="/admin/tulis" className="self-start flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3.5 py-2 rounded-lg text-[13px] font-semibold no-underline transition-colors">
+                <Plus size={14} /> Tulis Berita Baru
               </Link>
             </div>
             {loading ? (
-              <div className="text-center py-20 text-gray-400">⏳ Memuat...</div>
+              <div className="text-center py-16 text-gray-400">⏳ Memuat...</div>
             ) : beritaList.length === 0 ? (
-              <div className="text-center py-20 bg-white rounded-2xl border border-gray-200">
+              <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
                 <p className="text-4xl mb-3">📰</p>
                 <p className="font-bold text-gray-600 mb-1">Belum ada berita</p>
                 <Link href="/admin/tulis" className="text-sm text-emerald-700 no-underline hover:underline">Tulis berita pertama →</Link>
               </div>
             ) : (<>
-              <div className="hidden sm:block bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="hidden sm:block bg-white rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full">
                   <thead className="bg-emerald-50/60 border-b border-gray-100">
                     <tr>
-                      <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">Berita</th>
-                      <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">Kategori</th>
-                      <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">Status</th>
-                      <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">Tanggal</th>
-                      <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">Aksi</th>
+                      <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Berita</th>
+                      <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Kategori</th>
+                      <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Status</th>
+                      <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Tanggal</th>
+                      <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     {beritaList.map(b => (
                       <tr key={b.id} className="border-b border-gray-100 hover:bg-emerald-50/40 transition-colors last:border-0">
-                        <td className="px-5 py-4">
+                        <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
-                            <div className="w-12 h-10 rounded-lg bg-emerald-50 flex-shrink-0 overflow-hidden">
-                              {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={48} height={40} className="object-cover w-full h-full" /> : <div className="w-full h-full flex items-center justify-center text-lg">📰</div>}
+                            <div className="w-10 h-8 rounded-md bg-emerald-50 flex-shrink-0 overflow-hidden">
+                              {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={40} height={32} className="object-cover w-full h-full" /> : <div className="w-full h-full flex items-center justify-center text-sm">📰</div>}
                             </div>
-                            <p className="font-semibold text-gray-800 text-sm line-clamp-1 max-w-xs">{b.judul}</p>
+                            <p className="font-medium text-gray-800 text-sm line-clamp-1 max-w-xs">{b.judul}</p>
                           </div>
                         </td>
-                        <td className="px-5 py-4">
-                          <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">{b.kategori}</span>
+                        <td className="px-4 py-3">
+                          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">{b.kategori}</span>
                         </td>
-                        <td className="px-5 py-4">
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 w-fit ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                        <td className="px-4 py-3">
+                          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5 w-fit ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
                             <span className={`w-1.5 h-1.5 rounded-full ${b.published ? 'bg-emerald-500' : 'bg-gray-400'}`} />
                             {b.published ? 'Publik' : 'Draft'}
                           </span>
                         </td>
-                        <td className="px-5 py-4">
+                        <td className="px-4 py-3">
                           <span className="flex items-center gap-1.5 text-sm text-gray-400">
                             <CalendarDays size={14} />
                             {formatTanggal(b.created_at)}
                           </span>
                         </td>
-                        <td className="px-5 py-4">
-                          <div className="flex items-center gap-2">
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-1.5">
                             <button onClick={() => togglePublish(b.id, b.published)} title={b.published ? 'Jadikan Draft' : 'Publikasikan'}
-                              className="p-2 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors">
-                              {b.published ? <EyeOff size={15} /> : <Eye size={15} />}
+                              className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors">
+                              {b.published ? <EyeOff size={14} /> : <Eye size={14} />}
                             </button>
-                            <Link href={`/admin/edit/${b.id}`} className="p-2 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors no-underline">
-                              <Pencil size={15} />
+                            <Link href={`/admin/edit/${b.id}`} className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors no-underline">
+                              <Pencil size={14} />
                             </Link>
                             <button onClick={() => hapus(b.id, b.judul)}
-                              className="p-2 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-colors">
-                              <Trash2 size={15} />
+                              className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-colors">
+                              <Trash2 size={14} />
                             </button>
                           </div>
                         </td>
@@ -359,16 +359,16 @@ export default function AdminPage() {
               </div>
               <div className="sm:hidden flex flex-col gap-3">
                 {beritaList.map(b => (
-                  <div key={b.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+                  <div key={b.id} className="bg-white rounded-xl border border-gray-100 p-4">
                     <div className="flex items-start gap-3 mb-3">
-                      <div className="w-12 h-10 rounded-lg bg-emerald-50 flex-shrink-0 overflow-hidden mt-0.5">
-                        {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={48} height={40} className="object-cover w-full h-full" /> : <div className="w-full h-full flex items-center justify-center text-lg">📰</div>}
+                      <div className="w-10 h-8 rounded-md bg-emerald-50 flex-shrink-0 overflow-hidden mt-0.5">
+                        {b.cover_url ? <Image src={b.cover_url} alt={b.judul} width={40} height={32} className="object-cover w-full h-full" /> : <div className="w-full h-full flex items-center justify-center text-sm">📰</div>}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-gray-800 text-sm leading-snug line-clamp-2">{b.judul}</p>
+                        <p className="font-medium text-gray-800 text-sm leading-snug line-clamp-2">{b.judul}</p>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{b.kategori}</span>
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{b.kategori}</span>
+                          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
                             <span className={`w-1 h-1 rounded-full ${b.published ? 'bg-emerald-500' : 'bg-gray-400'}`} />
                             {b.published ? 'Publik' : 'Draft'}
                           </span>
@@ -401,35 +401,35 @@ export default function AdminPage() {
         {/* ALBUM FOTO */}
         {tab === 'album' && (
           <div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
-                <h1 className="text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Album Foto</h1>
-                <p className="text-gray-400 text-sm mt-1">Upload dan kelola foto album setiap unit pendidikan</p>
+                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Album Foto</h1>
+                <p className="text-gray-400 text-xs mt-0.5">Upload dan kelola foto album setiap unit pendidikan</p>
               </div>
             </div>
 
             {/* Pilih unit + upload */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6 mb-6">
-              <div className="flex flex-col md:flex-row gap-4 md:items-end">
+            <div className="bg-white rounded-xl border border-gray-100 p-4 md:p-5 mb-5">
+              <div className="flex flex-col md:flex-row gap-3 md:items-end">
                 <div className="flex-1">
-                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Unit Pendidikan</label>
-                  <div className="flex flex-wrap gap-2">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Unit Pendidikan</label>
+                  <div className="flex flex-wrap gap-1.5">
                     {UNIT_KEYS.map(k => (
                       <button key={k} onClick={() => { setAlbumUnit(k); loadAlbum(k) }}
-                        className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${albumUnit === k ? 'bg-emerald-700 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'}`}>
+                        className={`px-3.5 py-1.5 rounded-full text-[13px] font-semibold transition-colors ${albumUnit === k ? 'bg-emerald-700 text-white' : 'bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'}`}>
                         {UNIT_LABELS[k]}
                       </button>
                     ))}
                   </div>
                 </div>
                 <div className="flex-1">
-                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Keterangan (opsional)</label>
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Keterangan (opsional)</label>
                   <input value={albumCaption} onChange={e => setAlbumCaption(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500"
                     placeholder="Contoh: Kegiatan wisuda 2026" />
                 </div>
-                <label className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors cursor-pointer ${albumUploading ? 'bg-gray-300 text-gray-500' : 'bg-emerald-700 hover:bg-emerald-800 text-white'}`}>
-                  <Upload size={16} />
+                <label className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors cursor-pointer ${albumUploading ? 'bg-gray-300 text-gray-500' : 'bg-emerald-700 hover:bg-emerald-800 text-white'}`}>
+                  <Upload size={15} />
                   {albumUploading ? 'Mengupload...' : 'Upload Foto'}
                   <input type="file" accept="image/*" className="hidden" disabled={albumUploading} onChange={handleAlbumUpload} />
                 </label>
@@ -440,36 +440,36 @@ export default function AdminPage() {
             {albumLoading ? (
               <div className="text-center py-16 text-gray-400">⏳ Memuat foto...</div>
             ) : albumPhotos.length === 0 ? (
-              <div className="text-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
+              <div className="text-center py-16 bg-white rounded-xl border border-gray-100">
                 <p className="text-4xl mb-3">🖼️</p>
                 <p className="font-bold text-gray-600 mb-1">Belum ada foto untuk {UNIT_LABELS[albumUnit]}</p>
                 <p className="text-sm text-gray-400">Klik &quot;Upload Foto&quot; untuk menambahkan foto pertama.</p>
               </div>
             ) : (
               <div>
-                <p className="text-sm text-gray-500 mb-4">{albumPhotos.length} foto di album <strong className="text-emerald-700">{UNIT_LABELS[albumUnit]}</strong></p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <p className="text-xs text-gray-500 mb-3">{albumPhotos.length} foto di album <strong className="text-emerald-700">{UNIT_LABELS[albumUnit]}</strong></p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                   {albumPhotos.map(p => (
-                    <div key={p.id} className={`bg-white rounded-2xl overflow-hidden group shadow-sm hover:shadow-md transition-shadow ${p.is_cover ? 'ring-2 ring-amber-400' : 'border border-gray-100'}`}>
+                    <div key={p.id} className={`bg-white rounded-xl overflow-hidden group ${p.is_cover ? 'ring-2 ring-amber-400' : 'border border-gray-100'}`}>
                       <div className="relative aspect-square bg-gray-100">
                         <Image src={p.url} alt={p.caption ?? 'Foto album'} fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
                         {p.is_cover && (
-                          <span className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-amber-400 text-white text-[10px] font-bold flex items-center gap-1">
-                            <Star size={11} fill="currentColor" /> Sampul
+                          <span className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-md bg-amber-400 text-white text-[10px] font-bold flex items-center gap-1">
+                            <Star size={10} fill="currentColor" /> Sampul
                           </span>
                         )}
                         <button onClick={() => setSampul(p.id)}
-                          className={`absolute bottom-2 left-2 p-2 rounded-lg transition-colors ${p.is_cover ? 'bg-white/20 text-white' : 'bg-black/50 hover:bg-amber-400 text-white opacity-0 group-hover:opacity-100'}`}
+                          className={`absolute bottom-1.5 left-1.5 p-1.5 rounded-md transition-colors ${p.is_cover ? 'bg-white/20 text-white' : 'bg-black/50 hover:bg-amber-400 text-white opacity-0 group-hover:opacity-100'}`}
                           title={p.is_cover ? 'Sampul unit ini' : 'Jadikan sampul unit'}>
-                          <Star size={14} fill={p.is_cover ? 'currentColor' : 'none'} />
+                          <Star size={13} fill={p.is_cover ? 'currentColor' : 'none'} />
                         </button>
                         <button onClick={() => hapusFoto(p.id)}
-                          className="absolute bottom-2 right-2 p-2 rounded-lg bg-red-500/90 hover:bg-red-600 text-white transition-colors opacity-0 group-hover:opacity-100"
+                          className="absolute bottom-1.5 right-1.5 p-1.5 rounded-md bg-red-500/90 hover:bg-red-600 text-white transition-colors opacity-0 group-hover:opacity-100"
                           title="Hapus foto">
-                          <Trash2 size={14} />
+                          <Trash2 size={13} />
                         </button>
                       </div>
-                      <div className="p-3">
+                      <div className="p-2.5">
                         <p className="text-xs text-gray-500 line-clamp-1">{p.caption || <span className="text-gray-300">Tanpa keterangan</span>}</p>
                         <p className="text-[10px] text-gray-400 mt-0.5">{formatTanggal(p.created_at)}</p>
                       </div>
