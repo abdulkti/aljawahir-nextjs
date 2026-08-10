@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { AlbumFoto, UNIT_LABELS, UnitKey } from '@/types'
@@ -77,7 +78,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
 
   const label = UNIT_LABELS[unit]
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={close} />
 
@@ -175,6 +176,7 @@ export default function AlbumGallery({ open, unit, onClose }: Props) {
           </div>
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   )
 }
