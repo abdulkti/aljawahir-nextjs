@@ -8,7 +8,6 @@ import { Images, ArrowRight, GraduationCap } from 'lucide-react'
 
 const units: {
   unit: UnitKey
-  ar: string
   tag: string
   title: string
   desc: string
@@ -17,7 +16,6 @@ const units: {
 }[] = [
   {
     unit: 'ra',
-    ar: 'روضة',
     tag: 'RA',
     title: 'RA Al Jawahir',
     desc: 'Pendidikan anak usia dini berbasis Islam yang menanamkan nilai tauhid dan kecintaan Al-Quran sejak dini.',
@@ -26,7 +24,6 @@ const units: {
   },
   {
     unit: 'sd',
-    ar: 'اقرأ',
     tag: 'SD IT',
     title: 'SD IT Al Jawahir',
     desc: 'Sekolah Dasar Islam Terpadu yang mengintegrasikan kurikulum nasional dengan pendidikan Al-Quran dan akhlak Islami.',
@@ -35,7 +32,6 @@ const units: {
   },
   {
     unit: 'smp',
-    ar: 'مدرسة',
     tag: 'SMP IT',
     title: 'SMP IT Al Jawahir',
     desc: 'Sekolah Menengah Pertama Islam Terpadu, Sekolah Penggerak Angkatan I dengan Kurikulum Merdeka sejak 2021.',
@@ -44,7 +40,6 @@ const units: {
   },
   {
     unit: 'tpa',
-    ar: 'تحفيظ',
     tag: 'TPA',
     title: 'Taman Pendidikan Al-Quran',
     desc: 'Program hafalan dan pembelajaran Al-Quran yang terstruktur untuk membentuk generasi Qurani yang berkarakter.',
@@ -108,10 +103,7 @@ export default function UnitPrograms() {
 
             {/* BODY */}
             <div className="p-6 flex flex-col flex-1">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700">{p.tag}</span>
-                <span className="text-[11px] font-bold text-gray-300 uppercase tracking-widest">{p.ar}</span>
-              </div>
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700">{p.tag}</span>
               <h3 className="font-bold text-gray-800 text-xl leading-snug mb-2.5 tracking-tight">
                 {p.title}
               </h3>
