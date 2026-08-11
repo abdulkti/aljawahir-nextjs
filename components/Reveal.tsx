@@ -56,7 +56,7 @@ export default function Reveal({
   const show = visible || reduced
   const fixed = from !== 'auto'
   const activeDir = fixed ? from : dir
-  const transition = reduced ? '' : 'transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform'
+  const transition = reduced ? '' : 'transition-[opacity,transform,translate] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform'
   const transform = show ? 'translate-x-0 translate-y-0' : offsets[activeDir]
 
   return (
