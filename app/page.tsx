@@ -90,6 +90,8 @@ const stats = [
   { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
 ]
 
+const cardDirs = ['left', 'top', 'right'] as const
+
 const strukturOrganisasi = [
   { label: 'Pembina', orang: [
     { nama: 'H. Syafril Usman, SPd.I', inisial: 'SU' },
@@ -139,7 +141,7 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
   const accentDelay = 80 + title.split(' ').length * 50
   return (
     <div className="text-center mb-14 md:mb-20">
-      <Reveal>
+      <Reveal from="top">
         <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700 mb-4">{tag}</p>
       </Reveal>
       <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 tracking-tight leading-tight mb-5" style={{ fontFamily: 'Lora, serif' }}>
@@ -147,7 +149,7 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
         {' '}
         <MaskedText text={titleAccent} delay={accentDelay} className="text-emerald-700" />
       </h2>
-      <Reveal delay={280}>
+      <Reveal delay={280} from="left">
         <div className="w-14 h-px bg-emerald-600 mx-auto mb-6" />
       </Reveal>
       {desc && (
@@ -208,7 +210,7 @@ export default async function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-14">
             {mengapaCards.map((c, i) => (
-              <Reveal key={i} delay={i * 60} className="h-full">
+              <Reveal key={i} delay={i * 60} from={cardDirs[i % 3]} className="h-full">
                 <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                   <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
                     <c.icon size={24} strokeWidth={1.75} />
@@ -223,7 +225,7 @@ export default async function HomePage() {
           <div className="bg-emerald-950 rounded-2xl py-12 px-6">
             <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((s, i) => (
-                <Reveal key={i} delay={i * 80} className="text-center">
+                <Reveal key={i} delay={i * 80} from={i % 2 === 0 ? 'left' : 'right'} className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
                     <AnimatedCounter value={s.value} suffix={s.suffix} />
                   </div>
@@ -246,7 +248,7 @@ export default async function HomePage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6">
-            <Reveal delay={0} className="h-full">
+            <Reveal delay={0} from="left" className="h-full">
               <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-lg bg-emerald-950 flex items-center justify-center text-amber-400 mb-4">
                   <Target size={22} strokeWidth={1.75} />
@@ -255,7 +257,7 @@ export default async function HomePage() {
                 <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
               </div>
             </Reveal>
-            <Reveal delay={60} className="h-full">
+            <Reveal delay={60} from="top" className="h-full">
               <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
                   <Star size={22} strokeWidth={1.75} />
@@ -268,7 +270,7 @@ export default async function HomePage() {
                 </ul>
               </div>
             </Reveal>
-            <Reveal delay={120} className="h-full">
+            <Reveal delay={120} from="right" className="h-full">
               <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
                   <CalendarDays size={22} strokeWidth={1.75} />
@@ -293,7 +295,7 @@ export default async function HomePage() {
           />
           <div className="grid md:grid-cols-3 gap-6">
             {layananCards.map((c, i) => (
-              <Reveal key={i} delay={i * 60} className="h-full">
+              <Reveal key={i} delay={i * 60} from={cardDirs[i % 3]} className="h-full">
                 <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                   <div className="w-14 h-14 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6">
                     <c.icon size={26} strokeWidth={1.5} />
@@ -332,7 +334,7 @@ export default async function HomePage() {
           />
           <div className="space-y-6">
             {timeline.map((t, i) => (
-              <Reveal key={i} delay={i * 60}>
+              <Reveal key={i} delay={i * 60} from={i % 2 === 0 ? 'left' : 'right'}>
                 <div className="flex gap-5 md:gap-7">
                   <div className="flex flex-col items-center">
                     <div className="w-3 h-3 rounded-full bg-emerald-600 mt-2 flex-shrink-0" />
@@ -365,7 +367,7 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
             <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
               {strukturOrganisasi[0].orang.map((t, i) => (
-                <Reveal key={i} delay={i * 60} className="h-full">
+                <Reveal key={i} delay={i * 60} from={cardDirs[i % 3]} className="h-full">
                   <div className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -382,7 +384,7 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
             <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
               {strukturOrganisasi[1].orang.map((t, i) => (
-                <Reveal key={i} delay={i * 60} className="h-full">
+                <Reveal key={i} delay={i * 60} from={i % 2 === 0 ? 'left' : 'right'} className="h-full">
                   <div className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -399,7 +401,7 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
             <div className="max-w-xs mx-auto">
               {strukturOrganisasi[2].orang.map((t, i) => (
-                <Reveal key={i} delay={i * 60}>
+                <Reveal key={i} delay={i * 60} from="top">
                   <div className="bg-emerald-950 rounded-xl p-5 border border-emerald-900 hover:border-emerald-700 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -416,7 +418,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
               {strukturOrganisasi[3].orang.map((t, i) => (
-                <Reveal key={i} delay={i * 60}>
+                <Reveal key={i} delay={i * 60} from="left">
                   <div className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -429,7 +431,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
               {strukturOrganisasi[4].orang.map((t, i) => (
-                <Reveal key={i} delay={i * 60}>
+                <Reveal key={i} delay={i * 60} from="right">
                   <div className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -463,7 +465,7 @@ export default async function HomePage() {
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
               {beritaList.map((b, i) => (
-                <Reveal key={b.id} delay={i * 60} className="h-full">
+                <Reveal key={b.id} delay={i * 60} from={cardDirs[i % 3]} className="h-full">
                   <BeritaCard berita={b} />
                 </Reveal>
               ))}
@@ -489,7 +491,7 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
             <div className="space-y-5">
               {kontakItems.map((c, i) => (
-                <Reveal key={c.title} delay={i * 80}>
+                <Reveal key={c.title} delay={i * 80} from={i % 2 === 0 ? 'left' : 'right'}>
                   <div className="flex gap-4 items-start">
                     <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
                       <c.icon size={18} strokeWidth={1.75} />
@@ -506,7 +508,7 @@ export default async function HomePage() {
                 </Reveal>
               ))}
             </div>
-            <Reveal delay={240}>
+            <Reveal delay={240} from="right">
               <div className="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200/70 hover:border-emerald-200 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">

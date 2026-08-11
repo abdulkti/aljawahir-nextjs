@@ -79,7 +79,7 @@ export default function UnitPrograms() {
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
         {units.map((p, i) => (
-          <Reveal key={p.unit} delay={i * 60} className="h-full">
+          <Reveal key={p.unit} delay={i * 60} from={i % 2 === 0 ? 'left' : 'right'} className="h-full">
           <div
             className="group relative bg-white rounded-xl overflow-hidden border border-gray-200/70 flex flex-col h-full">
 
