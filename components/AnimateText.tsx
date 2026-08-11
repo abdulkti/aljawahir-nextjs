@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState, ReactNode } from 'react'
+import { subscribeVelocity } from '@/lib/scrollVelocity'
 
 type Direction = 'up' | 'down' | 'left' | 'right' | 'zoom'
 
@@ -30,6 +31,7 @@ export default function AnimateText({
 }) {
   const ref = useRef<HTMLElement | null>(null)
   const [visible, setVisible] = useState(false)
+  const [vel, setVel] = useState(0)
 
   useEffect(() => {
     const el = ref.current
@@ -44,8 +46,11 @@ export default function AnimateText({
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => subscribeVelocity(setVel), [])
+
   const stateClass = visible ? 'opacity-100 translate-x-0 translate-y-0 scale-100 blur-0' : hidden[direction]
-  const style = { transitionDelay: `${delay}ms`, transitionDuration: `${duration}ms` }
+  const dur = Math.round(Math.max(duration / (1 + vel * 0.7), 200))
+  const style = { transitionDelay: `${delay}ms`, transitionDuration: `${dur}ms` }
 
   if (as === 'span') {
     return (
