@@ -124,7 +124,7 @@ const kontakItems = [
 function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title: string; desc?: string; titleAccent: string }) {
   const titleWords = title.split(' ')
   const accentWords = titleAccent.split(' ')
-  const wordDelay = (i: number) => 60 + i * 45
+  const wordDelay = (i: number) => 90 + i * 70
   return (
     <div className="text-center mb-12 md:mb-16">
       <AnimateText direction="down" as="span" className="inline-block">
@@ -147,7 +147,7 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
         </span>
       </h2>
       {desc && (
-        <AnimateText direction="up" delay={260}>
+        <AnimateText direction="up" delay={400}>
           <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">{desc}</p>
         </AnimateText>
       )}
@@ -216,7 +216,7 @@ export default async function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-14">
             {mengapaCards.map((c, i) => (
-              <AnimateText key={i} direction="up" delay={i * 90} className="h-full">
+              <AnimateText key={i} direction="up" delay={i * 130} className="h-full">
                 <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-emerald-200 transition-all">
                   <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
                     <c.icon size={24} strokeWidth={1.75} />
@@ -236,7 +236,7 @@ export default async function HomePage() {
                 { value: 500, suffix: '+', label: 'Siswa' },
                 { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
               ].map((s, i) => (
-                <AnimateText key={i} direction="zoom" delay={i * 90} className="text-center">
+                <AnimateText key={i} direction="zoom" delay={i * 120} className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
                     <AnimatedCounter value={s.value} suffix={s.suffix} />
                   </div>
@@ -270,7 +270,7 @@ export default async function HomePage() {
                 <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
               </div>
             </AnimateText>
-            <AnimateText direction="up" delay={70} className="h-full">
+            <AnimateText direction="up" delay={120} className="h-full">
               <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
                 <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
                   <Star size={22} strokeWidth={1.75} />
@@ -283,7 +283,7 @@ export default async function HomePage() {
                 </ul>
               </div>
             </AnimateText>
-            <AnimateText direction="right" delay={140} className="h-full">
+            <AnimateText direction="right" delay={240} className="h-full">
               <div className="h-full bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
                 <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
                   <CalendarDays size={22} strokeWidth={1.75} />
@@ -310,7 +310,7 @@ export default async function HomePage() {
           />
           <div className="grid md:grid-cols-3 gap-6">
             {layananCards.map((c, i) => (
-              <AnimateText key={i} direction="up" delay={i * 90} className="h-full">
+              <AnimateText key={i} direction="up" delay={i * 130} className="h-full">
                 <div className="h-full group bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                   <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6 group-hover:scale-105 transition-transform duration-300">
                     <c.icon size={26} strokeWidth={1.5} />
@@ -391,7 +391,7 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
             <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
               {strukturOrganisasi[0].orang.map((t, i) => (
-                <AnimateText key={i} direction="up" delay={i * 90} className="h-full">
+                <AnimateText key={i} direction="up" delay={i * 130} className="h-full">
                   <div className="h-full bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -408,7 +408,7 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
             <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
               {strukturOrganisasi[1].orang.map((t, i) => (
-                <AnimateText key={i} direction="up" delay={i * 90} className="h-full">
+                <AnimateText key={i} direction="up" delay={i * 140} className="h-full">
                   <div className="h-full bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -425,7 +425,7 @@ export default async function HomePage() {
             <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
             <div className="max-w-xs mx-auto">
               {strukturOrganisasi[2].orang.map((t, i) => (
-                <AnimateText key={i} direction="zoom" delay={i * 90}>
+                <AnimateText key={i} direction="zoom" delay={i * 120}>
                   <div className="bg-emerald-950 rounded-2xl p-5 border border-emerald-900 shadow-sm text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -442,7 +442,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
               {strukturOrganisasi[3].orang.map((t, i) => (
-                <AnimateText key={i} direction="up" delay={i * 90}>
+                <AnimateText key={i} direction="up" delay={i * 130}>
                   <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -455,7 +455,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
               {strukturOrganisasi[4].orang.map((t, i) => (
-                <AnimateText key={i} direction="up" delay={i * 90}>
+                <AnimateText key={i} direction="up" delay={i * 130}>
                   <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
@@ -489,7 +489,7 @@ export default async function HomePage() {
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
               {beritaList.map((b, i) => (
-                <AnimateText key={b.id} direction="up" delay={i * 90} className="h-full">
+                <AnimateText key={b.id} direction="up" delay={i * 130} className="h-full">
                   <BeritaCard berita={b} />
                 </AnimateText>
               ))}
@@ -517,7 +517,7 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
             <div className="space-y-4 md:space-y-5">
               {kontakItems.map((c, i) => (
-                <AnimateText key={c.title} direction="left" delay={i * 80}>
+                <AnimateText key={c.title} direction="left" delay={i * 120}>
                   <div className="flex gap-3 md:gap-4 items-start group">
                     <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
                       <c.icon size={18} strokeWidth={1.75} />
@@ -534,7 +534,7 @@ export default async function HomePage() {
                 </AnimateText>
               ))}
             </div>
-            <AnimateText direction="right" delay={160}>
+            <AnimateText direction="right" delay={240}>
               <div className="bg-gray-50 rounded-2xl p-5 md:p-8 border border-gray-100">
               <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">

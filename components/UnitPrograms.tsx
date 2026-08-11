@@ -84,7 +84,7 @@ export default function UnitPrograms() {
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
         {units.map((p, i) => (
-          <AnimateText key={p.unit} direction="up" delay={i * 90} className="h-full">
+          <AnimateText key={p.unit} direction="up" delay={i * 130} className="h-full">
           <div
             className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-900/10 hover:-translate-y-1.5 transition-all duration-500 flex flex-col h-full">
 

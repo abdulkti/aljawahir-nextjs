@@ -17,7 +17,7 @@ export default function AnimateText({
   children,
   direction = 'up',
   delay = 0,
-  duration = 700,
+  duration = 900,
   as = 'div',
   className = '',
 }: {
@@ -36,10 +36,7 @@ export default function AnimateText({
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
+        setVisible(entry.isIntersecting)
       },
       { threshold: 0.12 }
     )
