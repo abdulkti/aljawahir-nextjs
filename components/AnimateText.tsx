@@ -18,7 +18,7 @@ export default function AnimateText({
   children,
   direction = 'up',
   delay = 0,
-  duration = 900,
+  duration = 1000,
   as = 'div',
   className = '',
 }: {
@@ -49,7 +49,7 @@ export default function AnimateText({
   useEffect(
     () =>
       subscribeVelocity((v) => {
-        setDur(Math.round(Math.max(duration / (1 + v * 1.2), 140)))
+        setDur(Math.round(Math.max(duration / (1 + v * 0.6), 400)))
       }),
     [duration]
   )

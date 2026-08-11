@@ -14,7 +14,7 @@ export default function AnimateOnScroll({
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
-  const [dur, setDur] = useState(900)
+  const [dur, setDur] = useState(1000)
 
   useEffect(() => {
     const el = ref.current
@@ -32,7 +32,7 @@ export default function AnimateOnScroll({
   useEffect(
     () =>
       subscribeVelocity((v) => {
-        setDur(Math.round(Math.max(900 / (1 + v * 1.2), 160)))
+        setDur(Math.round(Math.max(1000 / (1 + v * 0.6), 400)))
       }),
     []
   )
