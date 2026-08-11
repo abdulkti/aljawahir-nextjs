@@ -5,26 +5,26 @@ import { formatTanggal, kategoriColor } from '@/lib/utils'
 
 export default function BeritaCard({ berita }: { berita: Berita }) {
   return (
-    <Link href={`/berita/${berita.slug}`} className="group block h-full no-underline">
-      <article className="bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-emerald-200 hover:-translate-y-1 h-full flex flex-col">
+    <Link href={`/berita/${berita.slug}`} className="block h-full no-underline">
+      <article className="bg-white border border-gray-200/70 rounded-xl overflow-hidden h-full flex flex-col">
         {/* Cover Image */}
         <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-emerald-100 overflow-hidden">
           {berita.cover_url ? (
-            <Image src={berita.cover_url} alt={berita.judul} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+            <Image src={berita.cover_url} alt={berita.judul} fill className="object-cover" />
           ) : (
             <div className="flex items-center justify-center h-full bg-gradient-to-br from-emerald-900 to-emerald-700">
               <span className="arabic text-6xl text-white/20">الجواهر</span>
             </div>
           )}
           {/* Kategori badge */}
-          <span className={`absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full ${kategoriColor(berita.kategori)}`}>
+          <span className={`absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-md ${kategoriColor(berita.kategori)}`}>
             {berita.kategori}
           </span>
         </div>
 
         {/* Body */}
         <div className="p-5 flex flex-col flex-1">
-          <h3 className="font-bold text-gray-800 text-base leading-snug mb-2 group-hover:text-emerald-700 transition-colors line-clamp-2" style={{ fontFamily: 'Lora, serif' }}>
+          <h3 className="font-bold text-gray-800 text-base leading-snug mb-2 line-clamp-2">
             {berita.judul}
           </h3>
           {berita.ringkasan && (
@@ -32,7 +32,7 @@ export default function BeritaCard({ berita }: { berita: Berita }) {
           )}
           <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
             <span className="text-xs text-gray-400">📅 {formatTanggal(berita.created_at)}</span>
-            <span className="text-xs font-bold text-emerald-700 group-hover:gap-2 transition-all">Baca →</span>
+            <span className="text-xs font-bold text-emerald-700">Baca →</span>
           </div>
         </div>
       </article>
