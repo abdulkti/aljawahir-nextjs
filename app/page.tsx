@@ -7,7 +7,7 @@ import AnimateText from '@/components/AnimateText'
 import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
 import AnimatedCounter from '@/components/AnimatedCounter'
-import AnimateOnScroll from '@/components/AnimateOnScroll'
+import SectionStack from '@/components/SectionStack'
 import UnitPrograms from '@/components/UnitPrograms'
 import ScrollLink from '@/components/ScrollLink'
 import { supabaseServer } from '@/lib/supabase'
@@ -204,8 +204,7 @@ export default async function HomePage() {
       </section>
 
       {/* ===== MENGAPA MEMILIH KAMI ===== */}
-      <AnimateOnScroll>
-      <section id="mengapa" className="py-20 md:py-28 px-6 bg-white -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="mengapa" className="py-20 md:py-28 px-6 bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Mengapa Memilih Kami"
@@ -246,12 +245,10 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== TENTANG ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="tentang" className="py-20 md:py-28 px-6 bg-gray-50 -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="tentang" className="py-20 md:py-28 px-6 bg-gray-50 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Tentang Kami"
@@ -295,12 +292,10 @@ export default async function HomePage() {
             </AnimateText>
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== LAYANAN KAMI ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="layanan" className="py-20 md:py-28 px-6 bg-white -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="layanan" className="py-20 md:py-28 px-6 bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Layanan Kami"
@@ -323,12 +318,10 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== PROGRAM PENDIDIKAN ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="program" className="py-20 md:py-28 px-6 bg-gray-50 -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="program" className="py-20 md:py-28 px-6 bg-gray-50 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Program Pendidikan"
@@ -338,12 +331,10 @@ export default async function HomePage() {
           />
           <UnitPrograms />
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== SEJARAH ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="sejarah" className="py-20 md:py-28 px-6 bg-white -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="sejarah" className="py-20 md:py-28 px-6 bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
             tag="Perjalanan Kami"
@@ -372,12 +363,10 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== STRUKTUR ORGANISASI ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="struktur" className="py-20 md:py-28 px-6 bg-gray-50 -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="struktur" className="py-20 md:py-28 px-6 bg-gray-50 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Struktur Organisasi"
@@ -467,12 +456,10 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== BERITA ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="berita" className="py-20 md:py-28 px-6 bg-gray-50 -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="berita" className="py-20 md:py-28 px-6 bg-gray-50 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Berita & Artikel"
@@ -501,12 +488,10 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       {/* ===== KONTAK ===== */}
-      <AnimateOnScroll delay={100}>
-      <section id="kontak" className="py-20 md:py-28 px-6 bg-white -mt-24 md:-mt-32 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
+      <SectionStack id="kontak" className="py-20 md:py-28 px-6 bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-24px_48px_-28px_rgba(0,0,0,0.15)]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             tag="Hubungi Kami"
@@ -549,8 +534,7 @@ export default async function HomePage() {
             </AnimateText>
           </div>
         </div>
-      </section>
-      </AnimateOnScroll>
+      </SectionStack>
 
       <Footer />
     </>

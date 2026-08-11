@@ -25,6 +25,10 @@ function onScroll() {
   }
 }
 
+export function getVelocity(): number {
+  return current
+}
+
 export function subscribeVelocity(fn: (v: number) => void): () => void {
   subscribers.add(fn)
   if (subscribers.size === 1) {
