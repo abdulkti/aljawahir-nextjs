@@ -4,14 +4,14 @@ import { useEffect, useRef, useState, ReactNode } from 'react'
 type Direction = 'up' | 'down' | 'left' | 'right' | 'zoom'
 
 const hidden: Record<Direction, string> = {
-  up: 'opacity-0 translate-y-8',
-  down: 'opacity-0 -translate-y-8',
-  left: 'opacity-0 -translate-x-10',
-  right: 'opacity-0 translate-x-10',
-  zoom: 'opacity-0 scale-90',
+  up: 'opacity-0 translate-y-6 blur-[3px]',
+  down: 'opacity-0 -translate-y-6 blur-[3px]',
+  left: 'opacity-0 -translate-x-6 blur-[3px]',
+  right: 'opacity-0 translate-x-6 blur-[3px]',
+  zoom: 'opacity-0 scale-95 blur-[3px]',
 }
 
-const baseClass = 'transition-all ease-out will-change-transform'
+const baseClass = 'transition-[opacity,transform,filter] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform'
 
 export default function AnimateText({
   children,
@@ -41,13 +41,13 @@ export default function AnimateText({
           observer.disconnect()
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.12 }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
-  const stateClass = visible ? 'opacity-100 translate-x-0 translate-y-0 scale-100' : hidden[direction]
+  const stateClass = visible ? 'opacity-100 translate-x-0 translate-y-0 scale-100 blur-0' : hidden[direction]
   const style = { transitionDelay: `${delay}ms`, transitionDuration: `${duration}ms` }
 
   if (as === 'span') {
