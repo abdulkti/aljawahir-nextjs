@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollToHash from '@/components/ScrollToHash'
+import Reveal from '@/components/Reveal'
 
 import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
@@ -144,21 +145,22 @@ export default async function HomePage() {
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pb-20 overflow-hidden bg-gradient-to-b from-emerald-50/80 via-white to-white">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(5,150,105,0.08),transparent_55%)]" />
         <div className="relative z-10 max-w-3xl mx-auto">
-          <p className="arabic text-emerald-800/80 text-xl md:text-2xl leading-loose mb-3">
+          <p className="animate-in arabic text-emerald-800/80 text-xl md:text-2xl leading-loose mb-3">
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ
           </p>
-          <p className="text-gray-400 text-sm italic mb-8">Q.S. An-Nahl: 125</p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4" style={{ fontFamily: 'Lora, serif' }}>
+          <p className="animate-in animate-in-delay-1 text-gray-400 text-sm italic mb-8">Q.S. An-Nahl: 125</p>
+          <h1 className="animate-in animate-in-delay-2 text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4" style={{ fontFamily: 'Lora, serif' }}>
             Yayasan<br />
             <span className="text-emerald-700">Al Jawahir At Tarbawi</span>
           </h1>
-          <p className="text-gray-400 text-sm uppercase tracking-[0.18em] mb-3">Deli Serdang, Sumatera Utara</p>
-          <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="animate-in animate-in-delay-3 text-gray-400 text-sm uppercase tracking-[0.18em] mb-3">Deli Serdang, Sumatera Utara</p>
+          <p className="animate-in animate-in-delay-3 text-gray-500 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
             Membangun Ilmu, Akhlak, dan Ummah melalui Pendidikan Islam yang berintegritas dan berdampak.
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <ScrollLink href="#program" className="inline-flex items-center gap-2 bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-emerald-800 transition-colors no-underline">
-              Lihat Program Kami <ArrowRight size={18} />
+          <div className="animate-in animate-in-delay-4 flex gap-4 justify-center flex-wrap">
+            <ScrollLink href="#program" className="group inline-flex items-center gap-2 bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-emerald-800 transition-colors no-underline">
+              Lihat Program Kami
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </ScrollLink>
             <ScrollLink href="#tentang" className="inline-flex items-center bg-transparent border border-gray-300 text-gray-700 px-8 py-3.5 rounded-xl font-bold text-base hover:border-emerald-400 hover:text-emerald-700 transition-colors no-underline">
               Tentang Yayasan
@@ -169,309 +171,325 @@ export default async function HomePage() {
 
       {/* ===== MENGAPA MEMILIH KAMI ===== */}
       <section id="mengapa" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Mengapa Memilih Kami"
-            title="Mencetak Generasi Qurani yang"
-            titleAccent="Berilmu, Berkarakter, dan Berdaya Saing"
-            desc="Berdiri sejak 2006, Al Jawahir At Tarbawi terus berkembang menjadi lembaga pendidikan Islam terpadu yang dipercaya oleh masyarakat Deli Serdang dan sekitarnya, mengintegrasikan nilai-nilai Qurani, akademik unggul, serta pembinaan karakter."
-          />
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Mengapa Memilih Kami"
+              title="Mencetak Generasi Qurani yang"
+              titleAccent="Berilmu, Berkarakter, dan Berdaya Saing"
+              desc="Berdiri sejak 2006, Al Jawahir At Tarbawi terus berkembang menjadi lembaga pendidikan Islam terpadu yang dipercaya oleh masyarakat Deli Serdang dan sekitarnya, mengintegrasikan nilai-nilai Qurani, akademik unggul, serta pembinaan karakter."
+            />
 
-          <div className="grid md:grid-cols-3 gap-6 mb-14">
-            {mengapaCards.map((c, i) => (
-              <div key={i} className="h-full bg-white rounded-xl p-8 border border-gray-200/70">
-                <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
-                  <c.icon size={24} strokeWidth={1.75} />
-                </div>
-                <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">{c.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="bg-emerald-950 rounded-2xl py-12 px-6">
-            <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { value: 20, suffix: '+', label: 'Tahun Berdiri' },
-                { value: 4, suffix: '', label: 'Unit Pendidikan' },
-                { value: 500, suffix: '+', label: 'Siswa' },
-                { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
-              ].map((s, i) => (
-                <div key={i} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
-                    <AnimatedCounter value={s.value} suffix={s.suffix} />
+            <div className="grid md:grid-cols-3 gap-6 mb-14">
+              {mengapaCards.map((c, i) => (
+                <div key={i} className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+                  <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
+                    <c.icon size={24} strokeWidth={1.75} />
                   </div>
-                  <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">{s.label}</div>
+                  <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">{c.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
                 </div>
               ))}
             </div>
+
+            <div className="bg-emerald-950 rounded-2xl py-12 px-6">
+              <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+                {[
+                  { value: 20, suffix: '+', label: 'Tahun Berdiri' },
+                  { value: 4, suffix: '', label: 'Unit Pendidikan' },
+                  { value: 500, suffix: '+', label: 'Siswa' },
+                  { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
+                ].map((s, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
+                      <AnimatedCounter value={s.value} suffix={s.suffix} />
+                    </div>
+                    <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== TENTANG ===== */}
       <section id="tentang" className="py-20 md:py-28 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Tentang Kami"
-            title="Mendidik dengan Ilmu,"
-            titleAccent="Membina dengan Akhlak"
-            desc="Didirikan pada tahun 2006, Yayasan Al Jawahir At Tarbawi adalah lembaga sosial yang fokus pada tiga pilar utama: pendidikan, dakwah, dan pemberdayaan masyarakat. Kami percaya bahwa melahirkan generasi yang cerdas, berkarakter, dan peduli sesama adalah kunci membangun peradaban yang lebih baik."
-          />
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Tentang Kami"
+              title="Mendidik dengan Ilmu,"
+              titleAccent="Membina dengan Akhlak"
+              desc="Didirikan pada tahun 2006, Yayasan Al Jawahir At Tarbawi adalah lembaga sosial yang fokus pada tiga pilar utama: pendidikan, dakwah, dan pemberdayaan masyarakat. Kami percaya bahwa melahirkan generasi yang cerdas, berkarakter, dan peduli sesama adalah kunci membangun peradaban yang lebih baik."
+            />
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70">
-              <div className="w-12 h-12 rounded-lg bg-emerald-950 flex items-center justify-center text-amber-400 mb-4">
-                <Target size={22} strokeWidth={1.75} />
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+                <div className="w-12 h-12 rounded-lg bg-emerald-950 flex items-center justify-center text-amber-400 mb-4">
+                  <Target size={22} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Visi</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
               </div>
-              <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Visi</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
-            </div>
-            <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70">
-              <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
-                <Star size={22} strokeWidth={1.75} />
+              <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+                <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
+                  <Star size={22} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Misi</h3>
+                <ul className="text-gray-600 text-sm leading-relaxed space-y-2">
+                  <li>• Pendidikan unggul berfokus karakter Qur\u2019ani</li>
+                  <li>• Dakwah berkelanjutan, inklusif, dan mempersatukan</li>
+                  <li>• Aktivitas sosial yang berdampak nyata</li>
+                </ul>
               </div>
-              <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Misi</h3>
-              <ul className="text-gray-600 text-sm leading-relaxed space-y-2">
-                <li>• Pendidikan unggul berfokus karakter Qur\u2019ani</li>
-                <li>• Dakwah berkelanjutan, inklusif, dan mempersatukan</li>
-                <li>• Aktivitas sosial yang berdampak nyata</li>
-              </ul>
-            </div>
-            <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70">
-              <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
-                <CalendarDays size={22} strokeWidth={1.75} />
+              <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+                <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
+                  <CalendarDays size={22} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Berdiri</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
+                <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
               </div>
-              <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Berdiri</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
-              <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== LAYANAN KAMI ===== */}
       <section id="layanan" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Layanan Kami"
-            title="Membangun Umat melalui"
-            titleAccent="Pendidikan, Dakwah, dan Sosial"
-            desc="Yayasan Al Jawahir At Tarbawi hadir sebagai lembaga yang menyatukan kekuatan pendidikan, dakwah, dan sosial dalam satu visi besar: membangun generasi Islam yang berilmu, berakhlak, dan berdampak."
-          />
-          <div className="grid md:grid-cols-3 gap-6">
-            {layananCards.map((c, i) => (
-              <div key={i} className="h-full bg-white rounded-xl p-8 border border-gray-200/70">
-                <div className="w-14 h-14 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6">
-                  <c.icon size={26} strokeWidth={1.5} />
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Layanan Kami"
+              title="Membangun Umat melalui"
+              titleAccent="Pendidikan, Dakwah, dan Sosial"
+              desc="Yayasan Al Jawahir At Tarbawi hadir sebagai lembaga yang menyatukan kekuatan pendidikan, dakwah, dan sosial dalam satu visi besar: membangun generasi Islam yang berilmu, berakhlak, dan berdampak."
+            />
+            <div className="grid md:grid-cols-3 gap-6">
+              {layananCards.map((c, i) => (
+                <div key={i} className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6">
+                    <c.icon size={26} strokeWidth={1.5} />
+                  </div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-3">{c.tag}</p>
+                  <h3 className="font-bold text-gray-800 text-xl mb-3 leading-snug tracking-tight">{c.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
                 </div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-3">{c.tag}</p>
-                <h3 className="font-bold text-gray-800 text-xl mb-3 leading-snug tracking-tight">{c.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== PROGRAM PENDIDIKAN ===== */}
       <section id="program" className="py-20 md:py-28 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Program Pendidikan"
-            title="Unit"
-            titleAccent="Pendidikan Kami"
-            desc="Empat unit pendidikan Islam terpadu untuk membangun generasi Qurani dan berkarakter."
-          />
-          <UnitPrograms />
-        </div>
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Program Pendidikan"
+              title="Unit"
+              titleAccent="Pendidikan Kami"
+              desc="Empat unit pendidikan Islam terpadu untuk membangun generasi Qurani dan berkarakter."
+            />
+            <UnitPrograms />
+          </div>
+        </Reveal>
       </section>
 
       {/* ===== SEJARAH ===== */}
       <section id="sejarah" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <SectionHeading
-            tag="Perjalanan Kami"
-            title="Sejarah &"
-            titleAccent="Pencapaian"
-            desc="Dari mimpi kecil menjadi lembaga yang terus berkembang dan berdampak nyata."
-          />
-          <div className="space-y-6">
-            {[
-              { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.' },
-              { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.' },
-              { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.' },
-              { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.' },
-            ].map((t, i) => (
-              <div key={i} className="flex gap-5 md:gap-7">
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-emerald-600 mt-2 flex-shrink-0" />
-                  {i < 3 && <div className="w-px flex-1 bg-emerald-100" />}
+        <Reveal>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeading
+              tag="Perjalanan Kami"
+              title="Sejarah &"
+              titleAccent="Pencapaian"
+              desc="Dari mimpi kecil menjadi lembaga yang terus berkembang dan berdampak nyata."
+            />
+            <div className="space-y-6">
+              {[
+                { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.' },
+                { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.' },
+                { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.' },
+                { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.' },
+              ].map((t, i) => (
+                <div key={i} className="flex gap-5 md:gap-7">
+                  <div className="flex flex-col items-center">
+                    <div className="w-3 h-3 rounded-full bg-emerald-600 mt-2 flex-shrink-0" />
+                    {i < 3 && <div className="w-px flex-1 bg-emerald-100" />}
+                  </div>
+                  <div className="bg-gray-50 rounded-xl p-6 border border-gray-200/60 hover:border-emerald-200 transition-colors duration-300 flex-1 mb-1">
+                    <span className="text-xs font-bold tracking-[0.18em] text-emerald-700 mb-2 inline-block">{t.year}</span>
+                    <h3 className="font-bold text-gray-800 text-lg mb-1 tracking-tight">{t.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
+                  </div>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200/60 flex-1 mb-1">
-                  <span className="text-xs font-bold tracking-[0.18em] text-emerald-700 mb-2 inline-block">{t.year}</span>
-                  <h3 className="font-bold text-gray-800 text-lg mb-1 tracking-tight">{t.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== STRUKTUR ORGANISASI ===== */}
       <section id="struktur" className="py-20 md:py-28 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Struktur Organisasi"
-            title="Struktur"
-            titleAccent="Yayasan"
-            desc="Badan pengurus yang menjalankan roda organisasi Yayasan Al Jawahir At Tarbawi."
-          />
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Struktur Organisasi"
+              title="Struktur"
+              titleAccent="Yayasan"
+              desc="Badan pengurus yang menjalankan roda organisasi Yayasan Al Jawahir At Tarbawi."
+            />
 
-          {/* Level 1 - Pembina */}
-          <div className="mb-10">
-            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
-            <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
-              {strukturOrganisasi[0].orang.map((t, i) => (
-                <div key={i} className="h-full bg-white rounded-xl p-5 border border-gray-200/70 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+            {/* Level 1 - Pembina */}
+            <div className="mb-10">
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
+              <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
+                {strukturOrganisasi[0].orang.map((t, i) => (
+                  <div key={i} className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
                   </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Level 2 - Pengawas */}
-          <div className="mb-10">
-            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
+            {/* Level 2 - Pengawas */}
+            <div className="mb-10">
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
+              <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
+                {strukturOrganisasi[1].orang.map((t, i) => (
+                  <div key={i} className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Level 3 - Ketua Yayasan */}
+            <div className="mb-10">
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
+              <div className="max-w-xs mx-auto">
+                {strukturOrganisasi[2].orang.map((t, i) => (
+                  <div key={i} className="bg-emerald-950 rounded-xl p-5 border border-emerald-900 hover:border-emerald-700 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-white text-sm leading-snug">{t.nama}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Level 4 - Sekretaris & Bendahara */}
             <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
-              {strukturOrganisasi[1].orang.map((t, i) => (
-                <div key={i} className="h-full bg-white rounded-xl p-5 border border-gray-200/70 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
+              <div>
+                <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
+                {strukturOrganisasi[3].orang.map((t, i) => (
+                  <div key={i} className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
                   </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
-                </div>
-              ))}
+                ))}
+              </div>
+              <div>
+                <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
+                {strukturOrganisasi[4].orang.map((t, i) => (
+                  <div key={i} className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Level 3 - Ketua Yayasan */}
-          <div className="mb-10">
-            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
-            <div className="max-w-xs mx-auto">
-              {strukturOrganisasi[2].orang.map((t, i) => (
-                <div key={i} className="bg-emerald-950 rounded-xl p-5 border border-emerald-900 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
-                  </div>
-                  <p className="font-bold text-white text-sm leading-snug">{t.nama}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Level 4 - Sekretaris & Bendahara */}
-          <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
-            <div>
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
-              {strukturOrganisasi[3].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-xl p-5 border border-gray-200/70 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
-                  </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
-                </div>
-              ))}
-            </div>
-            <div>
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
-              {strukturOrganisasi[4].orang.map((t, i) => (
-                <div key={i} className="bg-white rounded-xl p-5 border border-gray-200/70 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                    {t.inisial}
-                  </div>
-                  <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== BERITA ===== */}
       <section id="berita" className="py-20 md:py-28 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Berita & Artikel"
-            title="Kabar Terkini dari"
-            titleAccent="Yayasan"
-            desc="Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi."
-          />
-          {beritaList.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-xl text-gray-400 border border-gray-200/70">
-              <p className="text-4xl mb-3">📰</p>
-              <p className="font-bold mb-1">Belum ada berita</p>
-              <p className="text-sm">Masuk ke <Link href="/admin" className="text-emerald-700 font-bold">panel admin</Link> untuk menambah berita pertama.</p>
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Berita & Artikel"
+              title="Kabar Terkini dari"
+              titleAccent="Yayasan"
+              desc="Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi."
+            />
+            {beritaList.length === 0 ? (
+              <div className="text-center py-16 bg-white rounded-xl text-gray-400 border border-gray-200/70">
+                <p className="text-4xl mb-3">📰</p>
+                <p className="font-bold mb-1">Belum ada berita</p>
+                <p className="text-sm">Masuk ke <Link href="/admin" className="text-emerald-700 font-bold">panel admin</Link> untuk menambah berita pertama.</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-3 gap-6">
+                {beritaList.map((b) => (
+                  <BeritaCard key={b.id} berita={b} />
+                ))}
+              </div>
+            )}
+            <div className="text-center mt-10">
+              <Link href="/berita" className="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 no-underline">
+                Lihat Semua Berita <span>→</span>
+              </Link>
             </div>
-          ) : (
-            <div className="grid md:grid-cols-3 gap-6">
-              {beritaList.map((b) => (
-                <BeritaCard key={b.id} berita={b} />
-              ))}
-            </div>
-          )}
-          <div className="text-center mt-10">
-            <Link href="/berita" className="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 no-underline">
-              Lihat Semua Berita <span>→</span>
-            </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== KONTAK ===== */}
       <section id="kontak" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            tag="Hubungi Kami"
-            title="Bergabunglah Bersama"
-            titleAccent="Kami"
-            desc="Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan."
-          />
-          <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
-            <div className="space-y-5">
-              {kontakItems.map((c) => (
-                <div key={c.title} className="flex gap-4 items-start">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
-                    <c.icon size={18} strokeWidth={1.75} />
+        <Reveal>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              tag="Hubungi Kami"
+              title="Bergabunglah Bersama"
+              titleAccent="Kami"
+              desc="Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan."
+            />
+            <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
+              <div className="space-y-5">
+                {kontakItems.map((c) => (
+                  <div key={c.title} className="flex gap-4 items-start">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
+                      <c.icon size={18} strokeWidth={1.75} />
+                    </div>
+                    <div className="pt-0.5">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">{c.title}</p>
+                      {'href' in c && c.href ? (
+                        <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-sm leading-relaxed hover:text-emerald-700 transition-colors">{c.val}</a>
+                      ) : (
+                        <p className="text-gray-600 text-sm leading-relaxed">{c.val}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="pt-0.5">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">{c.title}</p>
-                    {'href' in c && c.href ? (
-                      <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-sm leading-relaxed hover:text-emerald-700 transition-colors">{c.val}</a>
-                    ) : (
-                      <p className="text-gray-600 text-sm leading-relaxed">{c.val}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200/70">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                  </svg>
-                </div>
-                <h3 className="font-bold text-gray-800 text-lg tracking-tight">Chat WhatsApp</h3>
+                ))}
               </div>
-              <KontakForm />
+              <div className="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200/70 hover:border-emerald-200 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                  </div>
+                  <h3 className="font-bold text-gray-800 text-lg tracking-tight">Chat WhatsApp</h3>
+                </div>
+                <KontakForm />
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <Footer />

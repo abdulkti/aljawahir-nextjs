@@ -5,12 +5,12 @@ import { formatTanggal, kategoriColor } from '@/lib/utils'
 
 export default function BeritaCard({ berita }: { berita: Berita }) {
   return (
-    <Link href={`/berita/${berita.slug}`} className="block h-full no-underline">
-      <article className="bg-white border border-gray-200/70 rounded-xl overflow-hidden h-full flex flex-col">
+    <Link href={`/berita/${berita.slug}`} className="group block h-full no-underline">
+      <article className="bg-white border border-gray-200/70 rounded-xl overflow-hidden transition-colors duration-300 hover:border-emerald-300 h-full flex flex-col">
         {/* Cover Image */}
         <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-emerald-100 overflow-hidden">
           {berita.cover_url ? (
-            <Image src={berita.cover_url} alt={berita.judul} fill className="object-cover" />
+            <Image src={berita.cover_url} alt={berita.judul} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
           ) : (
             <div className="flex items-center justify-center h-full bg-gradient-to-br from-emerald-900 to-emerald-700">
               <span className="arabic text-6xl text-white/20">الجواهر</span>
