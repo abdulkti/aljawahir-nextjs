@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Reveal from '@/components/Reveal'
 import AlbumGallery from '@/components/AlbumGallery'
 import { supabase } from '@/lib/supabase'
 import { UnitKey } from '@/types'
@@ -77,9 +78,10 @@ export default function UnitPrograms() {
   return (
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-        {units.map(p => (
-          <div key={p.unit}
-            className="group relative bg-white rounded-xl overflow-hidden border border-gray-200/70 flex flex-col">
+        {units.map((p, i) => (
+          <Reveal key={p.unit} delay={i * 60} className="h-full">
+          <div
+            className="group relative bg-white rounded-xl overflow-hidden border border-gray-200/70 flex flex-col h-full">
 
             {/* HEADER — foto asli bila ada, ilustrasi bila kosong */}
             <div className="relative h-44 overflow-hidden">
@@ -130,6 +132,7 @@ export default function UnitPrograms() {
               </div>
             </div>
           </div>
+          </Reveal>
         ))}
       </div>
 

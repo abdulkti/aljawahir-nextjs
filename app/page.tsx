@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollToHash from '@/components/ScrollToHash'
 import Reveal from '@/components/Reveal'
+import MaskedText from '@/components/MaskedText'
 
 import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
@@ -82,6 +83,13 @@ const mengapaCards = [
   },
 ]
 
+const stats = [
+  { value: 20, suffix: '+', label: 'Tahun Berdiri' },
+  { value: 4, suffix: '', label: 'Unit Pendidikan' },
+  { value: 500, suffix: '+', label: 'Siswa' },
+  { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
+]
+
 const strukturOrganisasi = [
   { label: 'Pembina', orang: [
     { nama: 'H. Syafril Usman, SPd.I', inisial: 'SU' },
@@ -103,6 +111,13 @@ const strukturOrganisasi = [
   ], single: true },
 ]
 
+const timeline = [
+  { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.' },
+  { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.' },
+  { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.' },
+  { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.' },
+]
+
 function InstagramIcon({ size = 18, strokeWidth = 1.75, className = '' }: { size?: number; strokeWidth?: number; className?: string }) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} className={className} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -121,14 +136,25 @@ const kontakItems = [
 ]
 
 function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title: string; desc?: string; titleAccent: string }) {
+  const accentDelay = 80 + title.split(' ').length * 50
   return (
     <div className="text-center mb-14 md:mb-20">
-      <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700 mb-4">{tag}</p>
+      <Reveal>
+        <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700 mb-4">{tag}</p>
+      </Reveal>
       <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 tracking-tight leading-tight mb-5" style={{ fontFamily: 'Lora, serif' }}>
-        {title} <span className="text-emerald-700">{titleAccent}</span>
+        <MaskedText text={title} delay={80} />
+        {' '}
+        <MaskedText text={titleAccent} delay={accentDelay} className="text-emerald-700" />
       </h2>
-      <div className="w-14 h-px bg-emerald-600 mx-auto mb-6" />
-      {desc && <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">{desc}</p>}
+      <Reveal delay={280}>
+        <div className="w-14 h-px bg-emerald-600 mx-auto mb-6" />
+      </Reveal>
+      {desc && (
+        <Reveal delay={360}>
+          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">{desc}</p>
+        </Reveal>
+      )}
     </div>
   )
 }
@@ -149,9 +175,10 @@ export default async function HomePage() {
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ
           </p>
           <p className="animate-in animate-in-delay-1 text-gray-400 text-sm italic mb-8">Q.S. An-Nahl: 125</p>
-          <h1 className="animate-in animate-in-delay-2 text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4" style={{ fontFamily: 'Lora, serif' }}>
-            Yayasan<br />
-            <span className="text-emerald-700">Al Jawahir At Tarbawi</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4" style={{ fontFamily: 'Lora, serif' }}>
+            <MaskedText text="Yayasan" delay={250} />
+            <br />
+            <MaskedText text="Al Jawahir At Tarbawi" delay={330} step={90} className="text-emerald-700" />
           </h1>
           <p className="animate-in animate-in-delay-3 text-gray-400 text-sm uppercase tracking-[0.18em] mb-3">Deli Serdang, Sumatera Utara</p>
           <p className="animate-in animate-in-delay-3 text-gray-500 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
@@ -171,60 +198,55 @@ export default async function HomePage() {
 
       {/* ===== MENGAPA MEMILIH KAMI ===== */}
       <section id="mengapa" className="py-20 md:py-28 px-6 bg-white">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Mengapa Memilih Kami"
-              title="Mencetak Generasi Qurani yang"
-              titleAccent="Berilmu, Berkarakter, dan Berdaya Saing"
-              desc="Berdiri sejak 2006, Al Jawahir At Tarbawi terus berkembang menjadi lembaga pendidikan Islam terpadu yang dipercaya oleh masyarakat Deli Serdang dan sekitarnya, mengintegrasikan nilai-nilai Qurani, akademik unggul, serta pembinaan karakter."
-            />
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Mengapa Memilih Kami"
+            title="Mencetak Generasi Qurani yang"
+            titleAccent="Berilmu, Berkarakter, dan Berdaya Saing"
+            desc="Berdiri sejak 2006, Al Jawahir At Tarbawi terus berkembang menjadi lembaga pendidikan Islam terpadu yang dipercaya oleh masyarakat Deli Serdang dan sekitarnya, mengintegrasikan nilai-nilai Qurani, akademik unggul, serta pembinaan karakter."
+          />
 
-            <div className="grid md:grid-cols-3 gap-6 mb-14">
-              {mengapaCards.map((c, i) => (
-                <div key={i} className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+          <div className="grid md:grid-cols-3 gap-6 mb-14">
+            {mengapaCards.map((c, i) => (
+              <Reveal key={i} delay={i * 60} className="h-full">
+                <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                   <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-5">
                     <c.icon size={24} strokeWidth={1.75} />
                   </div>
                   <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">{c.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="bg-emerald-950 rounded-2xl py-12 px-6">
+            <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((s, i) => (
+                <Reveal key={i} delay={i * 80} className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
+                    <AnimatedCounter value={s.value} suffix={s.suffix} />
+                  </div>
+                  <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">{s.label}</div>
+                </Reveal>
               ))}
             </div>
-
-            <div className="bg-emerald-950 rounded-2xl py-12 px-6">
-              <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-                {[
-                  { value: 20, suffix: '+', label: 'Tahun Berdiri' },
-                  { value: 4, suffix: '', label: 'Unit Pendidikan' },
-                  { value: 500, suffix: '+', label: 'Siswa' },
-                  { value: 60, suffix: '+', label: 'Tenaga Pendidik' },
-                ].map((s, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
-                      <AnimatedCounter value={s.value} suffix={s.suffix} />
-                    </div>
-                    <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* ===== TENTANG ===== */}
       <section id="tentang" className="py-20 md:py-28 px-6 bg-gray-50">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Tentang Kami"
-              title="Mendidik dengan Ilmu,"
-              titleAccent="Membina dengan Akhlak"
-              desc="Didirikan pada tahun 2006, Yayasan Al Jawahir At Tarbawi adalah lembaga sosial yang fokus pada tiga pilar utama: pendidikan, dakwah, dan pemberdayaan masyarakat. Kami percaya bahwa melahirkan generasi yang cerdas, berkarakter, dan peduli sesama adalah kunci membangun peradaban yang lebih baik."
-            />
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Tentang Kami"
+            title="Mendidik dengan Ilmu,"
+            titleAccent="Membina dengan Akhlak"
+            desc="Didirikan pada tahun 2006, Yayasan Al Jawahir At Tarbawi adalah lembaga sosial yang fokus pada tiga pilar utama: pendidikan, dakwah, dan pemberdayaan masyarakat. Kami percaya bahwa melahirkan generasi yang cerdas, berkarakter, dan peduli sesama adalah kunci membangun peradaban yang lebih baik."
+          />
 
-            <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Reveal delay={0} className="h-full">
               <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-lg bg-emerald-950 flex items-center justify-center text-amber-400 mb-4">
                   <Target size={22} strokeWidth={1.75} />
@@ -232,6 +254,8 @@ export default async function HomePage() {
                 <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Visi</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">Lembaga Terdepan dalam Membangun, Membina, dan Melayani Masyarakat melalui Pendidikan, Dakwah, dan Sosial.</p>
               </div>
+            </Reveal>
+            <Reveal delay={60} className="h-full">
               <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
                   <Star size={22} strokeWidth={1.75} />
@@ -243,6 +267,8 @@ export default async function HomePage() {
                   <li>• Aktivitas sosial yang berdampak nyata</li>
                 </ul>
               </div>
+            </Reveal>
+            <Reveal delay={120} className="h-full">
               <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
                   <CalendarDays size={22} strokeWidth={1.75} />
@@ -251,24 +277,24 @@ export default async function HomePage() {
                 <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
                 <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
               </div>
-            </div>
+            </Reveal>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* ===== LAYANAN KAMI ===== */}
       <section id="layanan" className="py-20 md:py-28 px-6 bg-white">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Layanan Kami"
-              title="Membangun Umat melalui"
-              titleAccent="Pendidikan, Dakwah, dan Sosial"
-              desc="Yayasan Al Jawahir At Tarbawi hadir sebagai lembaga yang menyatukan kekuatan pendidikan, dakwah, dan sosial dalam satu visi besar: membangun generasi Islam yang berilmu, berakhlak, dan berdampak."
-            />
-            <div className="grid md:grid-cols-3 gap-6">
-              {layananCards.map((c, i) => (
-                <div key={i} className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Layanan Kami"
+            title="Membangun Umat melalui"
+            titleAccent="Pendidikan, Dakwah, dan Sosial"
+            desc="Yayasan Al Jawahir At Tarbawi hadir sebagai lembaga yang menyatukan kekuatan pendidikan, dakwah, dan sosial dalam satu visi besar: membangun generasi Islam yang berilmu, berakhlak, dan berdampak."
+          />
+          <div className="grid md:grid-cols-3 gap-6">
+            {layananCards.map((c, i) => (
+              <Reveal key={i} delay={i * 60} className="h-full">
+                <div className="h-full bg-white rounded-xl p-8 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300">
                   <div className="w-14 h-14 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6">
                     <c.icon size={26} strokeWidth={1.5} />
                   </div>
@@ -276,48 +302,41 @@ export default async function HomePage() {
                   <h3 className="font-bold text-gray-800 text-xl mb-3 leading-snug tracking-tight">{c.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* ===== PROGRAM PENDIDIKAN ===== */}
       <section id="program" className="py-20 md:py-28 px-6 bg-gray-50">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Program Pendidikan"
-              title="Unit"
-              titleAccent="Pendidikan Kami"
-              desc="Empat unit pendidikan Islam terpadu untuk membangun generasi Qurani dan berkarakter."
-            />
-            <UnitPrograms />
-          </div>
-        </Reveal>
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Program Pendidikan"
+            title="Unit"
+            titleAccent="Pendidikan Kami"
+            desc="Empat unit pendidikan Islam terpadu untuk membangun generasi Qurani dan berkarakter."
+          />
+          <UnitPrograms />
+        </div>
       </section>
 
       {/* ===== SEJARAH ===== */}
       <section id="sejarah" className="py-20 md:py-28 px-6 bg-white">
-        <Reveal>
-          <div className="max-w-4xl mx-auto">
-            <SectionHeading
-              tag="Perjalanan Kami"
-              title="Sejarah &"
-              titleAccent="Pencapaian"
-              desc="Dari mimpi kecil menjadi lembaga yang terus berkembang dan berdampak nyata."
-            />
-            <div className="space-y-6">
-              {[
-                { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.' },
-                { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.' },
-                { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.' },
-                { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.' },
-              ].map((t, i) => (
-                <div key={i} className="flex gap-5 md:gap-7">
+        <div className="max-w-4xl mx-auto">
+          <SectionHeading
+            tag="Perjalanan Kami"
+            title="Sejarah &"
+            titleAccent="Pencapaian"
+            desc="Dari mimpi kecil menjadi lembaga yang terus berkembang dan berdampak nyata."
+          />
+          <div className="space-y-6">
+            {timeline.map((t, i) => (
+              <Reveal key={i} delay={i * 60}>
+                <div className="flex gap-5 md:gap-7">
                   <div className="flex flex-col items-center">
                     <div className="w-3 h-3 rounded-full bg-emerald-600 mt-2 flex-shrink-0" />
-                    {i < 3 && <div className="w-px flex-1 bg-emerald-100" />}
+                    {i < timeline.length - 1 && <div className="w-px flex-1 bg-emerald-100" />}
                   </div>
                   <div className="bg-gray-50 rounded-xl p-6 border border-gray-200/60 hover:border-emerald-200 transition-colors duration-300 flex-1 mb-1">
                     <span className="text-xs font-bold tracking-[0.18em] text-emerald-700 mb-2 inline-block">{t.year}</span>
@@ -325,143 +344,153 @@ export default async function HomePage() {
                     <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* ===== STRUKTUR ORGANISASI ===== */}
       <section id="struktur" className="py-20 md:py-28 px-6 bg-gray-50">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Struktur Organisasi"
-              title="Struktur"
-              titleAccent="Yayasan"
-              desc="Badan pengurus yang menjalankan roda organisasi Yayasan Al Jawahir At Tarbawi."
-            />
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Struktur Organisasi"
+            title="Struktur"
+            titleAccent="Yayasan"
+            desc="Badan pengurus yang menjalankan roda organisasi Yayasan Al Jawahir At Tarbawi."
+          />
 
-            {/* Level 1 - Pembina */}
-            <div className="mb-10">
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
-              <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
-                {strukturOrganisasi[0].orang.map((t, i) => (
-                  <div key={i} className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+          {/* Level 1 - Pembina */}
+          <div className="mb-10">
+            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
+            <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
+              {strukturOrganisasi[0].orang.map((t, i) => (
+                <Reveal key={i} delay={i * 60} className="h-full">
+                  <div className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
                   </div>
-                ))}
-              </div>
+                </Reveal>
+              ))}
             </div>
+          </div>
 
-            {/* Level 2 - Pengawas */}
-            <div className="mb-10">
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
-              <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
-                {strukturOrganisasi[1].orang.map((t, i) => (
-                  <div key={i} className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+          {/* Level 2 - Pengawas */}
+          <div className="mb-10">
+            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
+            <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
+              {strukturOrganisasi[1].orang.map((t, i) => (
+                <Reveal key={i} delay={i * 60} className="h-full">
+                  <div className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
                   </div>
-                ))}
-              </div>
+                </Reveal>
+              ))}
             </div>
+          </div>
 
-            {/* Level 3 - Ketua Yayasan */}
-            <div className="mb-10">
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
-              <div className="max-w-xs mx-auto">
-                {strukturOrganisasi[2].orang.map((t, i) => (
-                  <div key={i} className="bg-emerald-950 rounded-xl p-5 border border-emerald-900 hover:border-emerald-700 transition-colors duration-300 text-center">
+          {/* Level 3 - Ketua Yayasan */}
+          <div className="mb-10">
+            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
+            <div className="max-w-xs mx-auto">
+              {strukturOrganisasi[2].orang.map((t, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <div className="bg-emerald-950 rounded-xl p-5 border border-emerald-900 hover:border-emerald-700 transition-colors duration-300 text-center">
                     <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-white text-sm leading-snug">{t.nama}</p>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Level 4 - Sekretaris & Bendahara */}
-            <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
-              <div>
-                <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
-                {strukturOrganisasi[3].orang.map((t, i) => (
-                  <div key={i} className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                      {t.inisial}
-                    </div>
-                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
-                {strukturOrganisasi[4].orang.map((t, i) => (
-                  <div key={i} className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
-                      {t.inisial}
-                    </div>
-                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
-                  </div>
-                ))}
-              </div>
+                </Reveal>
+              ))}
             </div>
           </div>
-        </Reveal>
+
+          {/* Level 4 - Sekretaris & Bendahara */}
+          <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
+            <div>
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
+              {strukturOrganisasi[3].orang.map((t, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <div className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <div>
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
+              {strukturOrganisasi[4].orang.map((t, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <div className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                      {t.inisial}
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ===== BERITA ===== */}
       <section id="berita" className="py-20 md:py-28 px-6 bg-gray-50">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Berita & Artikel"
-              title="Kabar Terkini dari"
-              titleAccent="Yayasan"
-              desc="Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi."
-            />
-            {beritaList.length === 0 ? (
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Berita & Artikel"
+            title="Kabar Terkini dari"
+            titleAccent="Yayasan"
+            desc="Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi."
+          />
+          {beritaList.length === 0 ? (
+            <Reveal>
               <div className="text-center py-16 bg-white rounded-xl text-gray-400 border border-gray-200/70">
                 <p className="text-4xl mb-3">📰</p>
                 <p className="font-bold mb-1">Belum ada berita</p>
                 <p className="text-sm">Masuk ke <Link href="/admin" className="text-emerald-700 font-bold">panel admin</Link> untuk menambah berita pertama.</p>
               </div>
-            ) : (
-              <div className="grid md:grid-cols-3 gap-6">
-                {beritaList.map((b) => (
-                  <BeritaCard key={b.id} berita={b} />
-                ))}
-              </div>
-            )}
-            <div className="text-center mt-10">
-              <Link href="/berita" className="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 no-underline">
-                Lihat Semua Berita <span>→</span>
-              </Link>
+            </Reveal>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-6">
+              {beritaList.map((b, i) => (
+                <Reveal key={b.id} delay={i * 60} className="h-full">
+                  <BeritaCard berita={b} />
+                </Reveal>
+              ))}
             </div>
+          )}
+          <div className="text-center mt-10">
+            <Link href="/berita" className="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 no-underline">
+              Lihat Semua Berita <span>→</span>
+            </Link>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* ===== KONTAK ===== */}
       <section id="kontak" className="py-20 md:py-28 px-6 bg-white">
-        <Reveal>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              tag="Hubungi Kami"
-              title="Bergabunglah Bersama"
-              titleAccent="Kami"
-              desc="Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan."
-            />
-            <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
-              <div className="space-y-5">
-                {kontakItems.map((c) => (
-                  <div key={c.title} className="flex gap-4 items-start">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            tag="Hubungi Kami"
+            title="Bergabunglah Bersama"
+            titleAccent="Kami"
+            desc="Kami siap membantu Anda mendapatkan informasi lebih lanjut mengenai program pendidikan dan kegiatan yayasan."
+          />
+          <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto">
+            <div className="space-y-5">
+              {kontakItems.map((c, i) => (
+                <Reveal key={c.title} delay={i * 80}>
+                  <div className="flex gap-4 items-start">
                     <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
                       <c.icon size={18} strokeWidth={1.75} />
                     </div>
@@ -474,8 +503,10 @@ export default async function HomePage() {
                       )}
                     </div>
                   </div>
-                ))}
-              </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={240}>
               <div className="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200/70 hover:border-emerald-200 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
@@ -487,9 +518,9 @@ export default async function HomePage() {
                 </div>
                 <KontakForm />
               </div>
-            </div>
+            </Reveal>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       <Footer />
