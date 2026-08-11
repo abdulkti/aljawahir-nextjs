@@ -13,7 +13,7 @@ export default function MaskedText({
   step?: number
 }) {
   const ref = useRef<HTMLSpanElement | null>(null)
-  const [show, setShow] = useState(false)
+  const [play, setPlay] = useState(false)
   const [reduced, setReduced] = useState(false)
 
   useEffect(() => {
@@ -23,33 +23,30 @@ export default function MaskedText({
     if (mq.matches) {
       const id = requestAnimationFrame(() => {
         setReduced(true)
-        setShow(true)
+        setPlay(true)
       })
       return () => cancelAnimationFrame(id)
     }
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setShow(true)
-          observer.disconnect()
-        }
+        setPlay(entry.isIntersecting)
       },
-      { threshold: 0.5 }
+      { threshold: 0.4 }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
   const words = text.split(' ')
-  const transition = reduced ? '' : 'transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform'
+  const transition = reduced ? '' : 'transition-transform duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform'
 
   return (
     <span ref={ref} className={`inline-block ${className}`}>
       {words.map((w, i) => (
         <span key={i} className="inline-block overflow-hidden align-top pb-[0.12em] -mb-[0.12em]">
           <span
-            className={`inline-block ${transition} ${show ? 'translate-y-0' : 'translate-y-[115%]'}`}
-            style={{ transitionDelay: `${delay + i * step}ms` }}
+            className={`inline-block ${transition} ${play ? 'translate-y-0' : 'translate-y-[115%]'}`}
+            style={{ transitionDelay: play ? `${delay + i * step}ms` : '0ms' }}
           >
             {w}
             {i < words.length - 1 ? '\u00A0' : ''}
