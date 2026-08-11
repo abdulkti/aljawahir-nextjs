@@ -31,7 +31,7 @@ export default function AnimateText({
 }) {
   const ref = useRef<HTMLElement | null>(null)
   const [visible, setVisible] = useState(false)
-  const [vel, setVel] = useState(0)
+  const [dur, setDur] = useState(duration)
 
   useEffect(() => {
     const el = ref.current
@@ -46,10 +46,15 @@ export default function AnimateText({
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => subscribeVelocity(setVel), [])
+  useEffect(
+    () =>
+      subscribeVelocity((v) => {
+        setDur(Math.round(Math.max(duration / (1 + v * 1.2), 140)))
+      }),
+    [duration]
+  )
 
   const stateClass = visible ? 'opacity-100 translate-x-0 translate-y-0 scale-100 blur-0' : hidden[direction]
-  const dur = Math.round(Math.max(duration / (1 + vel * 0.7), 200))
   const style = { transitionDelay: `${delay}ms`, transitionDuration: `${dur}ms` }
 
   if (as === 'span') {
