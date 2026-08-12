@@ -36,7 +36,7 @@ CREATE POLICY "Admin bisa hapus berita" ON berita
 -- Tabel album_foto
 CREATE TABLE IF NOT EXISTS album_foto (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa', 'sejarah')),
+  unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa')),
   url TEXT NOT NULL,
   caption TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
@@ -71,3 +71,28 @@ CREATE POLICY "Admin bisa hapus album foto" ON album_foto
 --   Public: AKTIF
 --   File size limit: 10MB
 --   Allowed MIME types: image/jpeg, image/png, image/webp, image/gif
+
+-- ============================================================
+-- TIMELINE SEJARAH (bagian "Perjalanan Kami")
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS sejarah (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  tahun TEXT NOT NULL,
+  judul TEXT NOT NULL,
+  deskripsi TEXT NOT NULL,
+  foto_url TEXT,
+  urutan INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE sejarah ENABLE ROW LEVEL SECURITY;
+
+-- Publik bisa baca timeline sejarah
+CREATE POLICY "Publik bisa baca sejarah" ON sejarah
+  FOR SELECT USING (true);
+
+-- Hanya admin (service role) yang bisa tulis/edit/hapus
+CREATE POLICY "Admin kelola sejarah" ON sejarah
+  FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollToHash from '@/components/ScrollToHash'
@@ -9,10 +10,9 @@ import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
 import AnimatedCounter from '@/components/AnimatedCounter'
 import UnitPrograms from '@/components/UnitPrograms'
-import SejarahAlbum from '@/components/SejarahAlbum'
 import ScrollLink from '@/components/ScrollLink'
 import { supabaseServer } from '@/lib/supabase'
-import { Berita } from '@/types'
+import { Berita, Sejarah } from '@/types'
 import {
   BookOpen,
   Award,
@@ -26,6 +26,7 @@ import {
   MapPin,
   Mail,
   Clock,
+  Landmark,
 } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -39,6 +40,20 @@ async function getBeritaTerbaru(): Promise<Berita[]> {
       .eq('published', true)
       .order('created_at', { ascending: false })
       .limit(3)
+    return data ?? []
+  } catch {
+    return []
+  }
+}
+
+async function getSejarah(): Promise<Sejarah[]> {
+  try {
+    const sb = supabaseServer()
+    const { data } = await sb
+      .from('sejarah')
+      .select('*')
+      .order('urutan', { ascending: true })
+      .order('tahun', { ascending: true })
     return data ?? []
   } catch {
     return []
@@ -114,11 +129,11 @@ const strukturOrganisasi = [
   ], single: true },
 ]
 
-const timeline = [
-  { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.' },
-  { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.' },
-  { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.' },
-  { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.' },
+const DEFAULT_TIMELINE = [
+  { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.', foto: null as string | null },
+  { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.', foto: null },
+  { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.', foto: null },
+  { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.', foto: null },
 ]
 
 function InstagramIcon({ size = 18, strokeWidth = 1.75, className = '' }: { size?: number; strokeWidth?: number; className?: string }) {
@@ -164,6 +179,10 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
 
 export default async function HomePage() {
   const beritaList = await getBeritaTerbaru()
+  const sejarahList = await getSejarah()
+  const timeline = sejarahList.length > 0
+    ? sejarahList.map(s => ({ year: s.tahun, title: s.judul, desc: s.deskripsi, foto: s.foto_url }))
+    : DEFAULT_TIMELINE
 
   return (
     <>
@@ -335,23 +354,37 @@ export default async function HomePage() {
           />
           <div className="space-y-6">
             {timeline.map((t, i) => (
-              <Reveal key={i} delay={i * 60} from={i % 2 === 0 ? 'left' : 'right'}>
+              <Reveal key={`${t.year}-${i}`} delay={i * 60} from={i % 2 === 0 ? 'left' : 'right'}>
                 <div className="flex gap-5 md:gap-7">
                   <div className="flex flex-col items-center">
                     <div className="w-3 h-3 rounded-full bg-emerald-600 mt-2 flex-shrink-0" />
                     {i < timeline.length - 1 && <div className="w-px flex-1 bg-emerald-100" />}
                   </div>
-                  <div className="bg-gray-50 rounded-xl p-6 border border-gray-200/60 hover:border-emerald-200 transition-colors duration-300 flex-1 mb-1">
-                    <span className="text-xs font-bold tracking-[0.18em] text-emerald-700 mb-2 inline-block">{t.year}</span>
-                    <h3 className="font-bold text-gray-800 text-lg mb-1 tracking-tight">{t.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
+                  <div className="bg-gray-50 rounded-xl p-4 md:p-5 border border-gray-200/60 hover:border-emerald-200 transition-colors duration-300 flex-1 mb-1">
+                    <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-start">
+                      <div className={`w-full sm:w-52 md:w-60 flex-shrink-0 ${i % 2 === 1 ? 'sm:order-2' : ''}`}>
+                        {t.foto ? (
+                          <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white border border-gray-200/70">
+                            <Image src={t.foto} alt={t.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 25vw" />
+                          </div>
+                        ) : (
+                          <div className="w-full aspect-[4/3] rounded-xl bg-gradient-to-br from-emerald-600/10 via-emerald-700/5 to-emerald-800/15 border border-emerald-100 flex flex-col items-center justify-center gap-2">
+                            <Landmark size={26} className="text-emerald-700/50" />
+                            <span className="text-[11px] font-bold text-emerald-700/60 tracking-[0.18em]">{t.year}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className={`flex-1 min-w-0 ${i % 2 === 1 ? 'sm:order-1' : ''}`}>
+                        <span className="text-xs font-bold tracking-[0.18em] text-emerald-700 mb-2 inline-block">{t.year}</span>
+                        <h3 className="font-bold text-gray-800 text-lg mb-1 tracking-tight">{t.title}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
-
-          <SejarahAlbum />
         </div>
       </section>
 

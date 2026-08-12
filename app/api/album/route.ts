@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyAuth } from '@/lib/auth'
 import { rateLimit } from '@/lib/rate-limit'
 
-const UNITS = ['ra', 'sd', 'smp', 'tpa', 'sejarah']
+const UNITS = ['ra', 'sd', 'smp', 'tpa']
 
 export async function POST(req: NextRequest) {
   if (!verifyAuth(req)) {

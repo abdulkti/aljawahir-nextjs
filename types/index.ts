@@ -23,7 +23,7 @@ export type AlbumFoto = {
   created_at: string
 }
 
-export const UNIT_KEYS = ['ra', 'sd', 'smp', 'tpa', 'sejarah'] as const
+export const UNIT_KEYS = ['ra', 'sd', 'smp', 'tpa'] as const
 export type UnitKey = (typeof UNIT_KEYS)[number]
 
 export const UNIT_LABELS: Record<UnitKey, string> = {
@@ -31,5 +31,15 @@ export const UNIT_LABELS: Record<UnitKey, string> = {
   sd: 'SD IT Al Jawahir',
   smp: 'SMP IT Al Jawahir',
   tpa: 'Taman Pendidikan Al-Quran',
-  sejarah: 'Sejarah Yayasan',
+}
+
+export type Sejarah = {
+  id: string
+  tahun: string
+  judul: string
+  deskripsi: string
+  foto_url: string | null
+  urutan: number
+  created_at: string
+  updated_at: string
 }

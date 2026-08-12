@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
 import { adminHeaders } from '@/lib/admin-headers'
-import { Berita, AlbumFoto, UNIT_KEYS, UNIT_LABELS, UnitKey } from '@/types'
-import { LayoutDashboard, Newspaper, PenSquare, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload, Star, Globe, PenLine, CalendarDays } from 'lucide-react'
+import { Berita, AlbumFoto, Sejarah, UNIT_KEYS, UNIT_LABELS, UnitKey } from '@/types'
+import { LayoutDashboard, Newspaper, PenSquare, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload, Star, Globe, PenLine, CalendarDays, History, Save } from 'lucide-react'
 
-type Tab = 'dashboard' | 'berita' | 'album'
+type Tab = 'dashboard' | 'berita' | 'album' | 'sejarah'
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
@@ -27,6 +27,18 @@ export default function AdminPage() {
   const [albumLoading, setAlbumLoading] = useState(false)
   const [albumUploading, setAlbumUploading] = useState(false)
   const [albumCaption, setAlbumCaption] = useState('')
+  const [sejarahList, setSejarahList] = useState<Sejarah[]>([])
+  const [sejarahLoading, setSejarahLoading] = useState(false)
+  const [sejarahFormOpen, setSejarahFormOpen] = useState(false)
+  const [sejarahSaving, setSejarahSaving] = useState(false)
+  const [sejarahEditId, setSejarahEditId] = useState<string | null>(null)
+  const [sejarahTahun, setSejarahTahun] = useState('')
+  const [sejarahJudul, setSejarahJudul] = useState('')
+  const [sejarahDeskripsi, setSejarahDeskripsi] = useState('')
+  const [sejarahUrutan, setSejarahUrutan] = useState(0)
+  const [sejarahFoto, setSejarahFoto] = useState<File | null>(null)
+  const [sejarahFotoPreview, setSejarahFotoPreview] = useState('')
+  const [sejarahRemoveFoto, setSejarahRemoveFoto] = useState(false)
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_token')) {
@@ -73,6 +85,79 @@ export default function AdminPage() {
     if (!res.ok) { showToast('Gagal set sampul.', true); return }
     showToast('⭐ Foto ditetapkan sebagai sampul unit.')
     loadAlbum()
+  }
+
+  async function loadSejarah() {
+    setSejarahLoading(true)
+    const { data } = await supabase.from('sejarah').select('*').order('urutan', { ascending: true }).order('tahun', { ascending: true })
+    setSejarahList(data ?? [])
+    setSejarahLoading(false)
+  }
+
+  function openSejarahForm(entry?: Sejarah) {
+    if (entry) {
+      setSejarahEditId(entry.id)
+      setSejarahTahun(entry.tahun)
+      setSejarahJudul(entry.judul)
+      setSejarahDeskripsi(entry.deskripsi)
+      setSejarahUrutan(entry.urutan)
+      setSejarahFotoPreview(entry.foto_url ?? '')
+    } else {
+      setSejarahEditId(null)
+      setSejarahTahun('')
+      setSejarahJudul('')
+      setSejarahDeskripsi('')
+      setSejarahUrutan(sejarahList.length + 1)
+      setSejarahFotoPreview('')
+    }
+    setSejarahFoto(null)
+    setSejarahRemoveFoto(false)
+    setSejarahFormOpen(true)
+  }
+
+  function onSejarahFotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0]
+    if (!f) return
+    if (f.size > 10 * 1024 * 1024) { showToast('Ukuran gambar maks 10MB!', true); return }
+    setSejarahFoto(f)
+    setSejarahFotoPreview(URL.createObjectURL(f))
+    setSejarahRemoveFoto(false)
+  }
+
+  async function simpanSejarah(e: React.FormEvent) {
+    e.preventDefault()
+    if (!sejarahTahun.trim() || !sejarahJudul.trim() || !sejarahDeskripsi.trim()) {
+      showToast('Tahun, judul, dan deskripsi wajib diisi!', true)
+      return
+    }
+    setSejarahSaving(true)
+    const form = new FormData()
+    form.append('tahun', sejarahTahun.trim())
+    form.append('judul', sejarahJudul.trim())
+    form.append('deskripsi', sejarahDeskripsi.trim())
+    form.append('urutan', String(sejarahUrutan))
+    if (sejarahFoto) form.append('file', sejarahFoto)
+    if (sejarahEditId) form.append('id', sejarahEditId)
+    if (sejarahRemoveFoto) form.append('remove_photo', '1')
+    const res = await fetch('/api/sejarah', {
+      method: sejarahEditId ? 'PATCH' : 'POST',
+      headers: adminHeaders(),
+      body: form,
+    })
+    const json = await res.json()
+    setSejarahSaving(false)
+    if (!res.ok) { showToast('Gagal simpan: ' + json.error, true); return }
+    showToast(sejarahEditId ? '✅ Peristiwa diperbarui!' : '✅ Peristiwa ditambahkan!')
+    setSejarahFormOpen(false)
+    loadSejarah()
+  }
+
+  async function hapusSejarah(entry: Sejarah) {
+    if (!confirm(`Hapus peristiwa "${entry.judul}"? Tidak bisa dibatalkan.`)) return
+    const res = await fetch(`/api/sejarah?id=${entry.id}`, { method: 'DELETE', headers: adminHeaders() })
+    if (!res.ok) { showToast('Gagal menghapus.', true); return }
+    showToast('🗑️ Peristiwa dihapus.')
+    loadSejarah()
   }
 
   async function doLogin() {
@@ -193,8 +278,9 @@ export default function AdminPage() {
             { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { id: 'berita', label: 'Daftar Berita', icon: Newspaper },
             { id: 'album', label: 'Album Foto', icon: Images },
+            { id: 'sejarah', label: 'Sejarah', icon: History },
           ] as const).map(item => (
-            <button key={item.id} onClick={() => { setTab(item.id); setMobileOpen(false); if (item.id === 'album') loadAlbum() }}
+            <button key={item.id} onClick={() => { setTab(item.id); setMobileOpen(false); if (item.id === 'album') loadAlbum(); if (item.id === 'sejarah') loadSejarah() }}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold mb-0.5 transition-colors ${tab === item.id ? 'bg-white/15 text-white' : 'text-white/60 hover:text-white hover:bg-white/8'}`}>
               <item.icon size={15} />
               {item.label}
@@ -404,7 +490,7 @@ export default function AdminPage() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
                 <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Album Foto</h1>
-                <p className="text-gray-400 text-xs mt-0.5">Upload dan kelola foto album unit pendidikan & sejarah yayasan</p>
+                <p className="text-gray-400 text-xs mt-0.5">Upload dan kelola foto album setiap unit pendidikan</p>
               </div>
             </div>
 
@@ -476,6 +562,143 @@ export default function AdminPage() {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* SEJARAH */}
+        {tab === 'sejarah' && (
+          <div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+              <div className="flex-1">
+                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Sejarah & Pencapaian</h1>
+                <p className="text-gray-400 text-xs mt-0.5">Kelola timeline perjalanan yayasan beserta fotonya</p>
+              </div>
+              <button onClick={() => openSejarahForm()} className="self-start flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3.5 py-2 rounded-lg text-[13px] font-semibold no-underline transition-colors">
+                <Plus size={14} /> Tambah Peristiwa
+              </button>
+            </div>
+
+            {/* Form tambah/edit */}
+            {sejarahFormOpen && (
+              <form onSubmit={simpanSejarah} className="bg-white rounded-xl border border-gray-100 p-4 md:p-5 mb-5">
+                <h2 className="font-bold text-gray-800 text-sm mb-4" style={{ fontFamily: 'Lora, serif' }}>
+                  {sejarahEditId ? 'Edit Peristiwa' : 'Tambah Peristiwa Baru'}
+                </h2>
+                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Tahun</label>
+                    <input value={sejarahTahun} onChange={e => setSejarahTahun(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500"
+                      placeholder="Contoh: 2006 atau 2023–Kini" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Urutan Tampil</label>
+                    <input type="number" min={0} value={sejarahUrutan} onChange={e => setSejarahUrutan(parseInt(e.target.value, 10) || 0)}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500"
+                      placeholder="Contoh: 1, 2, 3..." />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Judul</label>
+                  <input value={sejarahJudul} onChange={e => setSejarahJudul(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500"
+                    placeholder="Contoh: Pendirian Yayasan" />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Deskripsi</label>
+                  <textarea value={sejarahDeskripsi} onChange={e => setSejarahDeskripsi(e.target.value)} rows={3}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-emerald-500 resize-y"
+                    placeholder="Cerita singkat peristiwa ini..." />
+                </div>
+
+                {/* Foto */}
+                <div className="mb-4">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Foto (opsional)</label>
+                  <div className="flex flex-wrap items-center gap-3">
+                    {sejarahFotoPreview && !sejarahRemoveFoto ? (
+                      <div className="flex items-center gap-3">
+                        <img src={sejarahFotoPreview} alt="Preview" className="w-24 h-16 object-cover rounded-lg border border-gray-200" />
+                        {sejarahEditId && (
+                          <button type="button" onClick={() => setSejarahRemoveFoto(true)}
+                            className="text-xs font-semibold text-red-600 hover:underline">
+                            Hapus foto
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="w-24 h-16 rounded-lg bg-gray-50 border border-dashed border-gray-300 flex items-center justify-center text-gray-300 text-xs">
+                        {sejarahRemoveFoto ? 'Foto dihapus' : 'Belum ada foto'}
+                      </div>
+                    )}
+                    <label className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-colors cursor-pointer ${sejarahFoto ? 'bg-emerald-700 text-white' : 'bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'}`}>
+                      <Upload size={14} />
+                      {sejarahFoto ? 'Ganti Foto' : 'Pilih Foto'}
+                      <input type="file" accept="image/*" className="hidden" onChange={onSejarahFotoChange} />
+                    </label>
+                  </div>
+                  <p className="text-[11px] text-gray-400 mt-1.5">Format JPG/PNG/WebP, maks 10MB.</p>
+                </div>
+
+                <div className="flex gap-2">
+                  <button type="submit" disabled={sejarahSaving}
+                    className="flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors">
+                    <Save size={14} />
+                    {sejarahSaving ? 'Menyimpan...' : 'Simpan'}
+                  </button>
+                  <button type="button" onClick={() => setSejarahFormOpen(false)}
+                    className="px-4 py-2 rounded-lg text-[13px] font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors">
+                    Batal
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Daftar peristiwa */}
+            {sejarahLoading ? (
+              <div className="text-center py-16 text-gray-400">⏳ Memuat...</div>
+            ) : sejarahList.length === 0 ? (
+              <div className="text-center py-16 bg-white rounded-xl border border-gray-100">
+                <p className="text-4xl mb-3">🏛️</p>
+                <p className="font-bold text-gray-600 mb-1">Belum ada catatan perjalanan</p>
+                <p className="text-sm text-gray-400">Klik &quot;Tambah Peristiwa&quot; untuk mulai mengisi sejarah yayasan.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {sejarahList.map((s) => (
+                  <div key={s.id} className="bg-white rounded-xl border border-gray-100 p-4 flex items-start gap-3">
+                    <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                      {s.foto_url ? (
+                        <Image src={s.foto_url} alt={s.judul} width={80} height={56} className="object-cover w-full h-full" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-emerald-50 text-emerald-700">
+                          <History size={16} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">{s.tahun}</span>
+                        <span className="text-[10px] text-gray-300">Urutan {s.urutan}</span>
+                      </div>
+                      <p className="font-bold text-gray-800 text-sm mt-1 leading-snug">{s.judul}</p>
+                      <p className="text-xs text-gray-500 line-clamp-1 mt-0.5">{s.deskripsi}</p>
+                    </div>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <button onClick={() => openSejarahForm(s)}
+                        className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors"
+                        title="Edit">
+                        <Pencil size={14} />
+                      </button>
+                      <button onClick={() => hapusSejarah(s)}
+                        className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-colors"
+                        title="Hapus">
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
