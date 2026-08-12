@@ -36,7 +36,7 @@ CREATE POLICY "Admin bisa hapus berita" ON berita
 -- Tabel album_foto
 CREATE TABLE IF NOT EXISTS album_foto (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa')),
+  unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa', 'sejarah')),
   url TEXT NOT NULL,
   caption TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()

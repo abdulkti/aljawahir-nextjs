@@ -31,7 +31,7 @@ CREATE POLICY "Admin kelola berita" ON berita
 -- ============ 2. TABEL ALBUM FOTO ============
 CREATE TABLE IF NOT EXISTS album_foto (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa')),
+  unit TEXT NOT NULL CHECK (unit IN ('ra', 'sd', 'smp', 'tpa', 'sejarah')),
   url TEXT NOT NULL,
   caption TEXT,
   is_cover BOOLEAN NOT NULL DEFAULT FALSE,

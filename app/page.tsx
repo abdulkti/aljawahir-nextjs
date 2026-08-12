@@ -9,6 +9,7 @@ import BeritaCard from '@/components/BeritaCard'
 import KontakForm from '@/components/KontakForm'
 import AnimatedCounter from '@/components/AnimatedCounter'
 import UnitPrograms from '@/components/UnitPrograms'
+import SejarahAlbum from '@/components/SejarahAlbum'
 import ScrollLink from '@/components/ScrollLink'
 import { supabaseServer } from '@/lib/supabase'
 import { Berita } from '@/types'
@@ -349,6 +350,8 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </div>
+
+          <SejarahAlbum />
         </div>
       </section>
 

@@ -404,7 +404,7 @@ export default function AdminPage() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
                 <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Album Foto</h1>
-                <p className="text-gray-400 text-xs mt-0.5">Upload dan kelola foto album setiap unit pendidikan</p>
+                <p className="text-gray-400 text-xs mt-0.5">Upload dan kelola foto album unit pendidikan & sejarah yayasan</p>
               </div>
             </div>
 
