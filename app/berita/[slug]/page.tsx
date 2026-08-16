@@ -71,11 +71,20 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
       <Navbar />
       <div className="pt-16 min-h-screen bg-white">
         {/* Cover */}
-        <div className="relative h-72 md:h-96 bg-gradient-to-br from-emerald-900 to-emerald-700 overflow-hidden">
-          {berita.cover_url && (
-            <Image src={berita.cover_url} alt={berita.judul} fill className="object-cover opacity-60" />
+        <div className="relative bg-emerald-950/95">
+          {berita.cover_url ? (
+            <Image
+              src={berita.cover_url}
+              alt={berita.judul}
+              width={1600}
+              height={900}
+              className="w-full max-h-[65vh] object-contain mx-auto"
+              priority
+            />
+          ) : (
+            <div className="h-72 md:h-96 bg-gradient-to-br from-emerald-900 to-emerald-700" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 max-w-3xl mx-auto">
             <span className={`text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block ${kategoriColor(berita.kategori)}`}>
               {berita.kategori}
@@ -85,6 +94,23 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
             </h1>
           </div>
         </div>
+
+        {/* Video */}
+        {berita.video_url && (
+          <div className="max-w-3xl mx-auto px-6 pt-8">
+            <div className="relative rounded-2xl overflow-hidden bg-black aspect-video shadow-lg">
+              <video
+                src={berita.video_url}
+                controls
+                preload="metadata"
+                poster={berita.cover_url ?? undefined}
+                className="w-full h-full object-contain"
+              >
+                Browser Anda tidak mendukung pemutar video.
+              </video>
+            </div>
+          </div>
+        )}
 
         {/* Konten */}
         <div className="max-w-3xl mx-auto px-6 py-10">
@@ -127,8 +153,8 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
                 {beritaLain.map(b => (
                   <Link key={b.id} href={`/berita/${b.slug}`} className="no-underline group">
                     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="h-36 bg-gradient-to-br from-emerald-900 to-emerald-700 relative overflow-hidden">
-                        {b.cover_url && <Image src={b.cover_url} alt={b.judul} fill className="object-cover opacity-80" />}
+                      <div className="aspect-[16/10] bg-gradient-to-br from-emerald-900 to-emerald-700 relative overflow-hidden">
+                        {b.cover_url && <Image src={b.cover_url} alt={b.judul} fill className="object-cover opacity-80" sizes="(max-width: 768px) 100vw, 33vw" />}
                       </div>
                       <div className="p-4">
                         <p className="text-xs text-emerald-700 font-bold mb-1">{b.kategori}</p>

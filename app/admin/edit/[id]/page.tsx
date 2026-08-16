@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { adminHeaders } from '@/lib/admin-headers'
 import TulisPage from '@/app/admin/tulis/page'
 
 export default function EditPage() {
@@ -13,9 +13,10 @@ export default function EditPage() {
   useEffect(() => {
     if (!sessionStorage.getItem('admin_token')) { router.push('/admin'); return }
     async function load() {
-      const { data, error } = await supabase.from('berita').select('*').eq('id', params.id).single()
-      if (error) { router.push('/admin'); return }
-      setData(data)
+      const res = await fetch(`/api/berita?id=${params.id}`, { headers: adminHeaders() })
+      if (!res.ok) { router.push('/admin'); return }
+      const json = await res.json()
+      setData(json)
       setLoading(false)
     }
     load()

@@ -7,6 +7,7 @@ export type Berita = {
   kategori: string
   penulis: string | null
   cover_url: string | null
+  video_url: string | null
   published: boolean
   created_at: string
   updated_at: string

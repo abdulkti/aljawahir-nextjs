@@ -186,8 +186,9 @@ export default function AdminPage() {
 
   async function loadBerita() {
     setLoading(true)
-    const { data } = await supabase.from('berita').select('*').order('created_at', { ascending: false })
-    setBeritaList(data ?? [])
+    const res = await fetch('/api/berita', { headers: adminHeaders() })
+    const json = await res.json().catch(() => null)
+    setBeritaList(Array.isArray(json) ? json : [])
     setLoading(false)
   }
 
@@ -197,16 +198,22 @@ export default function AdminPage() {
   }
 
   async function togglePublish(id: string, current: boolean) {
-    const { error } = await supabase.from('berita').update({ published: !current }).eq('id', id)
-    if (error) { showToast('Gagal mengubah status.', true); return }
+    const res = await fetch('/api/berita', {
+      method: 'PATCH',
+      headers: adminHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ id, published: !current }),
+    })
+    if (res.status === 401) { showToast('Sesi berakhir. Silakan login kembali.', true); return }
+    if (!res.ok) { showToast('Gagal mengubah status.', true); return }
     showToast(current ? '📝 Disimpan sebagai draft.' : '✅ Berhasil dipublikasikan!')
     loadBerita()
   }
 
   async function hapus(id: string, judul: string) {
     if (!confirm(`Hapus berita "${judul}"? Tidak bisa dibatalkan.`)) return
-    const { error } = await supabase.from('berita').delete().eq('id', id)
-    if (error) { showToast('Gagal menghapus.', true); return }
+    const res = await fetch(`/api/berita?id=${id}`, { method: 'DELETE', headers: adminHeaders() })
+    if (res.status === 401) { showToast('Sesi berakhir. Silakan login kembali.', true); return }
+    if (!res.ok) { showToast('Gagal menghapus.', true); return }
     showToast('🗑️ Berita dihapus.')
     loadBerita()
   }

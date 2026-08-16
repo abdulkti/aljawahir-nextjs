@@ -17,22 +17,33 @@ export async function POST(req: NextRequest) {
   const file = formData.get('file') as File | null
   if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 })
 
+  const isVideo = file.type.startsWith('video/')
+  const maxSize = isVideo ? 50 * 1024 * 1024 : 10 * 1024 * 1024
+  if (file.size > maxSize) {
+    return NextResponse.json(
+      { error: isVideo ? 'Ukuran video maks 50MB!' : 'Ukuran gambar maks 10MB!' },
+      { status: 400 }
+    )
+  }
+
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 
   const ext = file.name.split('.').pop()
-  const fileName = `berita_${Date.now()}.${ext}`
+  const bucket = isVideo ? 'berita-videos' : 'berita-images'
+  const folder = isVideo ? 'videos/' : ''
+  const fileName = `${folder}${isVideo ? 'video' : 'berita'}_${Date.now()}.${ext}`
 
   const { error } = await supabase.storage
-    .from('berita-images')
+    .from(bucket)
     .upload(fileName, file, { upsert: true, contentType: file.type })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
   const { data: { publicUrl } } = supabase.storage
-    .from('berita-images')
+    .from(bucket)
     .getPublicUrl(fileName)
 
   return NextResponse.json({ url: publicUrl })

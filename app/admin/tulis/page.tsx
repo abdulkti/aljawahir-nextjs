@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { supabase } from '@/lib/supabase'
 import { makeSlug } from '@/lib/utils'
 import { adminHeaders } from '@/lib/admin-headers'
-import { ArrowLeft, Upload, Save, Send } from 'lucide-react'
+import { ArrowLeft, Save, Send, Film } from 'lucide-react'
 
 const KATEGORI = ['Berita', 'Pendidikan', 'Prestasi', 'Kegiatan', 'Pengumuman', 'Artikel']
 
@@ -18,7 +17,9 @@ export default function TulisPage({ editData }: { editData?: any }) {
   const [ringkasan, setRingkasan] = useState(editData?.ringkasan ?? '')
   const [isi, setIsi] = useState(editData?.isi ?? '')
   const [coverUrl, setCoverUrl] = useState(editData?.cover_url ?? '')
+  const [videoUrl, setVideoUrl] = useState(editData?.video_url ?? '')
   const [uploading, setUploading] = useState(false)
+  const [uploadingVideo, setUploadingVideo] = useState(false)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState('')
   const [toastErr, setToastErr] = useState(false)
@@ -47,25 +48,51 @@ export default function TulisPage({ editData }: { editData?: any }) {
     showToast('✅ Gambar berhasil diupload!')
   }
 
+  async function handleVideoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (file.size > 50 * 1024 * 1024) { showToast('Ukuran video maks 50MB!', true); return }
+    if (!file.type.startsWith('video/')) { showToast('File harus berupa video!', true); return }
+    setUploadingVideo(true)
+    const form = new FormData()
+    form.append('file', file)
+    const res = await fetch('/api/upload', { method: 'POST', headers: adminHeaders(), body: form })
+    const json = await res.json()
+    if (!res.ok) { showToast('Gagal upload video: ' + json.error, true); setUploadingVideo(false); return }
+    setVideoUrl(json.url)
+    setUploadingVideo(false)
+    showToast('✅ Video berhasil diupload!')
+  }
+
   async function save(publish: boolean) {
     if (!judul.trim()) { showToast('Judul wajib diisi!', true); return }
     if (!isi.trim()) { showToast('Isi berita wajib diisi!', true); return }
     setSaving(true)
     const payload = {
+      id: editData?.id,
       judul: judul.trim(),
-      slug: makeSlug(judul.trim()) + '-' + Date.now().toString().slice(-4),
+      slug: editData?.slug ?? (makeSlug(judul.trim()) + '-' + Date.now().toString().slice(-4)),
       ringkasan: ringkasan.trim() || null,
       isi: isi.trim(),
       kategori,
       penulis: penulis.trim() || null,
       cover_url: coverUrl || null,
+      video_url: videoUrl || null,
       published: publish,
     }
-    const { error } = editData
-      ? await supabase.from('berita').update({ ...payload, updated_at: new Date().toISOString() }).eq('id', editData.id)
-      : await supabase.from('berita').insert([payload])
+    const res = await fetch('/api/berita', {
+      method: editData ? 'PATCH' : 'POST',
+      headers: adminHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(payload),
+    })
     setSaving(false)
-    if (error) { showToast('Gagal menyimpan: ' + error.message, true); return }
+    if (res.status === 401) {
+      showToast('Sesi berakhir. Silakan login kembali.', true)
+      setTimeout(() => router.push('/admin'), 1200)
+      return
+    }
+    const json = await res.json().catch(() => null)
+    if (!res.ok) { showToast('Gagal menyimpan: ' + (json?.error ?? 'Terjadi kesalahan'), true); return }
     showToast(publish ? '✅ Berhasil dipublikasikan!' : '💾 Draft disimpan!')
     setTimeout(() => router.push('/admin'), 1200)
   }
@@ -127,8 +154,8 @@ export default function TulisPage({ editData }: { editData?: any }) {
           <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Gambar Cover</label>
           {coverUrl ? (
             <div className="relative">
-              <div className="relative h-48 md:h-56 rounded-2xl overflow-hidden">
-                <Image src={coverUrl} alt="Cover" fill className="object-cover" />
+              <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden bg-gray-100">
+                <Image src={coverUrl} alt="Cover" fill className="object-contain" sizes="(max-width: 768px) 100vw, 768px" />
               </div>
               <button onClick={() => setCoverUrl('')}
                 className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-red-600 transition-colors">
@@ -143,6 +170,33 @@ export default function TulisPage({ editData }: { editData?: any }) {
               </p>
               <p className="text-xs text-gray-400">JPG, PNG, WebP — maksimal 5MB</p>
               <input type="file" accept="image/*" onChange={handleUpload} className="hidden" disabled={uploading} />
+            </label>
+          )}
+        </div>
+
+        {/* Video (opsional) */}
+        <div className="mb-8">
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <Film size={14} /> Video <span className="normal-case font-normal">(opsional)</span>
+          </label>
+          {videoUrl ? (
+            <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden bg-black aspect-video">
+                <video src={videoUrl} controls className="w-full h-full object-contain" />
+              </div>
+              <button onClick={() => setVideoUrl('')}
+                className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-red-600 transition-colors">
+                Hapus Video
+              </button>
+            </div>
+          ) : (
+            <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-6 md:p-10 text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all">
+              <div className="text-4xl mb-3">{uploadingVideo ? '⏳' : '🎬'}</div>
+              <p className="text-gray-500 text-sm mb-1">
+                {uploadingVideo ? 'Mengupload video...' : <><strong className="text-emerald-700">Klik untuk upload video</strong></>}
+              </p>
+              <p className="text-xs text-gray-400">MP4, WebM, MOV — maksimal 50MB</p>
+              <input type="file" accept="video/*" onChange={handleVideoUpload} className="hidden" disabled={uploadingVideo} />
             </label>
           )}
         </div>
