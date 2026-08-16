@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     slug: body.slug?.trim() || null,
     ringkasan: body.ringkasan?.trim() || null,
     isi: body.isi.trim(),
-    kategori: body.kategori?.trim() || 'Berita',
+    kategori: body.kategori?.trim() || 'RA',
     penulis: body.penulis?.trim() || null,
     cover_url: body.cover_url || null,
     published: Boolean(body.published),

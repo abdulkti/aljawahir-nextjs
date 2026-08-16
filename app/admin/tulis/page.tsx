@@ -8,12 +8,12 @@ import { adminHeaders } from '@/lib/admin-headers'
 import { uploadDirect, isHeic, convertHeic } from '@/lib/photo-upload'
 import { ArrowLeft, Save, Send, Film } from 'lucide-react'
 
-const KATEGORI = ['Berita', 'Pendidikan', 'Prestasi', 'Kegiatan', 'Pengumuman', 'Artikel']
+const KATEGORI = ['RA', 'SD', 'SMP', 'TPA']
 
 export default function TulisPage({ editData }: { editData?: any }) {
   const router = useRouter()
   const [judul, setJudul] = useState(editData?.judul ?? '')
-  const [kategori, setKategori] = useState(editData?.kategori ?? 'Berita')
+  const [kategori, setKategori] = useState(editData?.kategori ?? 'RA')
   const [penulis, setPenulis] = useState(editData?.penulis ?? '')
   const [ringkasan, setRingkasan] = useState(editData?.ringkasan ?? '')
   const [isi, setIsi] = useState(editData?.isi ?? '')

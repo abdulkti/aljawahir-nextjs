@@ -22,7 +22,7 @@ async function getAllBerita(): Promise<Berita[]> {
   return data ?? []
 }
 
-const KATEGORI = ['Semua', 'Berita', 'Pendidikan', 'Prestasi', 'Kegiatan', 'Pengumuman', 'Artikel']
+const KATEGORI = ['Semua', 'RA', 'SD', 'SMP', 'TPA']
 
 export default async function BeritaPage({ searchParams }: { searchParams: Promise<{ kategori?: string }> }) {
   const params = await searchParams
