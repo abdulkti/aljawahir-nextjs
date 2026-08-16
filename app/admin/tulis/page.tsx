@@ -8,7 +8,7 @@ import { adminHeaders } from '@/lib/admin-headers'
 import { uploadDirect, isHeic, convertHeic } from '@/lib/photo-upload'
 import { ArrowLeft, Save, Send, Film } from 'lucide-react'
 
-const KATEGORI = ['RA', 'SD', 'SMP', 'TPA']
+const KATEGORI = ['RA', 'SD', 'SMP', 'TPA', 'Yayasan']
 
 export default function TulisPage({ editData }: { editData?: any }) {
   const router = useRouter()

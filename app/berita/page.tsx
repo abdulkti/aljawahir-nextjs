@@ -22,7 +22,7 @@ async function getAllBerita(): Promise<Berita[]> {
   return data ?? []
 }
 
-const KATEGORI = ['Semua', 'RA', 'SD', 'SMP', 'TPA']
+const KATEGORI = ['Semua', 'RA', 'SD', 'SMP', 'TPA', 'Yayasan']
 
 export default async function BeritaPage({ searchParams }: { searchParams: Promise<{ kategori?: string }> }) {
   const params = await searchParams
@@ -40,7 +40,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Lora, serif' }}>
             Kabar Terkini
           </h1>
-          <p className="text-gray-500 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi</p>
+          <p className="text-gray-500 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari RA, SD, SMP, TPA, dan Yayasan Al Jawahir At Tarbawi</p>
         </div>
 
         {/* Filter Kategori */}
