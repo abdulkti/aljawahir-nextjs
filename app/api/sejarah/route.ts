@@ -16,10 +16,18 @@ function checkAuth(req: NextRequest): boolean {
   return rateLimit(`sejarah:${ip}`, 30, 60000)
 }
 
-async function removeStorageFile(supabase: ReturnType<typeof adminClient>, url: string) {
+async function extractAlbumPath(url: string): Promise<string> {
   try {
     const parts = new URL(url).pathname.split('/')
-    const storagePath = parts.slice(parts.indexOf('album-images') + 1).join('/')
+    return parts.slice(parts.indexOf('album-images') + 1).join('/')
+  } catch {
+    return ''
+  }
+}
+
+async function removeStorageFile(supabase: ReturnType<typeof adminClient>, url: string) {
+  try {
+    const storagePath = await extractAlbumPath(url)
     if (storagePath) {
       await supabase.storage.from('album-images').remove([storagePath])
     }
@@ -31,6 +39,37 @@ async function removeStorageFile(supabase: ReturnType<typeof adminClient>, url: 
 export async function POST(req: NextRequest) {
   if (!checkAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const contentType = req.headers.get('content-type') ?? ''
+
+  // JSON: file sudah diupload langsung oleh browser -> tinggal catat URL-nya.
+  if (contentType.includes('application/json')) {
+    const body = await req.json().catch(() => null)
+    const tahun = (body?.tahun as string | null)?.trim() ?? ''
+    const judul = (body?.judul as string | null)?.trim() ?? ''
+    const deskripsi = (body?.deskripsi as string | null)?.trim() ?? ''
+    const urutan = parseInt(String(body?.urutan ?? '0'), 10) || 0
+    const fotoUrl = (body?.foto_url as string | null) ?? null
+
+    if (!tahun || !judul || !deskripsi) {
+      return NextResponse.json({ error: 'Tahun, judul, dan deskripsi wajib diisi' }, { status: 400 })
+    }
+
+    const supabase = adminClient()
+
+    const { data, error } = await supabase
+      .from('sejarah')
+      .insert([{ tahun, judul, deskripsi, foto_url: fotoUrl, urutan }])
+      .select('*')
+      .single()
+
+    if (error) {
+      if (fotoUrl) await removeStorageFile(supabase, fotoUrl)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json(data)
   }
 
   const formData = await req.formData()
@@ -79,6 +118,63 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   if (!checkAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const contentType = req.headers.get('content-type') ?? ''
+
+  // JSON: foto sudah diupload langsung oleh browser -> tinggal catat URL-nya.
+  if (contentType.includes('application/json')) {
+    const body = await req.json().catch(() => null)
+    const id = (body?.id as string | null)?.trim() ?? ''
+    if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 })
+
+    const tahun = body?.tahun !== undefined ? String(body.tahun).trim() : undefined
+    const judul = body?.judul !== undefined ? String(body.judul).trim() : undefined
+    const deskripsi = body?.deskripsi !== undefined ? String(body.deskripsi).trim() : undefined
+    const urutan = body?.urutan !== undefined ? (parseInt(String(body.urutan), 10) || 0) : undefined
+    const removePhoto = body?.remove_photo === true
+    const fotoUrl = body?.foto_url !== undefined ? (body.foto_url || null) : undefined
+
+    const supabase = adminClient()
+
+    const { data: existing } = await supabase
+      .from('sejarah')
+      .select('foto_url')
+      .eq('id', id)
+      .single()
+    if (!existing) return NextResponse.json({ error: 'Data tidak ditemukan' }, { status: 404 })
+
+    const patch: Record<string, string | number | null> = { updated_at: new Date().toISOString() }
+    if (tahun !== undefined) patch.tahun = tahun
+    if (judul !== undefined) patch.judul = judul
+    if (deskripsi !== undefined) patch.deskripsi = deskripsi
+    if (urutan !== undefined) patch.urutan = urutan
+
+    let newFotoUrl: string | null | undefined
+
+    if (removePhoto) {
+      newFotoUrl = null
+      if (existing.foto_url) await removeStorageFile(supabase, existing.foto_url)
+    } else if (fotoUrl !== undefined) {
+      newFotoUrl = fotoUrl
+      if (existing.foto_url) await removeStorageFile(supabase, existing.foto_url)
+    }
+
+    if (newFotoUrl !== undefined) patch.foto_url = newFotoUrl
+
+    const { data, error } = await supabase
+      .from('sejarah')
+      .update(patch)
+      .eq('id', id)
+      .select('*')
+      .single()
+
+    if (error) {
+      if (newFotoUrl) await removeStorageFile(supabase, newFotoUrl)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json(data)
   }
 
   const formData = await req.formData()

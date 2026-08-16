@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { makeSlug } from '@/lib/utils'
 import { adminHeaders } from '@/lib/admin-headers'
+import { uploadDirect, isHeic, convertHeic } from '@/lib/photo-upload'
 import { ArrowLeft, Save, Send, Film } from 'lucide-react'
 
 const KATEGORI = ['Berita', 'Pendidikan', 'Prestasi', 'Kegiatan', 'Pengumuman', 'Artikel']
@@ -34,46 +35,19 @@ export default function TulisPage({ editData }: { editData?: any }) {
     setTimeout(() => setToast(''), 3500)
   }
 
-  // Upload langsung browser -> Supabase (signed URL), tanpa lewat server Vercel
-  // agar file besar (video) tidak terpotong oleh batas ukuran body Vercel.
-  function uploadDirect(file: File): Promise<string> {
-    return fetch('/api/upload-url', {
-      method: 'POST',
-      headers: adminHeaders({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ type: file.type, size: file.size, filename: file.name }),
-    })
-      .then(async (res) => {
-        const json = await res.json().catch(() => null)
-        if (!res.ok) throw new Error(json?.error ?? 'Gagal menyiapkan upload')
-        return json as { uploadUrl: string; path: string; bucket: string }
-      })
-      .then((data) => new Promise<string>((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.open('PUT', data.uploadUrl)
-        xhr.setRequestHeader('Content-Type', file.type)
-        xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable) setUploadProgress(Math.round((e.loaded / e.total) * 100))
-        }
-        xhr.onload = () => {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            resolve(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${data.bucket}/${data.path}`)
-          } else {
-            reject(new Error('Gagal mengunggah file'))
-          }
-        }
-        xhr.onerror = () => reject(new Error('Gagal mengunggah file'))
-        xhr.send(file)
-      }))
-  }
-
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
+    let file = e.target.files?.[0]
     if (!file) return
     if (file.size > 5 * 1024 * 1024) { showToast('Ukuran gambar maks 5MB!', true); return }
     setUploading(true)
     setUploadProgress(0)
     try {
-      const url = await uploadDirect(file)
+      if (isHeic(file)) {
+        showToast('⏳ Foto HEIC dikonversi ke JPEG...')
+        file = await convertHeic(file)
+        if (file.size > 5 * 1024 * 1024) { showToast('Hasil konversi melebihi 5MB!', true); return }
+      }
+      const url = await uploadDirect(file, 'berita-images', null, setUploadProgress)
       setCoverUrl(url)
       showToast('✅ Gambar berhasil diupload!')
     } catch (err: any) {
@@ -91,7 +65,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
     setUploadingVideo(true)
     setUploadProgress(0)
     try {
-      const url = await uploadDirect(file)
+      const url = await uploadDirect(file, 'berita-videos', null, setUploadProgress)
       setVideoUrl(url)
       showToast('✅ Video berhasil diupload!')
     } catch (err: any) {
@@ -205,13 +179,13 @@ export default function TulisPage({ editData }: { editData?: any }) {
               <p className="text-gray-500 text-sm mb-1">
                 {uploading ? <>Mengupload gambar... {uploadProgress}%</> : <><strong className="text-emerald-700">Klik untuk upload gambar</strong></>}
               </p>
-              <p className="text-xs text-gray-400">JPG, PNG, WebP — maksimal 5MB</p>
+              <p className="text-xs text-gray-400">JPG, PNG, WebP, HEIC — maksimal 5MB</p>
               {uploading && (
                 <div className="mt-4 max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full bg-emerald-500 rounded-full transition-all duration-200" style={{ width: `${uploadProgress}%` }} />
                 </div>
               )}
-              <input type="file" accept="image/*" onChange={handleUpload} className="hidden" disabled={uploading} />
+              <input type="file" accept="image/*,.heic,.heif" onChange={handleUpload} className="hidden" disabled={uploading} />
             </label>
           )}
         </div>

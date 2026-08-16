@@ -19,11 +19,24 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null)
   const type: string = body?.type ?? ''
   const size: number = Number(body?.size) || 0
+  const bucket: string = body?.bucket ?? 'berita-images'
+  const folder: string | null = body?.folder ?? null
 
   const isVideo = type.startsWith('video/')
   const isImage = type.startsWith('image/')
   if (!isVideo && !isImage) {
     return NextResponse.json({ error: 'File harus berupa gambar atau video' }, { status: 400 })
+  }
+
+  const ALLOWED_BUCKETS = ['berita-images', 'berita-videos', 'album-images']
+  if (!ALLOWED_BUCKETS.includes(bucket)) {
+    return NextResponse.json({ error: 'Bucket tidak valid' }, { status: 400 })
+  }
+  if (isVideo && bucket !== 'berita-videos') {
+    return NextResponse.json({ error: 'Video hanya untuk berita' }, { status: 400 })
+  }
+  if (isImage && !['berita-images', 'album-images'].includes(bucket)) {
+    return NextResponse.json({ error: 'Bucket gambar tidak valid' }, { status: 400 })
   }
 
   const maxSize = isVideo ? VIDEO_MAX : IMAGE_MAX
@@ -35,8 +48,20 @@ export async function POST(req: NextRequest) {
   }
 
   const ext = (body?.filename?.split('.')?.pop() ?? (isVideo ? 'mp4' : 'jpg')).replace(/[^a-z0-9]/gi, '')
-  const bucket = isVideo ? 'berita-videos' : 'berita-images'
-  const fileName = `${isVideo ? 'videos/' : ''}${isVideo ? 'video' : 'berita'}_${Date.now()}.${ext}`
+  const rand = Math.random().toString(36).slice(2, 8)
+
+  let fileName: string
+  if (bucket === 'berita-images') {
+    fileName = `berita_${Date.now()}.${ext}`
+  } else if (bucket === 'berita-videos') {
+    fileName = `videos/video_${Date.now()}.${ext}`
+  } else {
+    const ALBUM_FOLDERS = ['ra', 'sd', 'smp', 'tpa', 'sejarah']
+    if (!folder || !ALBUM_FOLDERS.includes(folder)) {
+      return NextResponse.json({ error: 'Folder tidak valid' }, { status: 400 })
+    }
+    fileName = `${folder}/album_${Date.now()}_${rand}.${ext}`
+  }
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

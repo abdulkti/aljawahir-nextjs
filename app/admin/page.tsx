@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
 import { adminHeaders } from '@/lib/admin-headers'
+import { uploadPhoto } from '@/lib/photo-upload'
 import { Berita, AlbumFoto, Sejarah, UNIT_KEYS, UNIT_LABELS, UnitKey } from '@/types'
 import { LayoutDashboard, Newspaper, PenSquare, LogOut, Plus, Pencil, Trash2, Eye, EyeOff, Menu, X, Images, Upload, Star, Globe, PenLine, CalendarDays, History, Save } from 'lucide-react'
 
@@ -26,6 +27,7 @@ export default function AdminPage() {
   const [albumPhotos, setAlbumPhotos] = useState<AlbumFoto[]>([])
   const [albumLoading, setAlbumLoading] = useState(false)
   const [albumUploading, setAlbumUploading] = useState(false)
+  const [albumProgress, setAlbumProgress] = useState(0)
   const [albumCaption, setAlbumCaption] = useState('')
   const [sejarahList, setSejarahList] = useState<Sejarah[]>([])
   const [sejarahLoading, setSejarahLoading] = useState(false)
@@ -59,17 +61,24 @@ export default function AdminPage() {
     if (!file) return
     if (file.size > 10 * 1024 * 1024) { showToast('Ukuran gambar maks 10MB!', true); return }
     setAlbumUploading(true)
-    const form = new FormData()
-    form.append('file', file)
-    form.append('unit', albumUnit)
-    form.append('caption', albumCaption)
-    const res = await fetch('/api/album', { method: 'POST', headers: adminHeaders(), body: form })
-    const json = await res.json()
-    setAlbumUploading(false)
-    if (!res.ok) { showToast('Gagal upload: ' + json.error, true); return }
-    setAlbumCaption('')
-    showToast('✅ Foto berhasil ditambahkan!')
-    loadAlbum()
+    setAlbumProgress(0)
+    try {
+      const url = await uploadPhoto(file, 'album-images', albumUnit, 10 * 1024 * 1024, setAlbumProgress)
+      const res = await fetch('/api/album', {
+        method: 'POST',
+        headers: adminHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({ unit: albumUnit, caption: albumCaption, url }),
+      })
+      const json = await res.json()
+      if (!res.ok) { showToast('Gagal upload: ' + json.error, true); return }
+      setAlbumCaption('')
+      showToast('✅ Foto berhasil ditambahkan!')
+      loadAlbum()
+    } catch (err: any) {
+      showToast('Gagal upload: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } finally {
+      setAlbumUploading(false)
+    }
   }
 
   async function hapusFoto(id: string) {
@@ -131,25 +140,34 @@ export default function AdminPage() {
       return
     }
     setSejarahSaving(true)
-    const form = new FormData()
-    form.append('tahun', sejarahTahun.trim())
-    form.append('judul', sejarahJudul.trim())
-    form.append('deskripsi', sejarahDeskripsi.trim())
-    form.append('urutan', String(sejarahUrutan))
-    if (sejarahFoto) form.append('file', sejarahFoto)
-    if (sejarahEditId) form.append('id', sejarahEditId)
-    if (sejarahRemoveFoto) form.append('remove_photo', '1')
-    const res = await fetch('/api/sejarah', {
-      method: sejarahEditId ? 'PATCH' : 'POST',
-      headers: adminHeaders(),
-      body: form,
-    })
-    const json = await res.json()
-    setSejarahSaving(false)
-    if (!res.ok) { showToast('Gagal simpan: ' + json.error, true); return }
-    showToast(sejarahEditId ? '✅ Peristiwa diperbarui!' : '✅ Peristiwa ditambahkan!')
-    setSejarahFormOpen(false)
-    loadSejarah()
+    try {
+      const payload: Record<string, any> = {
+        tahun: sejarahTahun.trim(),
+        judul: sejarahJudul.trim(),
+        deskripsi: sejarahDeskripsi.trim(),
+        urutan: sejarahUrutan,
+      }
+      if (sejarahEditId) payload.id = sejarahEditId
+      if (sejarahFoto) {
+        payload.foto_url = await uploadPhoto(sejarahFoto, 'album-images', 'sejarah', 10 * 1024 * 1024)
+      } else if (sejarahRemoveFoto) {
+        payload.remove_photo = true
+      }
+      const res = await fetch('/api/sejarah', {
+        method: sejarahEditId ? 'PATCH' : 'POST',
+        headers: adminHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify(payload),
+      })
+      const json = await res.json()
+      if (!res.ok) { showToast('Gagal simpan: ' + json.error, true); return }
+      showToast(sejarahEditId ? '✅ Peristiwa diperbarui!' : '✅ Peristiwa ditambahkan!')
+      setSejarahFormOpen(false)
+      loadSejarah()
+    } catch (err: any) {
+      showToast('Gagal simpan: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } finally {
+      setSejarahSaving(false)
+    }
   }
 
   async function hapusSejarah(entry: Sejarah) {
@@ -523,8 +541,8 @@ export default function AdminPage() {
                 </div>
                 <label className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors cursor-pointer ${albumUploading ? 'bg-gray-300 text-gray-500' : 'bg-emerald-700 hover:bg-emerald-800 text-white'}`}>
                   <Upload size={15} />
-                  {albumUploading ? 'Mengupload...' : 'Upload Foto'}
-                  <input type="file" accept="image/*" className="hidden" disabled={albumUploading} onChange={handleAlbumUpload} />
+                  {albumUploading ? `Mengupload... ${albumProgress}%` : 'Upload Foto'}
+                  <input type="file" accept="image/*,.heic,.heif" className="hidden" disabled={albumUploading} onChange={handleAlbumUpload} />
                 </label>
               </div>
             </div>
@@ -642,10 +660,10 @@ export default function AdminPage() {
                     <label className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-colors cursor-pointer ${sejarahFoto ? 'bg-emerald-700 text-white' : 'bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'}`}>
                       <Upload size={14} />
                       {sejarahFoto ? 'Ganti Foto' : 'Pilih Foto'}
-                      <input type="file" accept="image/*" className="hidden" onChange={onSejarahFotoChange} />
+                      <input type="file" accept="image/*,.heic,.heif" className="hidden" onChange={onSejarahFotoChange} />
                     </label>
                   </div>
-                  <p className="text-[11px] text-gray-400 mt-1.5">Format JPG/PNG/WebP, maks 10MB.</p>
+                  <p className="text-[11px] text-gray-400 mt-1.5">Format JPG/PNG/WebP/HEIC, maks 10MB. Foto HEIC dikonversi otomatis.</p>
                 </div>
 
                 <div className="flex gap-2">
