@@ -38,9 +38,9 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
         <div className="py-16 px-6 text-center bg-gradient-to-b from-emerald-50/70 via-white to-white">
           <span className="text-xs font-bold tracking-widest uppercase text-emerald-700 inline-block bg-emerald-50 px-4 py-1.5 rounded-full mb-3">Berita & Artikel</span>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Lora, serif' }}>
-            Kabar Terkini
+            Kabar Terkini dari Yayasan
           </h1>
-          <p className="text-gray-500 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari RA, SD, SMP, TPA, dan Yayasan Al Jawahir At Tarbawi</p>
+          <p className="text-gray-500 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi.</p>
         </div>
 
         {/* Filter Kategori */}
