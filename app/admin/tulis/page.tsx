@@ -20,6 +20,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
   const [videoUrl, setVideoUrl] = useState(editData?.video_url ?? '')
   const [uploading, setUploading] = useState(false)
   const [uploadingVideo, setUploadingVideo] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState('')
   const [toastErr, setToastErr] = useState(false)
@@ -33,19 +34,53 @@ export default function TulisPage({ editData }: { editData?: any }) {
     setTimeout(() => setToast(''), 3500)
   }
 
+  // Upload langsung browser -> Supabase (signed URL), tanpa lewat server Vercel
+  // agar file besar (video) tidak terpotong oleh batas ukuran body Vercel.
+  function uploadDirect(file: File): Promise<string> {
+    return fetch('/api/upload-url', {
+      method: 'POST',
+      headers: adminHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ type: file.type, size: file.size, filename: file.name }),
+    })
+      .then(async (res) => {
+        const json = await res.json().catch(() => null)
+        if (!res.ok) throw new Error(json?.error ?? 'Gagal menyiapkan upload')
+        return json as { uploadUrl: string; path: string; bucket: string }
+      })
+      .then((data) => new Promise<string>((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', data.uploadUrl)
+        xhr.setRequestHeader('Content-Type', file.type)
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) setUploadProgress(Math.round((e.loaded / e.total) * 100))
+        }
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${data.bucket}/${data.path}`)
+          } else {
+            reject(new Error('Gagal mengunggah file'))
+          }
+        }
+        xhr.onerror = () => reject(new Error('Gagal mengunggah file'))
+        xhr.send(file)
+      }))
+  }
+
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
     if (file.size > 5 * 1024 * 1024) { showToast('Ukuran gambar maks 5MB!', true); return }
     setUploading(true)
-    const form = new FormData()
-    form.append('file', file)
-    const res = await fetch('/api/upload', { method: 'POST', headers: adminHeaders(), body: form })
-    const json = await res.json()
-    if (!res.ok) { showToast('Gagal upload: ' + json.error, true); setUploading(false); return }
-    setCoverUrl(json.url)
-    setUploading(false)
-    showToast('✅ Gambar berhasil diupload!')
+    setUploadProgress(0)
+    try {
+      const url = await uploadDirect(file)
+      setCoverUrl(url)
+      showToast('✅ Gambar berhasil diupload!')
+    } catch (err: any) {
+      showToast('Gagal upload: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } finally {
+      setUploading(false)
+    }
   }
 
   async function handleVideoUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -54,14 +89,16 @@ export default function TulisPage({ editData }: { editData?: any }) {
     if (file.size > 50 * 1024 * 1024) { showToast('Ukuran video maks 50MB!', true); return }
     if (!file.type.startsWith('video/')) { showToast('File harus berupa video!', true); return }
     setUploadingVideo(true)
-    const form = new FormData()
-    form.append('file', file)
-    const res = await fetch('/api/upload', { method: 'POST', headers: adminHeaders(), body: form })
-    const json = await res.json()
-    if (!res.ok) { showToast('Gagal upload video: ' + json.error, true); setUploadingVideo(false); return }
-    setVideoUrl(json.url)
-    setUploadingVideo(false)
-    showToast('✅ Video berhasil diupload!')
+    setUploadProgress(0)
+    try {
+      const url = await uploadDirect(file)
+      setVideoUrl(url)
+      showToast('✅ Video berhasil diupload!')
+    } catch (err: any) {
+      showToast('Gagal upload video: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } finally {
+      setUploadingVideo(false)
+    }
   }
 
   async function save(publish: boolean) {
@@ -166,9 +203,14 @@ export default function TulisPage({ editData }: { editData?: any }) {
             <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-6 md:p-10 text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all">
               <div className="text-4xl mb-3">{uploading ? '⏳' : '🖼️'}</div>
               <p className="text-gray-500 text-sm mb-1">
-                {uploading ? 'Mengupload gambar...' : <><strong className="text-emerald-700">Klik untuk upload gambar</strong></>}
+                {uploading ? <>Mengupload gambar... {uploadProgress}%</> : <><strong className="text-emerald-700">Klik untuk upload gambar</strong></>}
               </p>
               <p className="text-xs text-gray-400">JPG, PNG, WebP — maksimal 5MB</p>
+              {uploading && (
+                <div className="mt-4 max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full transition-all duration-200" style={{ width: `${uploadProgress}%` }} />
+                </div>
+              )}
               <input type="file" accept="image/*" onChange={handleUpload} className="hidden" disabled={uploading} />
             </label>
           )}
@@ -193,9 +235,14 @@ export default function TulisPage({ editData }: { editData?: any }) {
             <label className="block border-2 border-dashed border-gray-300 rounded-2xl p-6 md:p-10 text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all">
               <div className="text-4xl mb-3">{uploadingVideo ? '⏳' : '🎬'}</div>
               <p className="text-gray-500 text-sm mb-1">
-                {uploadingVideo ? 'Mengupload video...' : <><strong className="text-emerald-700">Klik untuk upload video</strong></>}
+                {uploadingVideo ? <>Mengupload video... {uploadProgress}%</> : <><strong className="text-emerald-700">Klik untuk upload video</strong></>}
               </p>
-              <p className="text-xs text-gray-400">MP4, WebM, MOV — maksimal 50MB</p>
+              <p className="text-xs text-gray-400">MP4, WebM, MOV — maksimal 50MB (semakin besar file, semakin lama)</p>
+              {uploadingVideo && (
+                <div className="mt-4 max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full transition-all duration-200" style={{ width: `${uploadProgress}%` }} />
+                </div>
+              )}
               <input type="file" accept="video/*" onChange={handleVideoUpload} className="hidden" disabled={uploadingVideo} />
             </label>
           )}
