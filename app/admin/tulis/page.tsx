@@ -50,8 +50,8 @@ export default function TulisPage({ editData }: { editData?: any }) {
       const url = await uploadDirect(file, 'berita-images', null, setUploadProgress)
       setCoverUrl(url)
       showToast('✅ Gambar berhasil diupload!')
-    } catch (err: any) {
-      showToast('Gagal upload: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } catch (err) {
+      showToast('Gagal upload: ' + (err instanceof Error ? err.message : 'Terjadi kesalahan'), true)
     } finally {
       setUploading(false)
     }
@@ -68,8 +68,8 @@ export default function TulisPage({ editData }: { editData?: any }) {
       const url = await uploadDirect(file, 'berita-videos', null, setUploadProgress)
       setVideoUrl(url)
       showToast('✅ Video berhasil diupload!')
-    } catch (err: any) {
-      showToast('Gagal upload video: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } catch (err) {
+      showToast('Gagal upload video: ' + (err instanceof Error ? err.message : 'Terjadi kesalahan'), true)
     } finally {
       setUploadingVideo(false)
     }

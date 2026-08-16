@@ -74,8 +74,8 @@ export default function AdminPage() {
       setAlbumCaption('')
       showToast('✅ Foto berhasil ditambahkan!')
       loadAlbum()
-    } catch (err: any) {
-      showToast('Gagal upload: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } catch (err) {
+      showToast('Gagal upload: ' + (err instanceof Error ? err.message : 'Terjadi kesalahan'), true)
     } finally {
       setAlbumUploading(false)
     }
@@ -141,7 +141,7 @@ export default function AdminPage() {
     }
     setSejarahSaving(true)
     try {
-      const payload: Record<string, any> = {
+      const payload: Record<string, string | number | boolean | null> = {
         tahun: sejarahTahun.trim(),
         judul: sejarahJudul.trim(),
         deskripsi: sejarahDeskripsi.trim(),
@@ -163,8 +163,8 @@ export default function AdminPage() {
       showToast(sejarahEditId ? '✅ Peristiwa diperbarui!' : '✅ Peristiwa ditambahkan!')
       setSejarahFormOpen(false)
       loadSejarah()
-    } catch (err: any) {
-      showToast('Gagal simpan: ' + (err?.message ?? 'Terjadi kesalahan'), true)
+    } catch (err) {
+      showToast('Gagal simpan: ' + (err instanceof Error ? err.message : 'Terjadi kesalahan'), true)
     } finally {
       setSejarahSaving(false)
     }
