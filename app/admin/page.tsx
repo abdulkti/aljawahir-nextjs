@@ -245,7 +245,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-emerald-50/50 flex items-center justify-center p-6">
       <div className="bg-white rounded-2xl p-8 w-full max-w-sm shadow-lg border border-emerald-100">
         <div className="text-center mb-8">
-          <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-16 h-16 object-contain mx-auto mb-3" />
+          <Image src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" width={64} height={64} className="w-16 h-16 object-contain mx-auto mb-3" />
           <h1 className="font-bold text-gray-800 text-xl" style={{ fontFamily: 'var(--font-lora)' }}>Panel Admin</h1>
           <p className="text-gray-500 text-sm mt-1">Al Jawahir At Tarbawi</p>
         </div>
@@ -274,7 +274,7 @@ export default function AdminPage() {
       {/* Mobile top bar */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-emerald-950 px-4 h-12 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
-          <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-6 h-6 object-contain" />
+            <Image src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" width={24} height={24} className="w-6 h-6 object-contain" />
           <div className="leading-tight">
             <p className="text-white text-xs font-bold">Al Jawahir At Tarbawi</p>
             <p className="text-amber-300 text-[10px]">Admin Panel</p>
@@ -292,7 +292,7 @@ export default function AdminPage() {
       <aside className={`fixed top-0 left-0 bottom-0 z-40 w-56 bg-gradient-to-b from-emerald-950 to-emerald-900 flex-col transition-transform duration-200 md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="px-4 py-3.5 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-7 h-7 object-contain" />
+            <Image src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" width={28} height={28} className="w-7 h-7 object-contain" />
             <div className="leading-tight">
               <p className="text-white text-xs font-bold">Al Jawahir At Tarbawi</p>
               <p className="text-amber-300 text-[10px]">Admin Panel</p>

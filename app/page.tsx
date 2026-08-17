@@ -29,7 +29,7 @@ import {
   Landmark,
 } from 'lucide-react'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 async function getBeritaTerbaru(): Promise<Berita[]> {
   try {
@@ -178,8 +178,7 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
 }
 
 export default async function HomePage() {
-  const beritaList = await getBeritaTerbaru()
-  const sejarahList = await getSejarah()
+  const [beritaList, sejarahList] = await Promise.all([getBeritaTerbaru(), getSejarah()])
   const timeline = sejarahList.length > 0
     ? sejarahList.map(s => ({ year: s.tahun, title: s.judul, desc: s.deskripsi, foto: s.foto_url }))
     : DEFAULT_TIMELINE

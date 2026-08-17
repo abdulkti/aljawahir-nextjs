@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import ScrollLink from '@/components/ScrollLink'
 import { navLinks } from '@/lib/navigation'
 import { Menu, X } from 'lucide-react'
@@ -13,7 +14,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 no-underline">
-          <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-10 h-10 object-contain" />
+          <Image src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" width={40} height={40} className="w-10 h-10 object-contain" />
           <div>
             <p className="text-gray-900 font-bold text-sm leading-tight">Al Jawahir At Tarbawi</p>
             <p className="text-gray-500 text-xs">Al Jawahir Islamic School</p>

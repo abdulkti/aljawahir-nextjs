@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import AlbumGallery from '@/components/AlbumGallery'
 import { supabase } from '@/lib/supabase'
@@ -85,12 +86,13 @@ export default function UnitPrograms() {
 
             {/* HEADER — foto asli bila ada, ilustrasi bila kosong */}
             <div className="relative h-44 overflow-hidden">
-              <img
+              <Image
                 src={covers[p.unit] ?? p.cover}
                 alt=""
                 aria-hidden
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
