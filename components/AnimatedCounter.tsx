@@ -35,7 +35,7 @@ export default function AnimatedCounter({ value, suffix = '' }: { value: number;
   }, [value])
 
   return (
-    <div ref={ref} className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'Lora, serif' }}>
+    <div ref={ref} className="text-3xl md:text-4xl font-bold text-yellow-400" style={{ fontFamily: 'var(--font-lora)' }}>
       {count}{suffix}
     </div>
   )

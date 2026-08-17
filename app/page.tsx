@@ -160,7 +160,7 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
       <Reveal from="top">
         <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700 mb-4">{tag}</p>
       </Reveal>
-      <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 tracking-tight leading-tight mb-5" style={{ fontFamily: 'Lora, serif' }}>
+      <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 tracking-tight leading-tight mb-5" style={{ fontFamily: 'var(--font-lora)' }}>
         <MaskedText text={title} delay={80} />
         {' '}
         <MaskedText text={titleAccent} delay={accentDelay} className="text-emerald-700" />
@@ -196,13 +196,13 @@ export default async function HomePage() {
           <p className="animate-in arabic text-emerald-800/80 text-xl md:text-2xl leading-loose mb-3">
             اُدْعُ اِلٰى سَبِيْلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ
           </p>
-          <p className="animate-in animate-in-delay-1 text-gray-400 text-sm italic mb-8">Q.S. An-Nahl: 125</p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4" style={{ fontFamily: 'Lora, serif' }}>
+          <p className="animate-in animate-in-delay-1 text-gray-500 text-sm italic mb-8">Q.S. An-Nahl: 125</p>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4" style={{ fontFamily: 'var(--font-lora)' }}>
             <MaskedText text="Yayasan" delay={250} />
             <br />
             <MaskedText text="Al Jawahir At Tarbawi" delay={330} step={90} className="text-emerald-700" />
           </h1>
-          <p className="animate-in animate-in-delay-3 text-gray-400 text-sm uppercase tracking-[0.18em] mb-3">Deli Serdang, Sumatera Utara</p>
+          <p className="animate-in animate-in-delay-3 text-gray-500 text-sm uppercase tracking-[0.18em] mb-3">Deli Serdang, Sumatera Utara</p>
           <p className="animate-in animate-in-delay-3 text-gray-500 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
             Membangun Ilmu, Akhlak, dan Ummah melalui Pendidikan Islam yang berintegritas dan berdampak.
           </p>
@@ -246,7 +246,7 @@ export default async function HomePage() {
             <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((s, i) => (
                 <Reveal key={i} delay={i * 80} from={i % 2 === 0 ? 'left' : 'right'} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'Lora, serif' }}>
+                  <div className="text-3xl md:text-4xl font-bold text-amber-400" style={{ fontFamily: 'var(--font-lora)' }}>
                     <AnimatedCounter value={s.value} suffix={s.suffix} />
                   </div>
                   <div className="text-white/50 text-xs uppercase tracking-wider mt-1.5">{s.label}</div>
@@ -297,7 +297,7 @@ export default async function HomePage() {
                 </div>
                 <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Berdiri</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">Yayasan resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang, Sumatera Utara.</p>
-                <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'Lora, serif' }}>2006</div>
+                <div className="mt-4 text-2xl font-bold text-emerald-700" style={{ fontFamily: 'var(--font-lora)' }}>2006</div>
               </div>
             </Reveal>
           </div>
@@ -400,12 +400,12 @@ export default async function HomePage() {
 
           {/* Level 1 - Pembina */}
           <div className="mb-10">
-            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pembina</h3>
+            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">Pembina</h3>
             <div className="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto">
               {strukturOrganisasi[0].orang.map((t, i) => (
                 <Reveal key={i} delay={i * 60} from={cardDirs[i % 3]} className="h-full">
                   <div className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'var(--font-lora)' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
@@ -417,12 +417,12 @@ export default async function HomePage() {
 
           {/* Level 2 - Pengawas */}
           <div className="mb-10">
-            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Pengawas</h3>
+            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">Pengawas</h3>
             <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
               {strukturOrganisasi[1].orang.map((t, i) => (
                 <Reveal key={i} delay={i * 60} from={i % 2 === 0 ? 'left' : 'right'} className="h-full">
                   <div className="h-full bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'var(--font-lora)' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
@@ -434,12 +434,12 @@ export default async function HomePage() {
 
           {/* Level 3 - Ketua Yayasan */}
           <div className="mb-10">
-            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Ketua Yayasan</h3>
+            <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">Ketua Yayasan</h3>
             <div className="max-w-xs mx-auto">
               {strukturOrganisasi[2].orang.map((t, i) => (
                 <Reveal key={i} delay={i * 60} from="top">
                   <div className="bg-emerald-950 rounded-xl p-5 border border-emerald-900 hover:border-emerald-700 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-emerald-950 font-bold text-lg mb-3" style={{ fontFamily: 'var(--font-lora)' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-white text-sm leading-snug">{t.nama}</p>
@@ -452,11 +452,11 @@ export default async function HomePage() {
           {/* Level 4 - Sekretaris & Bendahara */}
           <div className="grid md:grid-cols-2 gap-5 max-w-lg mx-auto">
             <div>
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Sekretaris</h3>
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Sekretaris</h3>
               {strukturOrganisasi[3].orang.map((t, i) => (
                 <Reveal key={i} delay={i * 60} from="left">
                   <div className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'var(--font-lora)' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
@@ -465,11 +465,11 @@ export default async function HomePage() {
               ))}
             </div>
             <div>
-              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Bendahara</h3>
+              <h3 className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Bendahara</h3>
               {strukturOrganisasi[4].orang.map((t, i) => (
                 <Reveal key={i} delay={i * 60} from="right">
                   <div className="bg-white rounded-xl p-5 border border-gray-200/70 hover:border-emerald-300 transition-colors duration-300 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'Lora, serif' }}>
+                    <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-bold text-lg mb-3" style={{ fontFamily: 'var(--font-lora)' }}>
                       {t.inisial}
                     </div>
                     <p className="font-bold text-gray-800 text-sm leading-snug">{t.nama}</p>
@@ -492,7 +492,7 @@ export default async function HomePage() {
           />
           {beritaList.length === 0 ? (
             <Reveal>
-              <div className="text-center py-16 bg-white rounded-xl text-gray-400 border border-gray-200/70">
+              <div className="text-center py-16 bg-white rounded-xl text-gray-500 border border-gray-200/70">
                 <p className="text-4xl mb-3">📰</p>
                 <p className="font-bold mb-1">Belum ada berita</p>
                 <p className="text-sm">Masuk ke <Link href="/admin" className="text-emerald-700 font-bold">panel admin</Link> untuk menambah berita pertama.</p>
@@ -533,7 +533,7 @@ export default async function HomePage() {
                       <c.icon size={18} strokeWidth={1.75} />
                     </div>
                     <div className="pt-0.5">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">{c.title}</p>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-0.5">{c.title}</p>
                       {'href' in c && c.href ? (
                         <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-sm leading-relaxed hover:text-emerald-700 transition-colors">{c.val}</a>
                       ) : (

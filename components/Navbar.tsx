@@ -16,7 +16,7 @@ export default function Navbar() {
           <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-10 h-10 object-contain" />
           <div>
             <p className="text-gray-900 font-bold text-sm leading-tight">Al Jawahir At Tarbawi</p>
-            <p className="text-gray-400 text-xs">Al Jawahir Islamic School</p>
+            <p className="text-gray-500 text-xs">Al Jawahir Islamic School</p>
           </div>
         </Link>
 
@@ -43,7 +43,7 @@ export default function Navbar() {
         </ul>
 
         {/* Hamburger */}
-        <button className="lg:hidden text-gray-700 p-1" onClick={() => setOpen(!open)}>
+        <button className="lg:hidden text-gray-700 p-1" onClick={() => setOpen(!open)} aria-label={open ? 'Tutup menu' : 'Buka menu'} aria-expanded={open}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>

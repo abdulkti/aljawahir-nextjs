@@ -37,7 +37,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
         {/* Header */}
         <div className="py-16 px-6 text-center bg-gradient-to-b from-emerald-50/70 via-white to-white">
           <span className="text-xs font-bold tracking-widest uppercase text-emerald-700 inline-block bg-emerald-50 px-4 py-1.5 rounded-full mb-3">Berita & Artikel</span>
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Lora, serif' }}>
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'var(--font-lora)' }}>
             Kabar Terkini dari Yayasan
           </h1>
           <p className="text-gray-500 max-w-md mx-auto">Ikuti perkembangan dan informasi terbaru dari Yayasan Al Jawahir At Tarbawi.</p>
@@ -62,14 +62,14 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
         {/* Grid Berita */}
         <div className="max-w-5xl mx-auto px-6 py-12">
           {filtered.length === 0 ? (
-            <div className="text-center py-20 text-gray-400">
+            <div className="text-center py-20 text-gray-500">
               <p className="text-5xl mb-4">📰</p>
               <p className="text-lg font-bold mb-2">Belum ada berita</p>
               <p className="text-sm">Kategori ini belum memiliki berita yang dipublikasikan.</p>
             </div>
           ) : (
             <>
-              <p className="text-sm text-gray-400 mb-6">{filtered.length} berita ditemukan</p>
+              <p className="text-sm text-gray-500 mb-6">{filtered.length} berita ditemukan</p>
               <div className="grid md:grid-cols-3 gap-6">
                 {filtered.map(b => <BeritaCard key={b.id} berita={b} />)}
               </div>

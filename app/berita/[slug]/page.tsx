@@ -78,6 +78,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
               alt={berita.judul}
               width={1600}
               height={900}
+              sizes="(max-width: 768px) 100vw, 768px"
               className="w-full max-h-[65vh] object-contain mx-auto"
               priority
             />
@@ -89,7 +90,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
             <span className={`text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block ${kategoriColor(berita.kategori)}`}>
               {berita.kategori}
             </span>
-            <h1 className="text-white text-2xl md:text-4xl font-bold leading-snug" style={{ fontFamily: 'Lora, serif' }}>
+            <h1 className="text-white text-2xl md:text-4xl font-bold leading-snug" style={{ fontFamily: 'var(--font-lora)' }}>
               {berita.judul}
             </h1>
           </div>
@@ -115,7 +116,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
         {/* Konten */}
         <div className="max-w-3xl mx-auto px-6 py-10">
           {/* Meta */}
-          <div className="flex items-center gap-4 text-sm text-gray-400 mb-8 pb-6 border-b border-gray-100">
+          <div className="flex items-center gap-4 text-sm text-gray-500 mb-8 pb-6 border-b border-gray-100">
             <span>📅 {formatTanggal(berita.created_at, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span>
             {berita.penulis && <span>✍️ {berita.penulis}</span>}
           </div>
@@ -146,7 +147,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
         {beritaLain.length > 0 && (
           <div className="bg-gray-50 py-12 px-6">
             <div className="max-w-5xl mx-auto">
-              <h3 className="font-bold text-gray-800 text-xl mb-6" style={{ fontFamily: 'Lora, serif' }}>
+              <h3 className="font-bold text-gray-800 text-xl mb-6" style={{ fontFamily: 'var(--font-lora)' }}>
                 Berita Lainnya
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
@@ -158,8 +159,8 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
                       </div>
                       <div className="p-4">
                         <p className="text-xs text-emerald-700 font-bold mb-1">{b.kategori}</p>
-                        <p className="text-gray-800 font-bold text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors" style={{ fontFamily: 'Lora, serif' }}>{b.judul}</p>
-                        <p className="text-xs text-gray-400 mt-2">{formatTanggal(b.created_at)}</p>
+                        <p className="text-gray-800 font-bold text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors" style={{ fontFamily: 'var(--font-lora)' }}>{b.judul}</p>
+                        <p className="text-xs text-gray-500 mt-2">{formatTanggal(b.created_at)}</p>
                       </div>
                     </div>
                   </Link>

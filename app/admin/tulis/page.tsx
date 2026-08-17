@@ -140,7 +140,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
         {/* Judul */}
         <input value={judul} onChange={e => setJudul(e.target.value)} maxLength={200}
           className="w-full text-xl md:text-3xl font-bold text-gray-800 border-0 border-b-2 border-gray-200 focus:border-emerald-500 outline-none bg-transparent pb-3 mb-6 md:mb-8 placeholder-gray-300 transition-colors"
-          style={{ fontFamily: 'Lora, serif' }}
+          style={{ fontFamily: 'var(--font-lora)' }}
           placeholder="Tulis judul berita yang menarik..." />
 
         {/* Meta row */}
@@ -179,7 +179,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
               <p className="text-gray-500 text-sm mb-1">
                 {uploading ? <>Mengupload gambar... {uploadProgress}%</> : <><strong className="text-emerald-700">Klik untuk upload gambar</strong></>}
               </p>
-              <p className="text-xs text-gray-400">JPG, PNG, WebP, HEIC — maksimal 5MB</p>
+              <p className="text-xs text-gray-500">JPG, PNG, WebP, HEIC — maksimal 5MB</p>
               {uploading && (
                 <div className="mt-4 max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full bg-emerald-500 rounded-full transition-all duration-200" style={{ width: `${uploadProgress}%` }} />
@@ -211,7 +211,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
               <p className="text-gray-500 text-sm mb-1">
                 {uploadingVideo ? <>Mengupload video... {uploadProgress}%</> : <><strong className="text-emerald-700">Klik untuk upload video</strong></>}
               </p>
-              <p className="text-xs text-gray-400">MP4, WebM, MOV — maksimal 50MB (semakin besar file, semakin lama)</p>
+              <p className="text-xs text-gray-500">MP4, WebM, MOV — maksimal 50MB (semakin besar file, semakin lama)</p>
               {uploadingVideo && (
                 <div className="mt-4 max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full bg-emerald-500 rounded-full transition-all duration-200" style={{ width: `${uploadProgress}%` }} />
@@ -228,7 +228,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
           <textarea value={ringkasan} onChange={e => setRingkasan(e.target.value)} maxLength={300}
             className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 resize-none leading-relaxed"
             rows={3} placeholder="Tuliskan ringkasan singkat berita ini..." />
-          <p className="text-xs text-gray-400 text-right mt-1">{ringkasan.length}/300</p>
+          <p className="text-xs text-gray-500 text-right mt-1">{ringkasan.length}/300</p>
         </div>
 
         {/* Isi */}
@@ -237,7 +237,7 @@ export default function TulisPage({ editData }: { editData?: any }) {
           <textarea value={isi} onChange={e => setIsi(e.target.value)}
             className="w-full px-4 py-4 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 resize-y leading-relaxed min-h-64"
             placeholder={'Tuliskan isi berita lengkap di sini...\n\nTekan Enter dua kali untuk membuat paragraf baru.\n\nKonten ini akan tampil saat pembaca membuka berita.'} />
-          <p className="text-xs text-gray-400 mt-1">{isi.length} karakter</p>
+          <p className="text-xs text-gray-500 mt-1">{isi.length} karakter</p>
         </div>
 
         {/* Bottom actions */}

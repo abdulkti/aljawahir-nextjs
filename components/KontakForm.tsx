@@ -43,11 +43,11 @@ export default function KontakForm() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-bold text-xs md:text-sm truncate">{u.name}</p>
-            <p className="text-[11px] md:text-xs text-gray-400 group-hover:text-emerald-600 transition-colors">{u.label}</p>
+            <p className="text-[11px] md:text-xs text-gray-500 group-hover:text-emerald-600 transition-colors">{u.label}</p>
           </div>
         </a>
       ))}
-      <p className="text-xs text-gray-400 text-center pt-1">Senin–Jumat 07.30–15.30 WIB</p>
+      <p className="text-xs text-gray-500 text-center pt-1">Senin–Jumat 07.30–15.30 WIB</p>
     </div>
   )
 }

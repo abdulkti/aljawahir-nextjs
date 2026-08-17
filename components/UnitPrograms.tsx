@@ -124,7 +124,7 @@ export default function UnitPrograms() {
                   Lihat Galeri Foto
                   <ArrowRight size={14} />
                 </button>
-                <Link href="#kontak" className="w-full flex items-center justify-center gap-2 text-sm font-bold text-gray-400 hover:text-emerald-700 border border-gray-200 hover:border-emerald-300 py-2.5 rounded-lg no-underline transition-colors">
+                <Link href="#kontak" className="w-full flex items-center justify-center gap-2 text-sm font-bold text-gray-500 hover:text-emerald-700 border border-gray-200 hover:border-emerald-300 py-2.5 rounded-lg no-underline transition-colors">
                   <GraduationCap size={15} />
                   Informasi Pendaftaran
                   <span>→</span>

@@ -246,8 +246,8 @@ export default function AdminPage() {
       <div className="bg-white rounded-2xl p-8 w-full max-w-sm shadow-lg border border-emerald-100">
         <div className="text-center mb-8">
           <img src="/logo-aljawahir.png" alt="Al Jawahir At Tarbawi" className="w-16 h-16 object-contain mx-auto mb-3" />
-          <h1 className="font-bold text-gray-800 text-xl" style={{ fontFamily: 'Lora, serif' }}>Panel Admin</h1>
-          <p className="text-gray-400 text-sm mt-1">Al Jawahir At Tarbawi</p>
+          <h1 className="font-bold text-gray-800 text-xl" style={{ fontFamily: 'var(--font-lora)' }}>Panel Admin</h1>
+          <p className="text-gray-500 text-sm mt-1">Al Jawahir At Tarbawi</p>
         </div>
         {pwErr && <div className="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-xl mb-4">Username atau password salah. Silakan coba lagi.</div>}
         <label className="block text-sm font-bold text-gray-700 mb-2">Username</label>
@@ -262,7 +262,7 @@ export default function AdminPage() {
         <button onClick={doLogin} disabled={logging} className="w-full bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-colors">
           {logging ? 'Memproses...' : 'Masuk ke Admin →'}
         </button>
-        <Link href="/" className="block text-center text-xs text-gray-400 mt-4 no-underline hover:text-emerald-700">← Kembali ke Website</Link>
+        <Link href="/" className="block text-center text-xs text-gray-500 mt-4 no-underline hover:text-emerald-700">← Kembali ke Website</Link>
       </div>
     </div>
   )
@@ -280,7 +280,7 @@ export default function AdminPage() {
             <p className="text-amber-300 text-[10px]">Admin Panel</p>
           </div>
         </div>
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/80 hover:text-white p-1">
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/80 hover:text-white p-1" aria-label={mobileOpen ? 'Tutup menu' : 'Buka menu'} aria-expanded={mobileOpen}>
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </header>
@@ -337,8 +337,8 @@ export default function AdminPage() {
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
-                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Dashboard</h1>
-                <p className="text-gray-400 text-xs mt-0.5">Selamat datang di panel admin yayasan</p>
+                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-lora)' }}>Dashboard</h1>
+                <p className="text-gray-500 text-xs mt-0.5">Selamat datang di panel admin yayasan</p>
               </div>
               <Link href="/admin/tulis" className="self-start flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3.5 py-2 rounded-lg text-[13px] font-semibold no-underline transition-colors">
                 <Plus size={14} /> Tulis Berita Baru
@@ -356,7 +356,7 @@ export default function AdminPage() {
                     <s.icon size={17} />
                   </div>
                   <div>
-                    <div className="text-xl font-bold text-gray-800 leading-none" style={{ fontFamily: 'Lora, serif' }}>{s.value}</div>
+                    <div className="text-xl font-bold text-gray-800 leading-none" style={{ fontFamily: 'var(--font-lora)' }}>{s.value}</div>
                     <div className="text-xs text-gray-500 mt-1">{s.label}</div>
                   </div>
                 </div>
@@ -365,7 +365,7 @@ export default function AdminPage() {
             {/* Terbaru */}
             <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                <h2 className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Lora, serif' }}>Berita Terbaru</h2>
+                <h2 className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'var(--font-lora)' }}>Berita Terbaru</h2>
                 <button onClick={() => setTab('berita')} className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 transition-colors">
                   Lihat semua →
                 </button>
@@ -378,7 +378,7 @@ export default function AdminPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-gray-800 text-sm truncate">{b.judul}</p>
-                      <p className="text-xs text-gray-400">{b.kategori} · {formatTanggal(b.created_at)}</p>
+                      <p className="text-xs text-gray-500">{b.kategori} · {formatTanggal(b.created_at)}</p>
                     </div>
                     <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1.5 ${b.published ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
                       <span className={`w-1 h-1 rounded-full ${b.published ? 'bg-emerald-500' : 'bg-gray-400'}`} />
@@ -387,7 +387,7 @@ export default function AdminPage() {
                   </div>
                 ))}
                 {beritaList.length === 0 && (
-                  <div className="text-center py-10 text-gray-400 text-sm">Belum ada berita.</div>
+                  <div className="text-center py-10 text-gray-500 text-sm">Belum ada berita.</div>
                 )}
               </div>
             </div>
@@ -398,13 +398,13 @@ export default function AdminPage() {
         {tab === 'berita' && (
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
-              <h1 className="flex-1 text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Daftar Berita</h1>
+              <h1 className="flex-1 text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-lora)' }}>Daftar Berita</h1>
               <Link href="/admin/tulis" className="self-start flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3.5 py-2 rounded-lg text-[13px] font-semibold no-underline transition-colors">
                 <Plus size={14} /> Tulis Berita Baru
               </Link>
             </div>
             {loading ? (
-              <div className="text-center py-16 text-gray-400">⏳ Memuat...</div>
+              <div className="text-center py-16 text-gray-500">⏳ Memuat...</div>
             ) : beritaList.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
                 <p className="text-4xl mb-3">📰</p>
@@ -444,21 +444,21 @@ export default function AdminPage() {
                           </span>
                         </td>
                         <td className="px-4 py-3">
-                          <span className="flex items-center gap-1.5 text-sm text-gray-400">
+                          <span className="flex items-center gap-1.5 text-sm text-gray-500">
                             <CalendarDays size={14} />
                             {formatTanggal(b.created_at)}
                           </span>
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-1.5">
-                            <button onClick={() => togglePublish(b.id, b.published)} title={b.published ? 'Jadikan Draft' : 'Publikasikan'}
+                            <button onClick={() => togglePublish(b.id, b.published)} aria-label={b.published ? 'Jadikan Draft' : 'Publikasikan'}
                               className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors">
                               {b.published ? <EyeOff size={14} /> : <Eye size={14} />}
                             </button>
-                            <Link href={`/admin/edit/${b.id}`} className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors no-underline">
+                            <Link href={`/admin/edit/${b.id}`} className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors no-underline" aria-label="Edit berita">
                               <Pencil size={14} />
                             </Link>
-                            <button onClick={() => hapus(b.id, b.judul)}
+                            <button onClick={() => hapus(b.id, b.judul)} aria-label="Hapus berita"
                               className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-colors">
                               <Trash2 size={14} />
                             </button>
@@ -485,7 +485,7 @@ export default function AdminPage() {
                             {b.published ? 'Publik' : 'Draft'}
                           </span>
                         </div>
-                        <p className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+                        <p className="flex items-center gap-1 text-xs text-gray-500 mt-1">
                           <CalendarDays size={12} /> {formatTanggal(b.created_at)}
                         </p>
                       </div>
@@ -515,8 +515,8 @@ export default function AdminPage() {
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
-                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Album Foto</h1>
-                <p className="text-gray-400 text-xs mt-0.5">Upload dan kelola foto album setiap unit pendidikan</p>
+                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-lora)' }}>Album Foto</h1>
+                <p className="text-gray-500 text-xs mt-0.5">Upload dan kelola foto album setiap unit pendidikan</p>
               </div>
             </div>
 
@@ -550,12 +550,12 @@ export default function AdminPage() {
 
             {/* Daftar foto */}
             {albumLoading ? (
-              <div className="text-center py-16 text-gray-400">⏳ Memuat foto...</div>
+              <div className="text-center py-16 text-gray-500">⏳ Memuat foto...</div>
             ) : albumPhotos.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-xl border border-gray-100">
                 <p className="text-4xl mb-3">🖼️</p>
                 <p className="font-bold text-gray-600 mb-1">Belum ada foto untuk {UNIT_LABELS[albumUnit]}</p>
-                <p className="text-sm text-gray-400">Klik &quot;Upload Foto&quot; untuk menambahkan foto pertama.</p>
+                <p className="text-sm text-gray-500">Klik &quot;Upload Foto&quot; untuk menambahkan foto pertama.</p>
               </div>
             ) : (
               <div>
@@ -572,18 +572,18 @@ export default function AdminPage() {
                         )}
                         <button onClick={() => setSampul(p.id)}
                           className={`absolute bottom-1.5 left-1.5 p-1.5 rounded-md transition-colors ${p.is_cover ? 'bg-white/20 text-white' : 'bg-black/50 hover:bg-amber-400 text-white opacity-0 group-hover:opacity-100'}`}
-                          title={p.is_cover ? 'Sampul unit ini' : 'Jadikan sampul unit'}>
+                          aria-label={p.is_cover ? 'Sampul unit ini' : 'Jadikan sampul unit'}>
                           <Star size={13} fill={p.is_cover ? 'currentColor' : 'none'} />
                         </button>
                         <button onClick={() => hapusFoto(p.id)}
                           className="absolute bottom-1.5 right-1.5 p-1.5 rounded-md bg-red-500/90 hover:bg-red-600 text-white transition-colors opacity-0 group-hover:opacity-100"
-                          title="Hapus foto">
+                          aria-label="Hapus foto">
                           <Trash2 size={13} />
                         </button>
                       </div>
                       <div className="p-2.5">
                         <p className="text-xs text-gray-500 line-clamp-1">{p.caption || <span className="text-gray-300">Tanpa keterangan</span>}</p>
-                        <p className="text-[10px] text-gray-400 mt-0.5">{formatTanggal(p.created_at)}</p>
+                        <p className="text-[10px] text-gray-500 mt-0.5">{formatTanggal(p.created_at)}</p>
                       </div>
                     </div>
                   ))}
@@ -598,8 +598,8 @@ export default function AdminPage() {
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
               <div className="flex-1">
-                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'Lora, serif' }}>Sejarah & Pencapaian</h1>
-                <p className="text-gray-400 text-xs mt-0.5">Kelola timeline perjalanan yayasan beserta fotonya</p>
+                <h1 className="text-lg md:text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-lora)' }}>Sejarah & Pencapaian</h1>
+                <p className="text-gray-500 text-xs mt-0.5">Kelola timeline perjalanan yayasan beserta fotonya</p>
               </div>
               <button onClick={() => openSejarahForm()} className="self-start flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3.5 py-2 rounded-lg text-[13px] font-semibold no-underline transition-colors">
                 <Plus size={14} /> Tambah Peristiwa
@@ -609,7 +609,7 @@ export default function AdminPage() {
             {/* Form tambah/edit */}
             {sejarahFormOpen && (
               <form onSubmit={simpanSejarah} className="bg-white rounded-xl border border-gray-100 p-4 md:p-5 mb-5">
-                <h2 className="font-bold text-gray-800 text-sm mb-4" style={{ fontFamily: 'Lora, serif' }}>
+                <h2 className="font-bold text-gray-800 text-sm mb-4" style={{ fontFamily: 'var(--font-lora)' }}>
                   {sejarahEditId ? 'Edit Peristiwa' : 'Tambah Peristiwa Baru'}
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
@@ -664,7 +664,7 @@ export default function AdminPage() {
                       <input type="file" accept="image/*,.heic,.heif" className="hidden" onChange={onSejarahFotoChange} />
                     </label>
                   </div>
-                  <p className="text-[11px] text-gray-400 mt-1.5">Format JPG/PNG/WebP/HEIC, maks 10MB. Foto HEIC dikonversi otomatis.</p>
+                  <p className="text-[11px] text-gray-500 mt-1.5">Format JPG/PNG/WebP/HEIC, maks 10MB. Foto HEIC dikonversi otomatis.</p>
                 </div>
 
                 <div className="flex gap-2">
@@ -683,12 +683,12 @@ export default function AdminPage() {
 
             {/* Daftar peristiwa */}
             {sejarahLoading ? (
-              <div className="text-center py-16 text-gray-400">⏳ Memuat...</div>
+              <div className="text-center py-16 text-gray-500">⏳ Memuat...</div>
             ) : sejarahList.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-xl border border-gray-100">
                 <p className="text-4xl mb-3">🏛️</p>
                 <p className="font-bold text-gray-600 mb-1">Belum ada catatan perjalanan</p>
-                <p className="text-sm text-gray-400">Klik &quot;Tambah Peristiwa&quot; untuk mulai mengisi sejarah yayasan.</p>
+                <p className="text-sm text-gray-500">Klik &quot;Tambah Peristiwa&quot; untuk mulai mengisi sejarah yayasan.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -714,12 +714,12 @@ export default function AdminPage() {
                     <div className="flex items-center gap-1.5 flex-shrink-0">
                       <button onClick={() => openSejarahForm(s)}
                         className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors"
-                        title="Edit">
+                        aria-label="Edit sejarah">
                         <Pencil size={14} />
                       </button>
                       <button onClick={() => hapusSejarah(s)}
                         className="p-1.5 rounded-lg border border-gray-200 bg-white text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-colors"
-                        title="Hapus">
+                        aria-label="Hapus sejarah">
                         <Trash2 size={14} />
                       </button>
                     </div>

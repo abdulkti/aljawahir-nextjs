@@ -27,14 +27,14 @@ export default function ScrollPopup() {
           الج
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Lora, serif' }}>Informasi Pendaftaran</p>
+          <p className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'var(--font-lora)' }}>Informasi Pendaftaran</p>
           <p className="text-gray-500 text-xs mt-0.5">Hubungi kami untuk info lengkap program pendidikan.</p>
         </div>
         <div className="flex items-center gap-2">
           <Link href="#kontak" onClick={() => setDismissed(true)} className="bg-gradient-to-r from-yellow-400 to-amber-400 text-green-950 text-xs font-bold px-4 py-2.5 rounded-xl hover:from-yellow-300 hover:to-amber-300 transition-all no-underline whitespace-nowrap shadow-lg shadow-yellow-400/20">
             Hubungi
           </Link>
-          <button onClick={() => { setVisible(false); setDismissed(true) }} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition-all cursor-pointer shrink-0">
+          <button onClick={() => { setVisible(false); setDismissed(true) }} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-600 transition-all cursor-pointer shrink-0" aria-label="Tutup popup">
             <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor">
               <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
             </svg>

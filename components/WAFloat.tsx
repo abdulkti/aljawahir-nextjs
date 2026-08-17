@@ -5,7 +5,7 @@ export default function WAFloat() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-8 right-8 z-50 group"
-      title="Chat WhatsApp"
+      aria-label="Chat WhatsApp"
     >
       <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-yellow-400/30 to-green-500/30 opacity-0 group-hover:opacity-100 blur-sm transition-opacity" />
       <div className="relative w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/40 group-hover:scale-110 transition-all ring-1 ring-yellow-400/10">

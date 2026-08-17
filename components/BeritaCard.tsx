@@ -31,7 +31,7 @@ export default function BeritaCard({ berita }: { berita: Berita }) {
             <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-3 flex-1">{berita.ringkasan}</p>
           )}
           <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
-            <span className="text-xs text-gray-400">📅 {formatTanggal(berita.created_at)}</span>
+            <span className="text-xs text-gray-500">📅 {formatTanggal(berita.created_at)}</span>
             <span className="text-xs font-bold text-emerald-700">Baca →</span>
           </div>
         </div>

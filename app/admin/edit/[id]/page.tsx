@@ -23,7 +23,7 @@ export default function EditPage() {
   }, [params.id, router])
 
   if (loading) return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-500">
       ⏳ Memuat data berita...
     </div>
   )

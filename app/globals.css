@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --font-amiri: var(--font-amiri), serif;
+  --font-lora: var(--font-lora), serif;
+  --font-nunito: var(--font-nunito), sans-serif;
+}
+
 :root {
   --green-950: #022c22;
   --green-900: #064e3b;
@@ -14,7 +20,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
 [id] { scroll-margin-top: 5.5rem; }
 body { overflow-x: hidden; }
 
-.arabic { direction: rtl; font-family: 'Amiri', serif; }
+.arabic { direction: rtl; font-family: var(--font-amiri); }
 
 .prose-berita p { margin-bottom: 1rem; line-height: 1.8; color: #4b5563; }
 .prose-berita h2 { font-size: 1.4rem; font-weight: 700; color: #064e3b; margin: 1.75rem 0 0.75rem; }
