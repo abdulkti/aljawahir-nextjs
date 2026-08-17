@@ -14,6 +14,30 @@ function extractAlbumPath(url: string): string {
   }
 }
 
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const unit = searchParams.get('unit')
+
+  if (!unit || !UNITS.includes(unit)) {
+    return NextResponse.json({ error: 'Unit tidak valid' }, { status: 400 })
+  }
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
+  const { data, error } = await supabase
+    .from('album_foto')
+    .select('*')
+    .eq('unit', unit)
+    .order('created_at', { ascending: false })
+
+  if (error) return NextResponse.json({ error: 'Gagal memuat data' }, { status: 500 })
+
+  return NextResponse.json(data ?? [])
+}
+
 export async function POST(req: NextRequest) {
   if (!verifyAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -53,7 +77,7 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       await supabase.storage.from('album-images').remove([extractAlbumPath(url)])
-      return NextResponse.json({ error: error.message }, { status: 500 })
+      return NextResponse.json({ error: 'Gagal menyimpan data' }, { status: 500 })
     }
 
     return NextResponse.json({ id: data.id, url })
@@ -97,7 +121,7 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     await supabase.storage.from('album-images').remove([`${unit}/${fileName}`])
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
   }
 
   return NextResponse.json({ id: data.id, url: publicUrl })
@@ -133,7 +157,7 @@ export async function PATCH(req: NextRequest) {
     .from('album_foto')
     .update({ is_cover: true })
     .eq('id', id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
 
   return NextResponse.json({ ok: true })
 }

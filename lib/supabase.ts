@@ -1,14 +1,20 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'placeholder-key'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY')
+}
 
 // Client untuk browser (komponen client-side)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Client untuk server (API routes, Server Components)
-export const supabaseServer = () =>
-  createClient(
-    supabaseUrl,
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? supabaseAnonKey
-  )
+export const supabaseServer = () => {
+  if (!serviceRoleKey) {
+    throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable')
+  }
+  return createClient(supabaseUrl, serviceRoleKey)
+}

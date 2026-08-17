@@ -36,6 +36,19 @@ async function removeStorageFile(supabase: ReturnType<typeof adminClient>, url: 
   }
 }
 
+export async function GET() {
+  const supabase = adminClient()
+  const { data, error } = await supabase
+    .from('sejarah')
+    .select('*')
+    .order('urutan', { ascending: true })
+    .order('tahun', { ascending: true })
+
+  if (error) return NextResponse.json({ error: 'Gagal memuat data' }, { status: 500 })
+
+  return NextResponse.json(data ?? [])
+}
+
 export async function POST(req: NextRequest) {
   if (!checkAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -66,7 +79,7 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       if (fotoUrl) await removeStorageFile(supabase, fotoUrl)
-      return NextResponse.json({ error: error.message }, { status: 500 })
+      return NextResponse.json({ error: 'Gagal menyimpan data' }, { status: 500 })
     }
 
     return NextResponse.json(data)
@@ -109,7 +122,7 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     if (fotoUrl) await removeStorageFile(supabase, fotoUrl)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
   }
 
   return NextResponse.json(data)
@@ -171,7 +184,7 @@ export async function PATCH(req: NextRequest) {
 
     if (error) {
       if (newFotoUrl) await removeStorageFile(supabase, newFotoUrl)
-      return NextResponse.json({ error: error.message }, { status: 500 })
+      return NextResponse.json({ error: 'Gagal memperbarui data' }, { status: 500 })
     }
 
     return NextResponse.json(data)
@@ -236,7 +249,7 @@ export async function PATCH(req: NextRequest) {
 
   if (error) {
     if (newFotoUrl) await removeStorageFile(supabase, newFotoUrl)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
   }
 
   return NextResponse.json(data)
@@ -263,7 +276,7 @@ export async function DELETE(req: NextRequest) {
     .from('sejarah')
     .delete()
     .eq('id', id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
 
   if (row?.foto_url) await removeStorageFile(supabase, row.foto_url)
 

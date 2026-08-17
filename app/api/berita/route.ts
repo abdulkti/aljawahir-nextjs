@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
   }
 
   const { data, error } = await query
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
 
   return NextResponse.json(id ? data[0] ?? null : data)
 }
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     .select('*')
     .single()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
 
   return NextResponse.json(data)
 }
@@ -116,7 +116,7 @@ export async function PATCH(req: NextRequest) {
     .select('*')
     .single()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
 
   return NextResponse.json(data)
 }
@@ -132,7 +132,7 @@ export async function DELETE(req: NextRequest) {
 
   const supabase = adminClient()
   const { error } = await supabase.from('berita').delete().eq('id', id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
 
   return NextResponse.json({ ok: true })
 }

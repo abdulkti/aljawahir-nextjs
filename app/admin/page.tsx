@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { supabase } from '@/lib/supabase'
 import { formatTanggal } from '@/lib/utils'
 import { adminHeaders } from '@/lib/admin-headers'
 import { uploadPhoto } from '@/lib/photo-upload'
@@ -51,8 +50,9 @@ export default function AdminPage() {
 
   async function loadAlbum(unit: UnitKey = albumUnit) {
     setAlbumLoading(true)
-    const { data } = await supabase.from('album_foto').select('*').eq('unit', unit).order('created_at', { ascending: false })
-    setAlbumPhotos(data ?? [])
+    const res = await fetch(`/api/album?unit=${unit}`, { headers: adminHeaders() })
+    const data = await res.json().catch(() => null)
+    setAlbumPhotos(Array.isArray(data) ? data : [])
     setAlbumLoading(false)
   }
 
@@ -98,8 +98,9 @@ export default function AdminPage() {
 
   async function loadSejarah() {
     setSejarahLoading(true)
-    const { data } = await supabase.from('sejarah').select('*').order('urutan', { ascending: true }).order('tahun', { ascending: true })
-    setSejarahList(data ?? [])
+    const res = await fetch('/api/sejarah', { headers: adminHeaders() })
+    const data = await res.json().catch(() => null)
+    setSejarahList(Array.isArray(data) ? data : [])
     setSejarahLoading(false)
   }
 
