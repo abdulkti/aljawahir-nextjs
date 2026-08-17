@@ -85,7 +85,7 @@ const mengapaCards = [
   {
     icon: BookOpen,
     title: 'Kurikulum Holistik Islami',
-    desc: 'Perpaduan antara tahfizh Al-Qur\u2019an, akademik nasional, dan pembinaan akhlak dalam satu sistem pendidikan terpadu.',
+    desc: "Perpaduan antara tahfizh Al-Qur'an, akademik nasional, dan pembinaan akhlak dalam satu sistem pendidikan terpadu.",
   },
   {
     icon: Award,
@@ -112,7 +112,7 @@ const strukturOrganisasi = [
   { label: 'Pembina', orang: [
     { nama: 'H. Syafril Usman, SPd.I', inisial: 'SU' },
     { nama: 'Hj. Jawahir', inisial: 'HJ' },
-    { nama: 'Muhammad Ikhsan, SKM', inisial: 'MI' },
+    { nama: 'M. Ihsan, SKM', inisial: 'MI' },
   ]},
   { label: 'Pengawas', orang: [
     { nama: 'Muhammad Sulfan Irvan, SE', inisial: 'SI' },
@@ -133,7 +133,7 @@ const DEFAULT_TIMELINE = [
   { year: '2006', title: 'Pendirian Yayasan', desc: 'Yayasan Al Jawahir At Tarbawi resmi berdiri pada 17 Oktober 2006 di Sunggal, Deli Serdang.', foto: null as string | null },
   { year: '2021', title: 'Sekolah Penggerak Angkatan I', desc: 'Ditunjuk sebagai Sekolah Penggerak dan mulai mengimplementasikan Kurikulum Merdeka secara penuh.', foto: null },
   { year: '2022', title: 'Menamatkan Angkatan Pertama', desc: 'Dengan bangga menamatkan angkatan pertama lulusan SMP IT Al Jawahir.', foto: null },
-  { year: '2023\u2013Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.', foto: null },
+  { year: '2023–Kini', title: 'Terus Berkembang & Berinovasi', desc: 'Yayasan terus memperluas layanan dan memperkuat kualitas sumber daya manusia.', foto: null },
 ]
 
 function InstagramIcon({ size = 18, strokeWidth = 1.75, className = '' }: { size?: number; strokeWidth?: number; className?: string }) {
@@ -150,7 +150,7 @@ const kontakItems = [
   { icon: MapPin, title: 'Alamat', val: 'Jl. Aman, Sunggal, Kecamatan Sunggal, Kabupaten Deli Serdang, Sumatera Utara' },
   { icon: InstagramIcon, title: 'Instagram', val: '@aljawahir_islamic_school', href: 'https://instagram.com/aljawahir_islamic_school' },
   { icon: Mail, title: 'Email', val: 'info@aljawahirattarbawi.sch.id', href: 'mailto:info@aljawahirattarbawi.sch.id' },
-  { icon: Clock, title: 'Jam Operasional', val: 'Senin\u2013Jumat: 07.30\u201315.30 WIB' },
+  { icon: Clock, title: 'Jam Operasional', val: 'Senin–Jumat: 07.30–15.30 WIB' },
 ]
 
 function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title: string; desc?: string; titleAccent: string }) {
@@ -284,7 +284,7 @@ export default async function HomePage() {
                 </div>
                 <h3 className="font-bold text-gray-800 text-lg mb-2 tracking-tight">Misi</h3>
                 <ul className="text-gray-600 text-sm leading-relaxed space-y-2">
-                  <li>• Pendidikan unggul berfokus karakter Qur\u2019ani</li>
+                  <li>• Pendidikan unggul berfokus karakter Qur'ani</li>
                   <li>• Dakwah berkelanjutan, inklusif, dan mempersatukan</li>
                   <li>• Aktivitas sosial yang berdampak nyata</li>
                 </ul>
