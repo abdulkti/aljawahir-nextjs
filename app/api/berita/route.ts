@@ -32,22 +32,24 @@ async function hasVideoColumn(supabase: ReturnType<typeof adminClient>): Promise
 }
 
 export async function GET(req: NextRequest) {
-  if (!checkAuth(req)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   const { searchParams } = new URL(req.url)
   const id = searchParams.get('id')
+  const isAdmin = verifyAuth(req)
 
   const supabase = adminClient()
   let query = supabase.from('berita').select('*').order('created_at', { ascending: false })
 
+  if (!isAdmin) {
+    query = query.eq('published', true)
+  }
+
   if (id) {
-    query = supabase.from('berita').select('*').eq('id', id).order('created_at', { ascending: false })
+    query = supabase.from('berita').select('*').eq('id', id)
+    if (!isAdmin) query = query.eq('published', true)
   }
 
   const { data, error } = await query
-  if (error) return NextResponse.json({ error: 'Terjadi kesalahan' }, { status: 500 })
+  if (error) return NextResponse.json({ error: 'Gagal memuat data' }, { status: 500 })
 
   return NextResponse.json(id ? data[0] ?? null : data)
 }
