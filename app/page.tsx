@@ -12,7 +12,7 @@ import AnimatedCounter from '@/components/AnimatedCounter'
 import UnitPrograms from '@/components/UnitPrograms'
 import ScrollLink from '@/components/ScrollLink'
 import { supabaseServer } from '@/lib/supabase'
-import { Berita, Sejarah } from '@/types'
+import { Berita, Sejarah, UnitKey, UNIT_KEYS } from '@/types'
 import {
   BookOpen,
   Award,
@@ -43,6 +43,26 @@ async function getBeritaTerbaru(): Promise<Berita[]> {
     return data ?? []
   } catch {
     return []
+  }
+}
+
+async function getAlbumData(): Promise<{ counts: Record<string, number>; covers: Record<string, string> }> {
+  try {
+    const sb = supabaseServer()
+    const { data } = await sb
+      .from('album_foto')
+      .select('unit, url, is_cover, created_at')
+      .order('created_at', { ascending: false })
+    const counts: Record<string, number> = {}
+    const covers: Record<string, string> = {}
+    for (const row of data ?? []) {
+      counts[row.unit] = (counts[row.unit] ?? 0) + 1
+      if (!covers[row.unit]) covers[row.unit] = row.url
+      if (row.is_cover) covers[row.unit] = row.url
+    }
+    return { counts, covers }
+  } catch {
+    return { counts: {}, covers: {} }
   }
 }
 
@@ -178,7 +198,7 @@ function SectionHeading({ tag, title, desc, titleAccent }: { tag: string; title:
 }
 
 export default async function HomePage() {
-  const [beritaList, sejarahList] = await Promise.all([getBeritaTerbaru(), getSejarah()])
+  const [beritaList, sejarahList, albumData] = await Promise.all([getBeritaTerbaru(), getSejarah(), getAlbumData()])
   const timeline = sejarahList.length > 0
     ? sejarahList.map(s => ({ year: s.tahun, title: s.judul, desc: s.deskripsi, foto: s.foto_url }))
     : DEFAULT_TIMELINE
@@ -338,7 +358,7 @@ export default async function HomePage() {
             titleAccent="Pendidikan Kami"
             desc="Empat unit pendidikan Islam terpadu untuk membangun generasi Qurani dan berkarakter."
           />
-          <UnitPrograms />
+          <UnitPrograms initialCounts={albumData.counts} initialCovers={albumData.covers} />
         </div>
       </section>
 

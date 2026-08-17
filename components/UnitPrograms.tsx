@@ -1,10 +1,9 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import AlbumGallery from '@/components/AlbumGallery'
-import { supabase } from '@/lib/supabase'
 import { UnitKey } from '@/types'
 import { Images, ArrowRight, GraduationCap } from 'lucide-react'
 
@@ -50,31 +49,10 @@ const units: {
   },
 ]
 
-export default function UnitPrograms() {
+export default function UnitPrograms({ initialCounts = {}, initialCovers = {} }: { initialCounts?: Record<string, number>; initialCovers?: Record<string, string> }) {
   const [gallery, setGallery] = useState<UnitKey | null>(null)
-  const [counts, setCounts] = useState<Record<string, number>>({})
-  const [covers, setCovers] = useState<Record<string, string>>({})
-
-  useEffect(() => {
-    let cancelled = false
-    supabase
-      .from('album_foto')
-      .select('unit, url, is_cover, created_at')
-      .order('created_at', { ascending: false })
-      .then(({ data }) => {
-        if (cancelled) return
-        const c: Record<string, number> = {}
-        const cv: Record<string, string> = {}
-        for (const row of data ?? []) {
-          c[row.unit] = (c[row.unit] ?? 0) + 1
-          if (!cv[row.unit]) cv[row.unit] = row.url
-          if (row.is_cover) cv[row.unit] = row.url
-        }
-        setCounts(c)
-        setCovers(cv)
-      })
-    return () => { cancelled = true }
-  }, [])
+  const [counts] = useState<Record<string, number>>(initialCounts)
+  const [covers] = useState<Record<string, string>>(initialCovers)
 
   return (
     <>
