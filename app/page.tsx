@@ -169,7 +169,7 @@ function InstagramIcon({ size = 18, strokeWidth = 1.75, className = '' }: { size
 const kontakItems = [
   { icon: MapPin, title: 'Alamat', val: 'Jl. Aman, Sunggal, Kecamatan Sunggal, Kabupaten Deli Serdang, Sumatera Utara' },
   { icon: InstagramIcon, title: 'Instagram', val: '@aljawahir_islamic_school', href: 'https://instagram.com/aljawahir_islamic_school' },
-  { icon: Mail, title: 'Email', val: 'info@aljawahirattarbawi.sch.id', href: 'mailto:info@aljawahirattarbawi.sch.id' },
+  { icon: Mail, title: 'Email', val: 'aljawahirislamicschools@gmail.com', href: 'mailto:aljawahirislamicschools@gmail.com' },
   { icon: Clock, title: 'Jam Operasional', val: 'Senin–Jumat: 07.30–15.30 WIB' },
 ]
 

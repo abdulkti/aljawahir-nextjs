@@ -113,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 addressCountry: 'ID',
               },
               sameAs: ['https://instagram.com/aljawahir_islamic_school'],
-              email: 'info@aljawahirattarbawi.sch.id',
+              email: 'aljawahirislamicschools@gmail.com',
             }),
           }}
         />

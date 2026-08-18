@@ -61,7 +61,7 @@ export default function Footer() {
               </li>
               <li className="flex gap-3 text-sm">
                 <span className="text-amber-300/70 mt-0.5 shrink-0">📧</span>
-                <a href="mailto:info@aljawahirattarbawi.sch.id" className="text-white/55 hover:text-amber-300 transition-colors no-underline">info@aljawahirattarbawi.sch.id</a>
+                <a href="mailto:aljawahirislamicschools@gmail.com" className="text-white/55 hover:text-amber-300 transition-colors no-underline">aljawahirislamicschools@gmail.com</a>
               </li>
               <li className="flex gap-3 text-sm">
                 <span className="text-amber-300/70 mt-0.5 shrink-0">⏰</span>
